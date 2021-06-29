@@ -32,7 +32,7 @@ export default {
   name: 'Navbar',
   methods: {
     toLogin () {
-      this.$router.push({ path: '/login' })
+      this.$router.push('/login').catch(() => {})
     }
   }
 

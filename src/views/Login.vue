@@ -6,14 +6,18 @@
     <div class="row">
         <div class="col-md-6 offset-sm-1">
             <div class="card">
-                <form onsubmit="event.preventDefault()" class="box">
+                <form @submit.prevent="login" class="box">
                     <h1>Login</h1>
-                    <p class="text-muted"> Please enter your login and password!</p> <input type="text" name="" placeholder="Username"> <input type="password" name="" placeholder="Password"> <a class="forgot text-muted" href="#">Forgot password?</a> <input type="submit" name="" value="Login" href="#">
+                    <p class="text-muted"> Please enter your login and password!</p>
+                    <input type="text" v-model="user.email" name="email" placeholder="input your email">
+                    <input type="password" v-model="user.password" name="password" placeholder="input your password">
+                    <a class="forgot text-muted" >Forgot password?</a>
+                    <input type="submit" value="Login">
                     <div class="col-md-12">
                         <ul class="social-network social-circle">
-                            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
+                            <li><a class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                            <li><a class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
                         </ul>
                     </div>
                 </form>
@@ -26,7 +30,24 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      const payload = {
+        email: this.user.email,
+        password: this.user.password
+      }
+      this.$store.dispatch('login', payload)
+    }
+  }
 
 }
 </script>
