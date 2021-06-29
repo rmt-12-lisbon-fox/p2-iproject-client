@@ -20,12 +20,30 @@
 </template>
 
 <script>
+// import TextToSpeech from 'text-to-speech-js'
 export default {
   name: 'Answer',
   props: ['data'],
   computed: {
     profilePic () {
       return this.$store.state.profilePic
+    }
+  },
+  methods: {
+    speechToText (message) {
+      const synth = window.speechSynthesis
+      const utter = new SpeechSynthesisUtterance(message)
+      // utter.text = message
+      synth.speak(utter)
+      // window.speechSynthesis.speak(utter)
+      // TextToSpeech.talk(message)
+      // responsiveVoice.speak(message)
+      // voice.speak(message)
+    }
+  },
+  created () {
+    if (this.data.source) {
+      this.speechToText(this.data.message)
     }
   }
 }
