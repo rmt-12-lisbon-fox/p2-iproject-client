@@ -17,7 +17,7 @@
         <a class="nav-link active pointer" >Portofolio</a>
         </div>
         <div class="d-flex justify-content-end">
-        <a class="nav-link active pointer" >Sign Out</a>
+        <a @click="logout" class="nav-link active pointer" >Sign Out</a>
         </div>
       </div>
     </div>
@@ -33,6 +33,10 @@ export default {
   methods: {
     toLogin () {
       this.$router.push('/login').catch(() => {})
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/').catch(() => {})
     }
   }
 
