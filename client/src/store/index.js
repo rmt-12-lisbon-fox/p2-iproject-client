@@ -6,8 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    eachVideo: []
   },
   mutations: {
+    FETCH_VIDEO (state, payload) {
+      state.eachVideo = payload
+    }
   },
   actions: {
     loginHandler (context, payload) {
@@ -17,6 +21,8 @@ export default new Vuex.Store({
         data: payload
       })
         .then(({ data }) => {
+          // console.log(data, '<<<<<<<<<<<<<<<<mask action')
+          // console.log(data)
           localStorage.setItem('access_token', data.access_token)
         })
         .catch((err) => {
@@ -37,16 +43,36 @@ export default new Vuex.Store({
         })
     },
     fetchVideo (context, payload) {
+      const data = { title: payload }
       instanceAxios({
         url: '/videos',
-        data: payload,
-        headers: {access_token: localStorage.access_token}
+        data: data,
+        headers: { access_token: localStorage.access_token },
+        method: 'POST'
       })
-        .then(({data}) => {
-          console.log(data);
+        .then(({ data }) => {
+          console.log(data)
+          context.commit('FETCH_VIDEO', data)
         })
-        .catch((err) => { 
-          console.log(err.response);
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    seeMatch (context, payload) {
+      const data = {
+        matchId: payload.matchId
+      }
+      instanceAxios({
+        url: '/historymatch',
+        headers: { access_token: localStorage.access_token },
+        data: data,
+        method: 'POST'
+      })
+        .then(({ data }) => {
+          console.log(data)
+        })
+        .catch((err) => {
+          console.log(err.response)
         })
     }
   },

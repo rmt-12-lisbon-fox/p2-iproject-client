@@ -61,6 +61,7 @@ export default {
         username: this.username,
         password: this.password
       }
+      // console.log(data, 'masuk login handler')
       this.$store.dispatch('loginHandler', data)
     }
   }

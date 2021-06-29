@@ -37,6 +37,36 @@
       </div>
       <div class="row mb-3">
         <div class="col"></div>
+        <div class="col-8">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Name</label>
+            <input type="text" class="form-control" v-model="name">
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col"></div>
+        <div class="col-8">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" v-model="phoneNumber">
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col"></div>
+        <div class="col-8">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Address</label>
+            <input type="text" class="form-control" v-model="address">
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col"></div>
         <div class="col">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
@@ -63,7 +93,10 @@ export default {
     return {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      name: '',
+      phoneNumber: '',
+      address: ''
     }
   },
   methods: {
@@ -71,7 +104,10 @@ export default {
       const data = {
         username: this.username,
         password: this.password,
-        email: this.email
+        email: this.email,
+        name: this.name,
+        phoneNumber: this.phoneNumber,
+        address: this.address
       }
       this.$store.dispatch('registerHandler', data)
     }

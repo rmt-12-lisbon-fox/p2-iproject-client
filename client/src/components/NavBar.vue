@@ -17,7 +17,10 @@
           <router-link to="/register" class="nav-link active" href='#'>Register</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/register" class="nav-link active" href='#'>Watch</router-link>
+          <router-link to="/watch" class="nav-link active" href='#'>Watch</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/summary" class="nav-link active" href='#'>Match History</router-link>
         </li>
       </ul>
       <form class="d-flex">

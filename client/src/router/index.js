@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/LoginPage.vue'
 import Register from '../views/RegisterPage.vue'
 import WatchVideo from '../views/WatchVideo.vue'
+import MatchSummary from '../views/SeeMatchHistory.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/summary',
+    name: 'MatchSummary',
+    component: MatchSummary
   },
   {
     path: '/watch',
