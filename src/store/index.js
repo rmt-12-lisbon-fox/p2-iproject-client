@@ -61,6 +61,37 @@ export default new Vuex.Store({
           })
           commit('LOGIN', data)
         })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    register ({ commit }, payload) {
+      const data = { ...payload }
+      api.post('/register', data)
+        .then(({ data }) => {
+          Vue.$toast.open({
+            message: `Congrats.., ${payload.email.split('@')[0]} registered, please login..`,
+            position: 'top-right',
+            type: 'success',
+            duration: 0
+          })
+          router.push({ path: '/login' })
+        })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     }
   },
   modules: {
