@@ -48,5 +48,7 @@ img {
   .user-section {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
   }
 </style>

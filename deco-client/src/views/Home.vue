@@ -53,7 +53,7 @@ export default {
     border-width: 0.5rem;
     border-radius: 3rem;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     flex-direction: column;
     position: relative;
   }
@@ -141,7 +141,12 @@ export default {
   .conversation-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    overflow: scroll;
+    max-height: 28rem;
+  }
+
+  .conversation-section::-webkit-scrollbar {
+    display: none;
   }
 
 </style>
