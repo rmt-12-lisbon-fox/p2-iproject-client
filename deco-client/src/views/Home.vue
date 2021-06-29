@@ -1,7 +1,7 @@
 <template>
   <div class="home-section">
     <div class="top-bar">
-      <a href="">
+      <a href="" @click.prevent="logoutEvent">
         <img class="logout-icon" src="https://ik.imagekit.io/vrvrzbdh5xfk/logout_ITHl1w1gn.png" alt="Logout Icon">
       </a>
       <img class="logo-img" src="https://ik.imagekit.io/vrvrzbdh5xfk/thumbnail_just_text_1__3iAOz4E6c.png" alt="DECO Logo Text">
@@ -9,12 +9,13 @@
     </div>
     <div class="border-chat">
       <div class="conversation-section">
-        <chatbot-answer></chatbot-answer>
-        <user-answer></user-answer>
+        <!-- <chatbot-answer></chatbot-answer>
+        <user-answer></user-answer> -->
+        <answer v-for="(data, index) in messages" :key="index" :data="data"></answer>
       </div>
       <div class="type-section">
-        <form class="type-bar">
-          <input type="text" placeholder="Type a message...">
+        <form class="type-bar" @submit.prevent="sendUserMessage">
+          <input v-model="userMessage" type="text" placeholder="Type a message...">
           <button class="form-btn" type="submit">Send</button>
         </form>
         <a href="">
@@ -26,11 +27,37 @@
 </template>
 
 <script>
-import ChatbotAnswer from '../components/ChatbotAnswer.vue'
-import UserAnswer from '../components/UserAnswer.vue'
+// import ChatbotAnswer from '../components/ChatbotAnswer.vue'
+// import UserAnswer from '../components/UserAnswer.vue'
+import Answer from '../components/Answer.vue'
 export default {
   name: 'Home',
-  components: { ChatbotAnswer, UserAnswer }
+  components: { Answer },
+  data () {
+    return {
+      userMessage: ''
+    }
+  },
+  computed: {
+    messages () {
+      return this.$store.state.messages
+    }
+  },
+  methods: {
+    fetchChatbotReply (message) {
+      this.$store.dispatch('fetchChatbotReply', message)
+    },
+    sendUserMessage () {
+      this.$store.dispatch('sendUserMessage', this.userMessage)
+      this.userMessage = ''
+    },
+    logoutEvent () {
+      this.$store.dispatch('logoutEvent')
+    }
+  },
+  created () {
+    this.fetchChatbotReply('hi')
+  }
 }
 </script>
 
