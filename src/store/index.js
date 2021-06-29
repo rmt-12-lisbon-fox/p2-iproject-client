@@ -16,6 +16,36 @@ export default new Vuex.Store({
       localStorage.access_token = payload.access_token
       state.isLogin = true
       router.push({ path: '/' })
+    },
+    GOOGLE_LOGIN (state, idToken) {
+      Vue.$toast.open({
+        message: 'please wait.., GOOGLE O AUTH login processing',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const data = { id_token: idToken }
+      api.post('/googlelogin', data)
+        .then(({ data }) => {
+          localStorage.access_token = data.access_token
+          state.isLogin = true
+          router.push('/')
+          Vue.$toast.open({
+            message: 'WELCOME.. ',
+            position: 'top-right',
+            type: 'success',
+            duration: 0
+          })
+        })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     }
   },
   actions: {

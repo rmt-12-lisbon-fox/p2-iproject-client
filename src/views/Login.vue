@@ -13,6 +13,9 @@
                     <input type="password" v-model="user.password" name="password" placeholder="input your password">
                     <a class="forgot text-muted" >Forgot password?</a>
                     <input type="submit" value="Login">
+                <div class="col-sm-12 d-flex justify-content-center">
+                  <button v-google-signin-button="clientId" class="google-signin-button"> Sign In with Google</button>
+                </div>
                     <div class="col-md-12">
                         <ul class="social-network social-circle">
                             <li><a class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
@@ -24,6 +27,7 @@
             </div>
         </div>
     </div>
+
 </div>
   </section>
 </template>
@@ -33,6 +37,7 @@ export default {
   name: 'Login',
   data () {
     return {
+      clientId: '265347927468-o28gc2rhncrqiuctu0j9cd3e4t7n4083.apps.googleusercontent.com',
       user: {
         email: '',
         password: ''
@@ -46,6 +51,12 @@ export default {
         password: this.user.password
       }
       this.$store.dispatch('login', payload)
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$store.commit('GOOGLE_LOGIN', idToken)
+    },
+    OnGoogleAuthFail (error) {
+      this.$store.commit('GOOGLEERROR', error)
     }
   }
 
