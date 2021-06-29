@@ -1,21 +1,18 @@
 <template>
   <section>
-    <!-- <h1>masuk login</h1> -->
     <br> <br> <br>
     <div class="container">
     <div class="row">
         <div class="col-md-6 offset-sm-1">
             <div class="card">
-                <form @submit.prevent="login" class="box">
-                    <h1>Login</h1>
-                    <p class="text-muted"> Please enter your login and password!</p>
+                <form @submit.prevent="register" class="box">
+                    <h1>Register</h1>
+                    <p class="text-muted"> Please register!</p>
                     <input type="text" v-model="user.email" name="email" placeholder="input your email">
                     <input type="password" v-model="user.password" name="password" placeholder="input your password">
-                    <a @click="toRegister" class="forgot text-muted pointer" >Don't have an account? Register here</a>
-                    <input type="submit" value="Login">
-                <div class="col-sm-12 d-flex justify-content-center">
-                  <button v-google-signin-button="clientId" class="google-signin-button"> Sign In with Google</button>
-                </div>
+                    <input type="text" v-model="user.phoneNumber" name="phoneNumber" placeholder="input phone number">
+                    <a @click="toLogin" class="forgot text-muted pointer" >Already have an account? Login here</a>
+                    <input type="submit" value="Register">
                     <div class="col-md-12">
                         <ul class="social-network social-circle">
                             <li><a class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
@@ -35,32 +32,23 @@
 <script>
 import router from '../router'
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     return {
-      clientId: '265347927468-o28gc2rhncrqiuctu0j9cd3e4t7n4083.apps.googleusercontent.com',
       user: {
         email: '',
-        password: ''
+        password: '',
+        phoneNumber: ''
       }
     }
   },
   methods: {
-    login () {
-      const payload = {
-        email: this.user.email,
-        password: this.user.password
-      }
-      this.$store.dispatch('login', payload)
+    register () {
+      const payload = { email: this.user.email, password: this.user.password, phoneNumber: this.user.phoneNumber }
+      this.$store.dispatch('register', payload)
     },
-    OnGoogleAuthSuccess (idToken) {
-      this.$store.commit('GOOGLE_LOGIN', idToken)
-    },
-    OnGoogleAuthFail (error) {
-      this.$store.commit('GOOGLEERROR', error)
-    },
-    toRegister () {
-      router.push({ path: '/register' })
+    toLogin () {
+      router.push({ path: '/login' })
     }
   }
 
