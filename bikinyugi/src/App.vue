@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
+    <Navbar/>
+    <!-- <DeckList/> -->
     <router-view/>
   </div>
 </template>
+
+<script>
+import Navbar from './components/Navbar.vue'
+import DeckList from './components/DeckList.vue'
+export default {
+  components: { Navbar, DeckList }
+}
+</script>
 
 <style>
 #app {
