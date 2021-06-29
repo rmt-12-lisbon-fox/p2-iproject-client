@@ -3,20 +3,8 @@
     <nav-bar/>
     <router-view/>
 
-    <!-- <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul> -->
+
+    
 
     <HFooter id="footer"/>
   </div>
@@ -45,13 +33,15 @@ export default {
 }
 
 body {
-  background-image: linear-gradient(#09244a, #124791);
-  min-height: 1080px;
-  /* height: 100%; */
+  background-image: linear-gradient(315deg, #4dc7f7 10%, #9d00d6 100%);
+  /* background-image: linear-gradient(135deg, #330867 10% #3ed8d8 100%); */
+  /* background-image: linear-gradient(205deg, #3b1965 10%, #9708CC 100%); */
+  min-height: 56rem;
+  margin: 0%;
 }
 
 .nav {
-  font-size: 1.4em;
+  font-size: 1.5em;
   padding: 30px;
   font-weight: 400;
   color: #ffffff;
@@ -60,23 +50,23 @@ body {
 
 .nav a {
   font-weight: 400;
-  color: #ffffff;
-  opacity: 0.75;
+  color: #ffffff !important;
+  opacity: 0.9 !important;
 
 }
 
 .nav a.router-link-exact-active {
   font-weight: 600;
   color: #ffffff;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 #footer {
   position: absolute;
+  border: transparent;
   display: flex;
   bottom: 0;
   width: 100%;
-  /* height: 2.5rem;   */
-  /* margin-top: 5%; */
+  background: transparent;
 }
 </style>

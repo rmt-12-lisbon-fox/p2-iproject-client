@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-4 nav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-4 nav mb-4">
   <div class="container-fluid d-flex justify-conternt-evenly">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center mx-3">
@@ -8,13 +8,11 @@
         </div>
         
 
-        <form class="d-flex mx-5">
-            <input class="form-control form-control-sm mx-2" type="search" placeholder="Search anime title.." aria-label="Search">
-            <button class="btn btn-light" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
+        <form class="d-flex mx-5 align-items-center">
+            <input class="form-control col-6 mx-4" type="search" placeholder="Search anime title.." aria-label="Search">
+            <!-- <button class='btn btn-sm' type="submit"> -->
+                <span class="material-icons md-light" type="submit">search</span>
+            <!-- </button> -->
         </form>
         
     </div>  
@@ -30,9 +28,9 @@
         <li class="nav-item mx-2">
           <router-link class="nav-link" to='/detail'> Dropdown </router-link>
         </li>
-        <!-- <li class="nav-item mx-2">
-          <router-link class="nav-link" to='/'>Disabled</router-link>
-        </li> -->
+        <li class="nav-item mx-2">
+          <router-link class="nav-link" to='/search'>TestSearch</router-link>
+        </li>
       </ul>
     </div>
   </div>

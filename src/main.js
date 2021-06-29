@@ -10,6 +10,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+import { CardPlugin } from 'bootstrap-vue'
+Vue.use(CardPlugin)
+
 Vue.config.productionTip = false
 
 new Vue({
