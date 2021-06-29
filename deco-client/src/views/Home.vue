@@ -8,7 +8,7 @@
       <button class="btn-talk-doctor">Talk to a doctor</button>
     </div>
     <div class="border-chat">
-      <div class="conversation-section">
+      <div class="conversation-section" v-chat-scroll >
         <!-- <chatbot-answer></chatbot-answer>
         <user-answer></user-answer> -->
         <answer v-for="(data, index) in messages" :key="index" :data="data"></answer>
@@ -174,6 +174,10 @@ export default {
 
   .conversation-section::-webkit-scrollbar {
     display: none;
+  }
+
+  input:focus {
+    outline: none;
   }
 
 </style>
