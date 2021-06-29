@@ -1,9 +1,10 @@
 <template>
   <section>
-    <h1>masuk login</h1>
+    <!-- <h1>masuk login</h1> -->
+    <br> <br> <br>
     <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 offset-sm-1">
             <div class="card">
                 <form onsubmit="event.preventDefault()" class="box">
                     <h1>Login</h1>
