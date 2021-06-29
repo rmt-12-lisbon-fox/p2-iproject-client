@@ -13,8 +13,11 @@
       <div class="type-section">
         <form class="type-bar">
           <input type="text" placeholder="Type a message...">
-          <button type="submit">Send</button>
+          <button class="form-btn" type="submit">Send</button>
         </form>
+        <a href="">
+          <img class="mic-icon" src="https://ik.imagekit.io/vrvrzbdh5xfk/mic_button_FqLU8zUP8Kn2.png" alt="Mic Icon">
+        </a>
       </div>
     </div>
   </div>
@@ -44,8 +47,8 @@ export default {
   }
 
   .border-chat {
-    width: 90rem;
-    height: 48rem;
+    width: 75rem;
+    height: 35rem;
     border-style: solid;
     border-color: #0055B8;
     border-width: 0.5rem;
@@ -59,14 +62,17 @@ export default {
   .type-section {
     position: absolute;
     background-color: #0055B8;
-    width: 90rem;
-    height: 8rem;
+    width: 75rem;
+    height: 7rem;
     bottom: 0;
     border-radius: 0 0 2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .top-bar {
-    width: 90rem;
+    width: 75rem;
     display: flex;
     /* justify-content: space-between; */
     align-items: flex-end;
@@ -75,7 +81,7 @@ export default {
   .logo-img {
     width: 18rem;
     height: 7rem;
-    margin: 0 21rem 0.3rem 32rem;
+    margin: 0 15rem 0.3rem 24rem;
   }
 
   .logout-icon {
@@ -96,7 +102,7 @@ export default {
   .btn-talk-doctor {
     margin-bottom: 1rem;
     background-color: #0055B8;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 1rem;
     font-size: 1.5rem;
     color: white;
@@ -104,13 +110,33 @@ export default {
   }
 
   .type-bar input {
-    width: 70rem;
-    height: 4rem;
+    width: 55rem;
+    height: 3.5rem;
     border-radius: 3rem;
     border-style: none;
-    margin: 2rem 0 0 2rem;
+    margin: 0 1rem 0 0.5rem;
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
+    padding-left: 1.5rem;
+  }
+
+  .form-btn {
+    padding: 1.25rem 2rem;
+    background-color: #004492;
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 1rem;
+    margin-right: 1rem;
+  }
+
+  .form-btn:hover {
+    background-color: #003066;
+  }
+
+  .mic-icon {
+    width: 4rem;
+    height: 4rem;
   }
 
 </style>
