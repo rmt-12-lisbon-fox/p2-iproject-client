@@ -8,11 +8,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    profilePic: ''
   },
   mutations: {
     CHANGE_LOGIN (state, status) {
       state.isLoggedIn = status
+    },
+    FETCH_PROFILE_PIC (state, picUrl) {
+      state.profilePic = picUrl
     }
   },
   actions: {
@@ -25,6 +29,7 @@ export default new Vuex.Store({
         )
         .then(response => {
           localStorage.setItem('access_token', response.data.access_token)
+          context.commit('FETCH_PROFILE_PIC', response.data.profilePic)
           Swal.fire('You have successfully sign in', '', 'success')
           router.push('/')
           context.commit('CHANGE_LOGIN', true)

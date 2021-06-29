@@ -7,7 +7,12 @@
 <script>
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  computed: {
+    profilePic () {
+      return this.$store.state.profilePic
+    }
+  }
 }
 </script>
 
