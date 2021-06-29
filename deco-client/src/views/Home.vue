@@ -9,6 +9,8 @@
     </div>
     <div class="border-chat">
       <div class="conversation-section">
+        <chatbot-answer></chatbot-answer>
+        <user-answer></user-answer>
       </div>
       <div class="type-section">
         <form class="type-bar">
@@ -24,14 +26,11 @@
 </template>
 
 <script>
-
+import ChatbotAnswer from '../components/ChatbotAnswer.vue'
+import UserAnswer from '../components/UserAnswer.vue'
 export default {
   name: 'Home',
-  computed: {
-    profilePic () {
-      return this.$store.state.profilePic
-    }
-  }
+  components: { ChatbotAnswer, UserAnswer }
 }
 </script>
 
@@ -114,14 +113,14 @@ export default {
     height: 3.5rem;
     border-radius: 3rem;
     border-style: none;
-    margin: 0 1rem 0 0.5rem;
+    margin: 0 1rem 0 0rem;
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
     padding-left: 1.5rem;
   }
 
   .form-btn {
-    padding: 1.25rem 2rem;
+    padding: 1rem 2rem;
     background-color: #004492;
     color: white;
     font-size: 1.2rem;
@@ -137,6 +136,12 @@ export default {
   .mic-icon {
     width: 4rem;
     height: 4rem;
+  }
+
+  .conversation-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
 </style>
