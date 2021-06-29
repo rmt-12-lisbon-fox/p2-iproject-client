@@ -41,8 +41,8 @@ export default {
   }
 
   .border-all {
-    width: 90rem;
-    height: 50rem;
+    width: 80rem;
+    height: 40rem;
     border-style: solid;
     border-color: #0055B8;
     border-width: 0.5rem;
@@ -53,14 +53,14 @@ export default {
   }
 
   img {
-    width: 24rem;
-    height: 14rem;
+    width: 22rem;
+    height: 12rem;
     margin-top: 2rem;
   }
 
   h1 {
-    font-size: 6rem;
-    margin: 2rem 0 2rem 0;
+    font-size: 5rem;
+    margin: 2rem 0 1rem 0;
     letter-spacing: 0.6rem;
     color: #0055B8;
   }
@@ -71,7 +71,7 @@ export default {
   }
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 600;
     letter-spacing: 0.2rem;
   }
