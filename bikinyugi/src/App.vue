@@ -12,9 +12,9 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import DeckList from './components/DeckList.vue'
+// import DeckList from './components/DeckList.vue'
 export default {
-  components: { Navbar, DeckList }
+  components: { Navbar }
 }
 </script>
 
