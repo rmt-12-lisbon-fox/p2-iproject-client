@@ -2,7 +2,7 @@
   <section>
     <nav class="navbar fixed-top navbar-dark pt-3 pb-3" style="background-color: #000000">
   <div class="container-fluid">
-    <img src="@/assets/logo2.jpg" style="height: 4.1rem" alt="smartinvestment">
+    <img class="pointer" @click="toHome" src="@/assets/logo2.jpg" style="height: 4.1rem" alt="smartinvestment">
     <!-- <h2 class="text-white h2">Smart Investment</h2> -->
     <div class="d-flex justify-content-around col-sm-4">
     <a class="navbar-brand h2" >Market</a>
@@ -24,11 +24,20 @@
     </div>
   </div>
 </nav>
+<!-- <div v-if="activePage === '/'">
+<img style="width: 100%; height: auto;"
+  src="@/assets/logo3.jpg"
+  alt="background banner">
+<img style="width: 100%; height: auto;"
+  src="@/assets/logo3.jpg"
+  alt="background banner">
+</div> -->
   </section>
 </template>
 
 <script>
 // import router from '../router'
+import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   methods: {
@@ -36,9 +45,14 @@ export default {
       this.$router.push('/login').catch(() => {})
     },
     logout () {
-      localStorage.clear()
+      this.$store.commit('LOGOUT')
+    },
+    toHome () {
       this.$router.push('/').catch(() => {})
     }
+  },
+  computed: {
+    ...mapState(['isLogin', 'userInfo', 'activePage'])
   }
 
 }
