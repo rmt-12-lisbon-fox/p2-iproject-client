@@ -53,14 +53,14 @@ export default {
   }
 
   img {
-    width: 22rem;
-    height: 12rem;
+    width: 24rem;
+    height: 14rem;
     margin-top: 2rem;
   }
 
   h1 {
     font-size: 6rem;
-    margin: 2.5rem 0 2rem 0;
+    margin: 2rem 0 2rem 0;
     letter-spacing: 0.6rem;
     color: #0055B8;
   }
@@ -78,6 +78,7 @@ export default {
 
   button {
     font-family: 'Raleway', sans-serif;
+    font-weight: 600;
     width: 24rem;
     height: 4rem;
     margin-top: 2rem;
