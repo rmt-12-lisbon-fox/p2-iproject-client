@@ -18,7 +18,7 @@
           <input v-model="userMessage" type="text" placeholder="Type a message...">
           <button class="form-btn" type="submit">Send</button>
         </form>
-        <a href="">
+        <a href="" @click.prevent="listenSpeak">
           <img class="mic-icon" src="https://ik.imagekit.io/vrvrzbdh5xfk/mic_button_FqLU8zUP8Kn2.png" alt="Mic Icon">
         </a>
       </div>
@@ -53,6 +53,18 @@ export default {
     },
     logoutEvent () {
       this.$store.dispatch('logoutEvent')
+    },
+    listenSpeak (context) {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
+      recognition.continuous = false
+      recognition.lang = 'en-US'
+      recognition.interimResults = false
+      recognition.maxAlternatives = 1
+      recognition.start()
+      recognition.onresult = (e) => {
+        const textListen = e.results[0][0].transcript.trim()
+        this.$store.dispatch('sendUserMessage', textListen)
+      }
     }
   },
   created () {
