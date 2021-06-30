@@ -174,7 +174,8 @@ export default {
     this.getConverted()
   },
   computed: {
-    ...mapState(['userInfo', 'isLogin', 'activePage', 'market', 'converted']),
+    ...mapState(['userInfo', 'isLogin', 'activePage', 'market', 'converted',
+      'convertbtc', 'converteth', 'convertltc', 'convertdoge', 'convertxrp']),
     xrplow () { return (+this.market.xrp.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     xrphigh () { return (+this.market.xrp.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     xrplast () { return (+this.market.xrp.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
@@ -189,12 +190,7 @@ export default {
     ethlast () { return (+this.market.eth.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btclow () { return (+this.market.btc.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btchigh () { return (+this.market.btc.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
-    btclast () { return (+this.market.btc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
-    convertbtc () { return +this.converted[1].converted_last.btc },
-    converteth () { return +this.converted[3].converted_last.btc },
-    convertltc () { return +this.converted[25].converted_last.btc },
-    convertdoge () { return +this.converted[11].converted_last.btc },
-    convertxrp () { return +this.converted[9].converted_last.btc }
+    btclast () { return (+this.market.btc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) }
   }
 }
 </script>

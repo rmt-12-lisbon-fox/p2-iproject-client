@@ -12,7 +12,12 @@ export default new Vuex.Store({
     isLogin: false,
     activePage: '/',
     market: {},
-    converted: {}
+    converted: {},
+    convertbtc: '',
+    converteth: '',
+    convertltc: '',
+    convertdoge: '',
+    convertxrp: ''
   },
   mutations: {
     LOGIN (state, payload) {
@@ -67,6 +72,11 @@ export default new Vuex.Store({
     },
     GET_CONVERTED (state, payload) {
       state.converted = payload
+      state.convertbtc = payload[1].converted_last.btc
+      state.converteth = payload[3].converted_last.btc
+      state.convertltc = payload[25].converted_last.btc
+      state.convertdoge = payload[11].converted_last.btc
+      state.convertxrp = payload[9].converted_last.btc
     },
     ISLOGIN (state) {
       state.isLogin = true
