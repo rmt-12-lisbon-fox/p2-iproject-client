@@ -19,6 +19,18 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 export default {
   props: ['item'],
   data () {
@@ -29,6 +41,16 @@ export default {
   methods: {
     recordEat (payload) {
       this.$store.dispatch('addDiet', payload)
+      .then( data => {
+        console.log(data)
+        Toast.fire({
+          icon: 'success',
+          title: 'Your Meal Recorded'
+        })
+      })
+      .catch( err => {
+        console.log(err)
+      })
     }
   }
 }

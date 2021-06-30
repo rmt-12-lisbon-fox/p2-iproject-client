@@ -2,7 +2,6 @@
   <div class="home">
     <Nav></Nav>
     <Bar></Bar>
-    <Chart/>
 
     <div class="d-flex flex-column home-container" >
         
@@ -66,7 +65,7 @@
             <div class="text-center darken-grey-text mb-4">
                 <h3 class="font-bold mb-3">Curious How Its Look Like?</h3>
                 <a class="btn btn-danger"
-                @click.prevent="getChart"
+                
                 >Visualize</a>
             </div>
 
@@ -100,10 +99,10 @@ export default {
       const doc = new jsPDF();
       doc.autoTable({ html: '#my-table' })
       doc.save('table.pdf')
-    },
-    getChart() {
-      this.$store.dispatch("getChart")
     }
+  },
+  created() {
+    this.$store.dispatch("getChart")
   },
   computed: {
   localComputed () { 

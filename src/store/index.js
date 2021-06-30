@@ -14,7 +14,7 @@ export default new Vuex.Store({
     dietLog: [],
     totalPages: 0,
     currentPage: 0,
-    genresDB: []
+    chartURL : ''
 
   },
   mutations: {
@@ -53,9 +53,22 @@ export default new Vuex.Store({
     },
     SETGENRES (state, payload) {
       state.genresDB = payload
+    },
+    GETCHART(state, payload) {
+      state.chartURL = payload
     }
   },
   actions: {
+    getChart({commit}) {
+      instance.get('/chart')
+      .then( ({data}) => {
+        console.log(data)
+        commit('GETCHART', data.chartURL)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
     fetchDiet({commit}, payload) {
       instance.get('/diet')
       .then( ({data}) => {
@@ -69,12 +82,7 @@ export default new Vuex.Store({
     addDiet(context, payload) {
       let url = '/record?fdcId=' + payload
       instance.get(url)
-      .then( data => {
-        console.log(data)
-      })
-      .catch( err => {
-        console.log(err)
-      })
+      
     },
     gauth (context, token) {
       instance.post('/gauth', {

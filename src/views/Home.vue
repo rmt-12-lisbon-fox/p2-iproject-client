@@ -39,6 +39,10 @@ import Bar from '../components/Bar.vue'
 import SelectCard from '../components/SelectCard.vue'
 import { mapState } from 'vuex'
 
+
+
+
+
 export default {
   name: "home",
   components : { Nav, Bar, SelectCard },
@@ -57,8 +61,11 @@ export default {
     }
   },
   computed: mapState([
-  'searchResult'
-])
+    'searchResult'
+  ]),
+  watch: {
+    
+  }
 }
 </script>
 
