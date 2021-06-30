@@ -7,6 +7,9 @@ import ReviewForm from '../views/ReviewForm.vue'
 import Founder from '../views/FounderProfile.vue'
 import Investor from '../views/InvestorProfile.vue'
 import ReviewDetails from '../components/ReviewDetails.vue'
+import VerifyAccount from '../views/VerifyAccount.vue'
+import AddInvestor from '../views/AddInvestor.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -46,14 +49,35 @@ const routes = [
     name: 'ReviewDetails',
     component: ReviewDetails
   },
-
-
+  {
+    path: '/verify/:id',
+    name: 'VerifyAccount',
+    component: VerifyAccount
+  },
+  {
+    path: '/add-investor',
+    name: 'AddInvestor',
+    component: AddInvestor
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
+  },
+  
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior: function (to) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  },
 })
 
 export default router

@@ -9,6 +9,7 @@
           </button>
           <div class="collapse navbar-collapse" style='flex-grow:unset' id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <router-link to='/#reviewList'>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" aria-expanded="false" href="#">
                     <span style="font-size: 1rem; color: grey;">
@@ -18,8 +19,9 @@
                     <p style='margin-left:3px'>All Reviews</p>
                 </a>
             </li>
+            </router-link>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" aria-expanded="false" href="#">
+                <a class="nav-link active" @click.prevent='addReview' aria-current="page" aria-expanded="false" href="#">
                     <span style="font-size: 1rem; color: grey;">
                         <i class='fas fa-pen fs-5 text-gray-600' data-bs-toggle="tooltip" data-bs-placement="bottom"
                         title="Back to Homepage"></i>
@@ -27,7 +29,7 @@
                     <p style='margin-left:3px'>Write a Review</p>
                 </a>
               </li>
-              <li v-if='!isLoggedIn' class="nav-item">
+              <li v-if='!isLoggedIn' @click.prevent='toLogin' class="nav-item">
                 <a class="nav-link active" aria-current="page" aria-expanded="false" href="#">
                     <span style="font-size: 1rem; color: grey;">
                         <i class='fas fa-sign-in-alt fs-5 text-gray-600' data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -36,6 +38,17 @@
                     <p>Sign In</p>
                 </a>
               </li>
+              <router-link to='/dashboard'>
+              <li v-if='isLoggedIn && isAdmin' class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span style="font-size: 1rem; color: grey;">
+                        <i class='fas fa-user-cog fs-5 text-gray-600' data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Edit My Profile"></i>
+                    </span>
+                    <p style="color:black">Dashboard</p>
+                </a>
+              </li>
+              </router-link>
               <li v-if='isLoggedIn' class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <span style="font-size: 1rem; color: grey;">
@@ -47,7 +60,7 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">My Profile</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                  <li><a class="dropdown-item" href="#" @click.prevent='logout'>Sign Out</a></li>
                 </ul>
               </li>
             </ul>
@@ -59,7 +72,7 @@
         <hr style='margin-top:5px; margin-bottom:30px'>
 
     <!-- HOMEPAGE BANNER -->
-    <div v-if='!isLoggedIn' id="detailHeader" class='subBody hero-image-header'>
+    <div v-if='!isLoggedIn && login == false' id="detailHeader" class='subBody hero-image-header'>
         <div class='description text-center align-middle' style="padding: 20px; width: 45%; align-items:center">
             <h1 style='color:white; text-shadow: 2px 2px 4px #000000'>Read, Write, Assess</h1><br><br>
             <h5 style='color:white; text-shadow: 2px 2px 2px #000000'>Get Insights. Share Insights. The Richest Investor Review Platform in Asia</h5><br>
@@ -85,9 +98,9 @@
               <div class='description text-center align-bottom' style="background-color: white; border-radius: 30px; opacity: 0.8; padding: 20px; width: 45%; align-items:center">
                   <h2 style='opacity:1; color:black; text-shadow: 1px 1px 2px #000000' class='news-overflow-ellipsis'>{{i.title}}</h2><br>
                   <h5 style='opacity:1; color:black' class ='news-overflow-ellipsis'>{{i.content}}</h5><br>
+              <button style='width:150px; height: 50px; border-radius: 30px;'><a :href="i.url">Read More</a></button>
               </div>
-          <div style='align-items:flex-end'>
-          <button style='width:150px; height: 50px; border-radius: 30px;'>Read More</button>
+          <div>
             </div>
           </div> 
       </SliderItem>
@@ -100,6 +113,12 @@
 
 <script>
 import { Slider, SliderItem } from "vue-easy-slider";
+import Vue from 'vue'
+import VueToast from 'vue-toast-notification';
+Vue.use(VueToast, {
+  position: 'top'
+})
+import router from '../router'
 export default {
   name: 'Navbar',
   components: {
@@ -119,13 +138,31 @@ export default {
     news() {
       return this.$store.state.news
     },
+    login() {
+      return this.$store.state.login
+    },
     isLoggedIn () {
       return this.$store.state.isLoggedIn
     }
   },
   methods: {
+    toLogin() {
+      router.push({ path: `/login`})
+    },
+    logout() {
+      this.$store.commit('LOGOUT')
+    },
     changeIndex(index) {
       this.sliderValue = index;
+    },
+    addReview() {
+      if (this.isLoggedIn) {
+        router.push({ path: `/add-review#add-review`})
+      } else {
+        this.$store.commit('TOLOGINPAGE')
+        Vue.$toast.error('Register / login to write a new review')
+        router.push({ path: `/login`})
+      }
     }
   },
   created() {
@@ -154,7 +191,7 @@ export default {
   padding-right:30px;
   display:flex; 
   justify-content:space-between; 
-  align-items:bottom
+  align-items:center
 }
 
 .hero-image-header {
