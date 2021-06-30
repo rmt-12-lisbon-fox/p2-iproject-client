@@ -2,17 +2,16 @@
     <!-- <div class="box-card d-flex justify-content-center align-items-center "> -->
         <!-- <div class="row g-2 row-cols-2 "> -->
 
-        <div class="text-start mx-5 col-3">
+        <div class="text-start mx-5 col-3" @click.prevent="toDetailPage()" >
         <b-card no-body class="overflow-hidden image-card" text-variant="light">
             <b-row no-gutters>
             <b-col md="6">
                 <b-card-body>
                     <label class="h6">{{ el.title}}</label>
-                <b-card-text >
-                    This is a wider card with supporting text as a natural lead-in to additional content.
-                    This content is a little bit longer.
-                </b-card-text>
-                <button type="button" class="btn btn-light btn-sm rounded-pill py-0 mt-1">Small button</button>
+                <p>
+                    {{ description }}
+                </p >
+               <!-- <button type="button" class="btn btn-light btn-sm rounded-pill py-0 mt-1">Small button</button> -->
                 </b-card-body>
             </b-col>
             <b-col md="6">
@@ -27,7 +26,20 @@
 <script>
 export default {
     name: 'AnimeCard',
-    props: ['el']
+    props: ['el'],
+    computed: {
+        description() {
+            if (this.el.synopsis) {
+                return this.el.synopsis.substring(0, 40) + '...'
+
+            }
+        }
+    },
+    methods: {
+        toDetailPage() {
+            this.$router.push({name: 'Detail', params: {id: this.el.mal_id}})
+        }
+    }
 }
 </script>
 
@@ -41,6 +53,10 @@ export default {
     background-image: linear-gradient(135deg, #1a2f7a 10%, #2f98a1 100%);
     filter: brightness(70%);
     font-size: 0.75em;
+}
+
+.image-card p {
+    font-size: 1.2em;
 }
 
 .image-card:hover {

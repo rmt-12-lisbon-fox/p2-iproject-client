@@ -1,7 +1,10 @@
 <template>
   <div id="search-page">
       <div class="mb-5">
-        <h2 class="display-6">Search for ...</h2>
+        <h2 class="display-6">Search result</h2>
+      </div>
+      <div class="my-auto" v-if="!animeSearch.length">
+        <h2 class="display-4">Sorry, cannot find what you search.</h2>
       </div>
     <div class="container">
       <div class="row row-cols-5 gy-4">
@@ -23,6 +26,7 @@ export default {
     components: {AnimeCard},
     computed: {
       ...mapState(['animeSearch'])
+
     }
 
 }

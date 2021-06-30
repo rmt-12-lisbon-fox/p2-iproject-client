@@ -37,14 +37,13 @@ export default new Vuex.Store({
     // Search Anime
     searchAnime(context, payload) {
       // payload with q parameter
-      // console.log(payload);
       axios({
         url: '/anime/search',
         method: 'post',
         data: payload
       })
       .then(({data}) => {
-        // console.log(data);
+        let results = data.results
         // let results = data.results.filter((el, i) => i <= 11)
         context.commit('SEARCH_ANIME', results)
 
