@@ -3,7 +3,7 @@
     <Nav></Nav>
     <Bar></Bar>
 
-    <div class="d-flex flex-column home-container" >
+    <div class="d-flex flex-column home-container"  >
         
         <!--MDB Tables-->
         <div class="container">
@@ -71,7 +71,10 @@
 
         </div>
         <!--MDB Tables-->
-      <Chart/>
+      <div id="page" >
+        <h2>halo</h2>
+        <img class="w-100" :src="chartURL" alt="">
+      </div>
     </div>
 
   </div>
@@ -85,7 +88,9 @@ import Chart from '../components/Chart.vue'
 import SelectCard from '../components/SelectCard.vue'
 import { mapState } from 'vuex'
 import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 import 'jspdf-autotable'
+import html2PDF from 'jspdf-html2canvas';
 
 export default {
   name: "Diet",
@@ -98,7 +103,18 @@ export default {
     download() {
       const doc = new jsPDF();
       doc.autoTable({ html: '#my-table' })
-      doc.save('table.pdf')
+      // doc.save('table.pdf')
+
+      html2PDF(document.getElementById('page'), {
+        jsPDF: {
+          format: 'a4',
+        },
+        imageType: 'image/jpeg',
+        output: './pdf/generate.pdf'
+      })
+    },
+    getChart() {
+      this.$store.dispatch("getChart")
     }
   },
   created() {
@@ -111,7 +127,8 @@ export default {
   // mix this into the outer object with the object spread operator
   ...mapState({
     // ...
-    dietLog : 'dietLog'
+    dietLog : 'dietLog',
+    chartURL : 'chartURL'
   })
 }
 }

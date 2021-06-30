@@ -45,7 +45,7 @@ export default {
 <style scoped >
 
 .list-unstyled.components {
-    margin-top: 7em;
+    margin-top: 20vh;
 }
 
 li {

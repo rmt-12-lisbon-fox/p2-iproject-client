@@ -14,8 +14,8 @@ export default new Vuex.Store({
     dietLog: [],
     totalPages: 0,
     currentPage: 0,
-    chartURL : ''
-
+    chartURL : '',
+    recipes: []
   },
   mutations: {
     TOLOGOUT (state) {
@@ -56,6 +56,9 @@ export default new Vuex.Store({
     },
     GETCHART(state, payload) {
       state.chartURL = payload
+    },
+    GETRECIPE(state, payload) {
+      state.recipes = payload
     }
   },
   actions: {
@@ -83,6 +86,16 @@ export default new Vuex.Store({
       let url = '/record?fdcId=' + payload
       instance.get(url)
       
+    },
+    getRecipe({commit}) {
+      instance.get('http://localhost:3000/recipe')
+      .then( ({data}) => {
+        console.log(data)
+        commit("GETRECIPE", data)
+      })
+      .catch( err => {
+        console.log(err)
+      })
     },
     gauth (context, token) {
       instance.post('/gauth', {

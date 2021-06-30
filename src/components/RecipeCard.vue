@@ -1,91 +1,39 @@
 <template>
-  <div>
-    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-      <div class="container d-flex">
-        <div class="contact-info mr-auto">
-          <i class="icofont-envelope"></i> <a></a>
-          <i class="icofont-phone"></i> +1 5589 55488 55
-          <i class="icofont-google-map"></i> A108 Adam Street, NY
+  <div class="col-lg-3 m-4">
+    <div class="member d-flex align-items-start">
+      <div class="pic"><img :src="item.recipe.image" class="img-fluid" alt=""></div>
+      <div class="member-info h-100">
+        <h4> {{ item.recipe.label }} </h4>
+        <p class="h-25" > {{ ingredients }} </p>
+        <a class="detail-btn"
+        v-for="(label, index) in item.recipe.dietLabels"
+        :key="index"
+        > {{ label }} </a>
+        <div class="social">
+
+          <a><i @click.prevent="addFav(item.id)" class="clickable"><img src="" alt=""></i></a>
+          <a><i @click.prevent="recordEat(item.id)"  class="clickable"> <img src=""> </i></a>
         </div>
       </div>
     </div>
-
-    <header id="header" class="fixed-top">
-      <div class="container d-flex align-items-center justify-content-between">
-
-
-        <h1 class="logo mr-auto"><a >Dietitians</a></h1>
-        <nav class="nav-menu d-none d-lg-block clickable ">
-          <ul id="right">
-            <li @click="toHome" class="active"><a>Home</a></li>
-
-            <li @click="showMyDiet" ><a >My Diet</a></li>
-            <li @click="showRecipe" ><a >Recommendation</a></li>
-            <li :class="{ hide : isLoginLocal }" @click.prevent="showSignUpPage" ><a >Sign Up</a></li>
-            <li :class="{ hide : isLoginLocal }" ><a >Sign In</a></li>
-
-            <li :class="{ hide : !isLoginLocal }" @click="toLogOut" class="ml-5" ><a >Sign Out</a></li>
-
-          </ul>
-        </nav>
-
-        <div>
-          <span> {{ name }} </span>
-          <img :src="picture" alt="">
-        </div>
-
-      </div>
-    </header>
   </div>
 </template>
 
 <script>
-import GoogleSignInButton from 'vue-google-signin-button-directive'
 
 export default {
+  props: ['item'],
   data () {
     return {
-      picture: localStorage.getItem('picture'),
-      name: localStorage.getItem('name'),
-      isLoginLocal: false
 
     }
   },
   methods: {
-    Gout () {
-      console.log('masuk gout')
-      const auth2 = gapi.auth2.getAuthInstance()
-      auth2.signOut().then(function () {
-        console.log('User signed out.')
-      })
-    },
-    toLogOut () {
-      this.$store.commit('TOLOGOUT')
-      this.Gout()
-    },
-    toHome () {
-      this.$store.dispatch('getAllMovies')
-      this.$router.push({ name: 'Home' }).catch(_ => {})
-    },
-    showRecipe () {
-      this.$router.push({ name: 'Recipe' }).catch(_ => {})
-    },
-    showMyDiet () {
-      if (localStorage.access_token) {
-        // show fav
-        this.$router.push({ name: 'Diet' }).catch(_ => {})
-        this.$store.dispatch('fetchDiet')
-      } else {
-        this.$router.push({ name: 'Login' }).catch(_ => {})
-      }
-    },
-    showSignUpPage () {
-      this.$router.push({ name: 'Login' }).catch(_ => {})
-    }
+
   },
-  created () {
-    if (localStorage.access_token) {
-      this.isLoginLocal = true
+  computed : {
+    ingredients() {
+      return this.item.recipe.ingredientLines.join(", ")
     }
   }
 }
@@ -93,12 +41,21 @@ export default {
 
 <style scoped>
 
-.hide {
-  display: none;
+i img {
+  width: 15px;
 }
 
-.clickable {
-  cursor: pointer;
+.member.d-flex.align-items-start {
+  height: 250px;
+  padding: 10px;
+}
+
+.member-info p {
+  word-wrap:break-word;
+  display:block;
+  width:150px;
+  height:110px;
+  overflow: hidden;
 }
 
 body {
@@ -108,7 +65,6 @@ body {
 
 a {
   color: #1977cc;
-  text-decoration: none;
 }
 
 a:hover {
@@ -175,6 +131,23 @@ h1, h2, h3, h4, h5, h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
+}
+
+.detail-btn {
+  background: #1977cc;
+  color: #fff;
+  border-radius: 50px;
+  padding: 4px 15px 5px 15px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.detail-btn:hover {
+  background: #166ab5;
+  color: #fff;
 }
 
 .back-to-top i {
@@ -404,6 +377,24 @@ h1, h2, h3, h4, h5, h6 {
   .nav-menu .drop-down .drop-down > a:after {
     content: "\ea9d";
   }
+}
+
+/* Get Startet Button */
+.appointment-btn {
+  margin-left: 25px;
+  background: #1977cc;
+  color: #fff;
+  border-radius: 50px;
+  padding: 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.appointment-btn:hover {
+  background: #166ab5;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -1223,51 +1214,42 @@ section {
 /*--------------------------------------------------------------
 # Doctors
 --------------------------------------------------------------*/
-.doctors {
-  background: #fff;
-}
 
-.doctors .member {
+.member {
   position: relative;
   box-shadow: 0px 2px 15px rgba(44, 73, 100, 0.08);
   padding: 30px;
   border-radius: 10px;
 }
 
-.doctors .member .pic {
+.member .pic {
   overflow: hidden;
   width: 180px;
-  border-radius: 50%;
+  border: #111;
+  border-radius: 5%;
 }
 
-.doctors .member .pic img {
-  transition: ease-in-out 0.3s;
-}
-
-.doctors .member:hover img {
-  transform: scale(1.1);
-}
-
-.doctors .member .member-info {
+.member .member-info {
   padding-left: 30px;
 }
 
-.doctors .member h4 {
+.member h4 {
   font-weight: 700;
   margin-bottom: 5px;
   font-size: 20px;
   color: #2c4964;
 }
 
-.doctors .member span {
+.member span {
   display: block;
   font-size: 15px;
   padding-bottom: 10px;
   position: relative;
   font-weight: 500;
+
 }
 
-.doctors .member span::after {
+.member span::after {
   content: '';
   position: absolute;
   display: block;
@@ -1278,19 +1260,19 @@ section {
   left: 0;
 }
 
-.doctors .member p {
+.member p {
   margin: 10px 0 0 0;
   font-size: 14px;
 }
 
-.doctors .member .social {
+.member .social {
   margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
-.doctors .member .social a {
+.member .social a {
   transition: ease-in-out 0.3s;
   display: flex;
   align-items: center;
@@ -1301,17 +1283,17 @@ section {
   background: #a0bcd5;
 }
 
-.doctors .member .social a i {
+.member .social a i {
   color: #fff;
   font-size: 16px;
   margin: 0 2px;
 }
 
-.doctors .member .social a:hover {
+.member .social a:hover {
   background: #1977cc;
 }
 
-.doctors .member .social a + a {
+.member .social a + a {
   margin-left: 8px;
 }
 
