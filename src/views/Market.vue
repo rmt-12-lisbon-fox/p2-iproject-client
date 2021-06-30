@@ -39,9 +39,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: 7777</figure>
-              <figure class="pricing-row">High: 777</figure>
-              <figure class="pricing-row">Last: 777</figure>
+              <figure class="pricing-row">Low: {{ market.btc.low }}</figure>
+              <figure class="pricing-row">High: {{ market.btc.high }}</figure>
+              <figure class="pricing-row">Last: {{ market.btc.last }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
@@ -64,9 +64,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: 7777</figure>
-              <figure class="pricing-row">High: 777</figure>
-              <figure class="pricing-row">Last: 777</figure>
+              <figure class="pricing-row">Low: {{ market.eth.low }}</figure>
+              <figure class="pricing-row">High: {{ market.eth.high }}</figure>
+              <figure class="pricing-row">Last: {{ market.eth.last }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-purpel">Watch Signal</a></div>
@@ -89,9 +89,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: 7777</figure>
-              <figure class="pricing-row">High: 777</figure>
-              <figure class="pricing-row">Last: 777</figure>
+              <figure class="pricing-row">Low: {{ market.ltc.low }}</figure>
+              <figure class="pricing-row">High: {{ market.ltc.high }}</figure>
+              <figure class="pricing-row">Last: {{ market.ltc.last }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"> <a class="gem-button gem-orange">Watch Signal</a></div>
@@ -114,9 +114,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: 7777</figure>
-              <figure class="pricing-row">High: 777</figure>
-              <figure class="pricing-row">Last: 777</figure>
+              <figure class="pricing-row">Low: {{ market.doge.low }}</figure>
+              <figure class="pricing-row">High: {{ market.doge.high }}</figure>
+              <figure class="pricing-row">Last: {{ market.doge.last }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Watch Signal</a></div>
@@ -139,9 +139,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.btc.high }}</figure>
-              <figure class="pricing-row">High: 777</figure>
-              <figure class="pricing-row">Last: 777</figure>
+              <figure class="pricing-row">Low: {{ market.xrp.low }}</figure>
+              <figure class="pricing-row">High: {{ market.xrp.high }}</figure>
+              <figure class="pricing-row">Last: {{ market.xrp.last }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-cyan">Watch Signal</a></div>
