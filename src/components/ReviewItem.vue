@@ -30,9 +30,11 @@
                 </ShareNetwork>
             </button>
         </div>
-        <div v-if="isMine" class="absolute bottom-0 right-0 mr-20 mb-3">
-            <button @click="deleteReview(review.id)" class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Delete</button>
+        <div class="absolute bottom-0 right-0 mr-20 mb-3">
+            <button v-if="!isMine" @click="speech(review.comment)" class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Speech It!</button>
+            <button v-if="isMine" @click="deleteReview(review.id)" class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Delete</button>
         </div>
+        <audio ref="audio" :src='audio'></audio>
     </div>
 </template>
 
@@ -48,10 +50,17 @@ export default {
         },
         deleteReview(id) {
             this.$store.dispatch('deleteReview', id);
+        },
+        speech(comment) {
+            this.$store.dispatch('tos', comment)
+            .then( _ => {
+                this.$refs.audio.play();
+            })
         }
     },
     computed: mapState([
-        'isMine'
+        'isMine',
+        'audio'
     ])
 }
 </script>

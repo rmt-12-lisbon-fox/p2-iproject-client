@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import backEndAPI from '../api/backEnd';
+import tosAPI from '../api/textToSpeech';
 import router from '../router';
 
 Vue.use(Vuex)
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     films: {},
     reviews: [],
     review: {},
+    audio: '',
     titleFilm: 'default'
   },
   mutations: {
@@ -57,6 +59,9 @@ export default new Vuex.Store({
     },
     ONE_REVIEW (state, data) {
       state.review = data;
+    },
+    AUDIO (state, data) {
+      state.audio = data;
     }
   },
   actions: {
@@ -345,6 +350,30 @@ export default new Vuex.Store({
             title: 'getListOfReviewByUser was failed',
             text: stringError 
          });
+      }
+    },
+    async tos(context, data) {
+      let apiKey = process.env.VUE_APP_API_KEY;
+      try {
+        let result = await tosAPI({
+          method: 'GET',
+          params: {
+            key: apiKey,
+            hl: 'id-id',
+            src: data,
+            f: '8khz_8bit_mono',
+            c: 'mp3',
+            r: '0',
+            b64: true
+          },
+          headers: {
+            'x-rapidapi-key': 'a4e0a04627msh51476a18f2f769ap124b24jsn474823c609db',
+            'x-rapidapi-host': 'voicerss-text-to-speech.p.rapidapi.com'
+          }
+        })
+        this.commit('AUDIO', result.data);
+      } catch (err) {
+        console.log(err.response)
       }
     }
   },

@@ -22,6 +22,7 @@ export default {
   },
   created() {
     this.listOfReview();
+
   },
   computed: mapState([
     'reviews'
