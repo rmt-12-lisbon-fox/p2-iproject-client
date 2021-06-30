@@ -33,7 +33,7 @@ export default new Vuex.Store({
   actions: {
     getBackground (context) {
       return axios({
-        url: 'http://localhost:3000/background',
+        url: 'http://findiss-server.herokuapp.com/background',
         method: 'get'
       })
         .then(({ data }) => {
@@ -86,7 +86,7 @@ export default new Vuex.Store({
           context.commit('SET_latitude', lat)
           context.commit('SET_longitude', lng)
           axios({
-            url: 'http://localhost:3000/predictions',
+            url: 'http://findiss-server.herokuapp.com/predictions',
             method: 'get',
             params: {
               latitude: lat,
@@ -107,15 +107,18 @@ export default new Vuex.Store({
     sendEmail (context, payload) {
       console.log('masuk axios')
       axios({
-        url: 'http://localhost:3000/email',
+        url: 'http://findiss-server.herokuapp.com/email',
         method: 'post',
         data: payload
       })
         .then(() => {
           console.log('email sent!')
+          Vue.swal({
+            title: 'Email sent successfully!'
+          })
           if (payload.subscribe) {
             return axios({
-              url: 'http://localhost:3000/subscribe',
+              url: 'http://findiss-server.herokuapp.com/subscribe',
               method: 'post',
               data: {
                 email: payload.email,
@@ -127,7 +130,12 @@ export default new Vuex.Store({
           }
         })
         .then(({ data }) => {
-          console.log(data.message)
+          if (data) {
+            console.log(data.message) // daftar email
+            Vue.swal({
+              title: 'Email registered successfully!'
+            })
+          }
         })
         .catch(err => {
           console.log(err)
