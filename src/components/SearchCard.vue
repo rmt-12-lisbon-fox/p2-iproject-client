@@ -10,7 +10,7 @@
          >Detail</a>
         <div class="social">
 
-          <a><i @click.prevent="addFav(item.id)" class="clickable"><img src="" alt=""></i></a>
+          <a><i class="clickable"><img src="" alt=""></i></a>
           <a><i @click.prevent="seeDetail(item.id)"  class="clickable"> <img src="" alt=""> </i></a>
           <a><i>  </i></a>
           <a><i>  </i></a>
@@ -28,14 +28,6 @@ export default {
 
     }
   },
-  methods: {
-    addFav (payload) {
-      this.$store.dispatch('addFav', payload)
-    },
-    seeDetail () {
-      this.$router.push({ name: 'Detail', params: { id: this.item.id } })
-    }
-  }
 }
 </script>
 

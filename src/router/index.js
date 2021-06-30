@@ -16,11 +16,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "Login" */ '../views/Login.vue')
   },
   {
-    path: '/movies/:id',
-    name: 'Detail',
-    component: () => import(/* webpackChunkName: "Detail" */ '../views/Detail.vue')
-  },
-  {
     path: '/search',
     name: 'Search',
     component: () => import(/* webpackChunkName: "Search" */ '../views/Search.vue')
@@ -35,11 +30,6 @@ const routes = [
     name: 'Diet',
     component: () => import(/* webpackChunkName: "Diet" */ '../views/Diet.vue')
   },
-  {
-    path: '/register',
-    name: 'Register',
-    component: () => import(/* webpackChunkName: "Register" */ '../views/Register.vue')
-  }
 ]
 
 const router = new VueRouter({

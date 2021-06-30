@@ -40,19 +40,11 @@ export default new Vuex.Store({
         router.push({ name: 'Home' })
       }, 3000)
     },
-    GETALLMOVIES (state, payload) {
-      state.movies = payload.rows
-      state.totalPages = Math.ceil(payload.totalPages)
-      state.currentPage = (payload.currentPage)
-    },
     FETCH_DIET (state, payload) {
       state.dietLog = payload
     },
     SEARCH (state, payload) {
       state.searchResult = payload
-    },
-    SETGENRES (state, payload) {
-      state.genresDB = payload
     },
     GETCHART(state, payload) {
       state.chartURL = payload
@@ -126,25 +118,6 @@ export default new Vuex.Store({
           context.commit('SEARCH', data.foods)
         })
     },
-    addFav (context, payload) {
-      instance.post('/cust/favourites?movieId=' + payload)
-        .then(data => {
-          Swal.fire('Added to Your Favourites!', '', 'success')
-        })
-        .catch(error => {
-          if (error.response) {
-            Swal.fire({
-              icon: 'error',
-              title: error.response.status.toString(),
-              text: error.response.data.message
-            })
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
-    },
     register (context, payload) {
       instance.post('/cust/register', payload)
         .then(data => {
@@ -189,51 +162,6 @@ export default new Vuex.Store({
           }
         })
     },
-    getAllMovies (context) {
-      console.log('159')
-      instance.get('/cust/movies')
-        .then(({ data }) => {
-          context.commit('GETALLMOVIES', data)
-          return instance.get('/cust/genres')
-        })
-        .then(({ data }) => {
-          console.log(data)
-          context.commit('SETGENRES', data)
-        })
-        .catch(error => {
-          if (error.response) {
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
-    },
-    fetchFav (context) {
-      instance.get('/cust/favourites')
-        .then(({ data }) => {
-          console.log(data)
-          context.commit('FETCH_FAV', data)
-        })
-        .catch(error => {
-          if (error.response) {
-            Swal.fire({
-              icon: 'error',
-              title: error.response.status.toString(),
-              text: error.response.data.message
-            })
-          } else if (error.request) {
-            console.log(error.request)
-          } else {
-            console.log('Error', error.message)
-          }
-        })
-    },
-    getGenres (context) {
-    }
   },
   modules: {
   }

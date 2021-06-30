@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-      <div class="container d-flex">
-        <div class="contact-info mr-auto">
-          <i class="icofont-envelope"></i> <a></a>
-          <i class="icofont-phone"></i> +1 5589 55488 55
-          <i class="icofont-google-map"></i> A108 Adam Street, NY
-        </div>
-      </div>
-    </div>
 
     <header id="header" class="fixed-top">
       <div class="container d-flex align-items-center justify-content-between">
@@ -17,21 +8,27 @@
         <h1 class="logo mr-auto"><a >Dietitians</a></h1>
         <nav class="nav-menu d-none d-lg-block clickable ">
           <ul id="right">
-            <li @click="toHome" class="active"><a>Home</a></li>
+            <li @click="toHome"
+            :class="{ active : ($route.name === 'Home') }"
+            ><a>Home</a></li>
 
-            <li @click="showMyDiet" ><a >My Diet</a></li>
-            <li @click="showRecipe" ><a >Recommendation</a></li>
+            <li @click="showMyDiet"
+            :class="{ active : ($route.name === 'Diet') }"
+            ><a >My Diet</a></li>
+            <li @click="showRecipe"
+            :class="{ active : ($route.name === 'Recipe') }"
+            ><a >Recommendation</a></li>
             <li :class="{ hide : isLoginLocal }" @click.prevent="showSignUpPage" ><a >Sign Up</a></li>
             <li :class="{ hide : isLoginLocal }" ><a >Sign In</a></li>
 
-            <li :class="{ hide : !isLoginLocal }" @click="toLogOut" class="ml-5" ><a >Sign Out</a></li>
 
           </ul>
         </nav>
 
-        <div>
+        <div class="d-flex align-items-center" >
+          <li :class="{ hide : !isLoginLocal }" @click="toLogOut" class="mx-5 clickable" ><a >Sign Out</a></li>
           <span> {{ name }} </span>
-          <img :src="picture" alt="">
+          <img :src="picture" alt="" style="border-radius: 50px; width: 20%;" >
         </div>
 
       </div>
@@ -47,8 +44,8 @@ export default {
     return {
       picture: localStorage.getItem('picture'),
       name: localStorage.getItem('name'),
-      isLoginLocal: false
-
+      isLoginLocal: false,
+      page : null
     }
   },
   methods: {
@@ -64,15 +61,14 @@ export default {
       this.Gout()
     },
     toHome () {
-      this.$store.dispatch('getAllMovies')
       this.$router.push({ name: 'Home' }).catch(_ => {})
+      this.page = "Home"
     },
     showRecipe () {
       this.$router.push({ name: 'Recipe' }).catch(_ => {})
     },
     showMyDiet () {
       if (localStorage.access_token) {
-        // show fav
         this.$router.push({ name: 'Diet' }).catch(_ => {})
         this.$store.dispatch('fetchDiet')
       } else {
@@ -84,6 +80,7 @@ export default {
     }
   },
   created () {
+    console.log(this.$route)
     if (localStorage.access_token) {
       this.isLoginLocal = true
     }
@@ -99,6 +96,10 @@ export default {
 
 .clickable {
   cursor: pointer;
+}
+
+li {
+  display: flex;
 }
 
 body {
@@ -257,7 +258,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
-  top: 40px;
   box-shadow: 0px 2px 15px rgba(25, 119, 204, 0.1);
 }
 

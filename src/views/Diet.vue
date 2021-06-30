@@ -9,11 +9,10 @@
         <div class="container">
 
             <div class="text-center darken-grey-text mb-4">
-                <h1 class="font-bold mt-4 mb-3 h5">https://peraturan.bpk.go.id/Home/Details/138621/permenkes-no-28-tahun-2019</h1>
                 <a class="btn btn-danger btn-md"
                 @click.prevent="download"
                 
-                >Free download<i class="fa fa-download pl-2"></i></a>
+                >Download as PDF<i class="fa fa-download pl-2"></i></a>
             </div>
 
             <div class="card mb-4">
@@ -51,7 +50,8 @@
                         <!--Table body-->
                         <tbody>
                             <Row
-                            v-for="row in dietLog" :key="row.id" :row="row"
+                            v-for="(row, index) in dietLog" :key="row.id" :row="row"
+                            :index="index"
                             />
                         </tbody>
                         <!--Table body-->
@@ -62,17 +62,16 @@
 
             <hr class="my-4">
           
-            <div class="text-center darken-grey-text mb-4">
+            <!-- <div class="text-center darken-grey-text mb-4">
                 <h3 class="font-bold mb-3">Curious How Its Look Like?</h3>
                 <a class="btn btn-danger"
                 
                 >Visualize</a>
-            </div>
+            </div> -->
 
         </div>
         <!--MDB Tables-->
       <div id="page" >
-        <h2>halo</h2>
         <img class="w-100" :src="chartURL" alt="">
       </div>
     </div>
@@ -122,7 +121,7 @@ export default {
   },
   computed: {
   localComputed () { 
-    return "halo"
+    return null
     /* ... */ },
   // mix this into the outer object with the object spread operator
   ...mapState({

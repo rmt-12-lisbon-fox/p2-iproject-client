@@ -3,13 +3,13 @@
     <div class="col-md-6 mx-auto">
         <div class="card">
             <div class="login-box">
-                <div class="login-snip">
+                <div class="login-snip d-flex flex-column ">
 
                     <input id="tab-1" type="radio"  name="tab" class="sign-in" checked>
                     <label for="tab-1" class="tab"  >Login</label>
 
                     <input id="tab-2" type="radio" @click.prevent="showRegisterPage" name="tab" class="sign-up">
-                    <label for="tab-2" class="tab">Register</label>
+                    <label for="tab-2" class="tab" style="display: none;" >Register</label>
 
                     <div class="login-space">
                         <form class="login" @submit.prevent="toLogin" >
@@ -21,9 +21,8 @@
                             <div class="group"> <input type="submit" class="button" value="Sign In"> </div>
 
                             <div class="hr"></div>
-                            <div class="foot"> <a href="#">Forgot Password?</a> </div>
 
-                        <div class="google-btn google-signin-button" v-google-signin-button="clientId" >
+                        <div class="google-btn google-signin-button mx-auto " v-google-signin-button="clientId" >
                             <div class="google-icon-wrapper">
                                 <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                             </div>
@@ -121,7 +120,6 @@ body {
     max-width: 525px;
     min-height: 550px;
     position: relative;
-    background: url(https://images.unsplash.com/photo-1507208773393-40d9fc670acf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80) no-repeat center;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19)
 }
 
