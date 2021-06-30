@@ -113,8 +113,21 @@ export default new Vuex.Store({
       })
         .then(() => {
           console.log('email sent!')
-          router.push('/result')
-            .catch(() => {})
+          if (payload.subscribe) {
+            return axios({
+              url: 'http://localhost:3000/subscribe',
+              method: 'post',
+              data: {
+                email: payload.email,
+                city: payload.city,
+                lat: payload.lat,
+                long: payload.long
+              }
+            })
+          }
+        })
+        .then(({ data }) => {
+          console.log(data.message)
         })
         .catch(err => {
           console.log(err)

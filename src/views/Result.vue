@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="result page">
     <div
       v-bind:style="{ backgroundImage: 'url(' + background.img + ')' }"
       class="bg-img bg-opaque d-flex"
@@ -30,12 +30,16 @@
                         Send Result to Email
                       </template>
                       <form v-on:submit.prevent="sendEmail">
-                        <div class="container mb-3">
+                        <div class="mb-3">
                           <label for="email" class="form-label">Email:</label>
                           <input type="email" id="email"
                             class="form-control"
                             v-model="email"
                           >
+                        </div>
+                        <div class="mb-3">
+                          <input type="checkbox" class="form-check-input" v-model="subscribe">
+                          <label class="form-check-label" for="subscribe">Subscribe to current coordinates. Result will be sent every Sunday.</label>
                         </div>
                         <div class="modal-footer">
                           <b-button type="submit" class="mt-3" variant="primary" block @click="$bvModal.hide('form-modal')">Submit</b-button>
@@ -123,18 +127,19 @@ export default {
   data () {
     return {
       filterType: 'All',
-      email: ''
+      email: '',
+      subscribe: false
     }
   },
   methods: {
     sendEmail () {
-      console.log('masuk')
       const payload = {
         email: this.email,
+        subscribe: this.subscribe,
         city: this.result.city,
         data: this.result.data,
-        lat: this.result.latitude,
-        long: this.result.longitude
+        lat: Number.parseFloat(this.result.latitude),
+        long: Number.parseFloat(this.result.longitude)
       }
       this.$store.dispatch('sendEmail', payload)
     }

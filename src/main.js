@@ -6,6 +6,7 @@ import './css/styles.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import { BootstrapVue } from 'bootstrap-vue'
+import 'animate.css'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

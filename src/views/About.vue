@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about page">
     <div
       v-bind:style="{ backgroundImage: 'url(' + background.img + ')' }"
       class="bg-img bg-opaque d-flex align-items-end"
