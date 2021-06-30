@@ -177,11 +177,11 @@ export default new Vuex.Store({
             duration: 7777
           })
         })
-        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 177) })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
     getConverted ({ commit }) {
       Vue.$toast.open({
-        message: 'please wait.. fetching data',
+        message: 'please wait.. ',
         position: 'top-right',
         type: 'success',
         duration: 0
@@ -206,7 +206,7 @@ export default new Vuex.Store({
             duration: 7777
           })
         })
-        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 177) })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     }
   },
   modules: {
