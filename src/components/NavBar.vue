@@ -23,13 +23,17 @@
           <router-link class="nav-link" to='/'>Home</router-link>
         </li>
         <li class="nav-item mx-2">
-          <router-link class="nav-link" to='/about'>Link</router-link>
+          <router-link class="nav-link" to='/bookmark' v-show="isLoggedIn"> Bookmark </router-link>
         </li>
         <li class="nav-item mx-2">
-          <router-link class="nav-link" to='/detail'> Dropdown </router-link>
+          <a class="nav-link"
+            v-show="!isLoggedIn" v-google-signin-button="clientId"
+          >Sign In</a>
         </li>
         <li class="nav-item mx-2">
-          <router-link class="nav-link" to='/search'>TestSearch</router-link>
+          <a class="nav-link" 
+            @click.prevent="logout"
+          v-show="isLoggedIn">Sign Out</a>
         </li>
       </ul>
     </div>
@@ -38,21 +42,46 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'NavBar',
     data() {
       return {
-        q: ""
+        q: "",
+        clientId: "704814998289-3j07t5s2n9deq2hhu0a48i3lqbdnrt7p.apps.googleusercontent.com",
       }
     },
     methods: {
+      ...mapActions(['logout']),
       searchAnime() {
         let payload = {q: this.q}
         // console.log(payload);
         this.$store.dispatch('searchAnime', payload)
+      },
+      OnGoogleAuthSuccess (idToken) {
+        // console.log(idToken)
+        this.$store.dispatch('googleLogin', idToken)
+      },
+      OnGoogleAuthFail (error) {
+          console.log(error)
+      }
+    }, 
+    computed: {
+      isLoggedIn () {
+        return this.$store.state.isLoggedIn
+      }
+    },
+    created () {
+      if (localStorage.access_token) {
+        this.$store.dispatch('loginCheck', true)
+      } 
+      else {
+        this.$store.dispatch('loginCheck', false)
+
       }
     }
-}
+  }
+
 </script>
 
 <style>

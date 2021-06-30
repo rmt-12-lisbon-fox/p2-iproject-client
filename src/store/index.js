@@ -11,9 +11,15 @@ export default new Vuex.Store({
     upcoming: [],
     animeOne: {},
     animeSearch: [],
-    animeEpisodes: []
+    animeEpisodes: [],
+    isLoggedIn: false,
+    bookmarkOne: {},
+    bookmarkAll: []
   },
   mutations: {
+    LOGIN_STATUS (state, value) {
+      state.isLoggedIn = value
+    },
     UPCOMING_ANIME (state, payload) {
       state.upcoming = payload
     },
@@ -25,7 +31,13 @@ export default new Vuex.Store({
     },
     SEARCH_ANIME_EPISODES (state, payload) {
       state.animeEpisodes = payload
-    }
+    },
+    BOOKMARK_ONE (state, payload) {
+      state.bookmarkOne = payload
+    },
+    BOOKMARK_ALL (state, payload) {
+      state.bookmarkAll = payload
+    },
   },
   actions: {
     // Upcoming Anime
@@ -127,7 +139,7 @@ export default new Vuex.Store({
       // let {keyword} = payload
       return axios({
         url: `/anime/detail?vid_id=${payload}`,
-        method: 'get',
+        method: 'get'
       })
       .then(({data}) => {
         let payload = data.data
@@ -136,7 +148,132 @@ export default new Vuex.Store({
       .catch(err => {
         throw err
       })
-    }
+    },
+
+    // ------------ OAuth Google ------------
+
+    googleLogin ({ commit, dispatch }, idToken) {
+      // console.log(idToken, '<<<< id token >>>>')
+      axios({
+        url: '/user/login',
+        data: {
+          id_token: idToken
+        },
+        method: 'post',
+      })
+      .then(({ data }) => {
+        localStorage.access_token = data.access_token
+        localStorage.id = data.id
+
+        swal.fire(
+          'Sign In Success!',
+            `Welcome ${data.email}`,
+            'success'
+        )
+        commit('LOGIN_STATUS', true)
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
+    logout ({ commit }, payload) {
+      localStorage.clear()
+      swal.fire(
+        'You already signed out!'
+      )
+      commit('LOGIN_STATUS', false)
+    },
+
+    loginCheck ({ commit }, payload) {
+      commit('LOGIN_STATUS', payload)
+    },
+
+    addBookmark(context, payload) {
+      axios({
+        method: "post",
+        url: '/user/bookmark',
+        data: payload,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        swal.fire('success add anime to bookmark', '', 'success')
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
+    findBookmark(context, payload) {
+      axios({
+        method: "get",
+        url: '/user/bookmark',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        context.commit('BOOKMARK_ALL', data)
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
+    findOneBookmark(context, payload) {
+      axios({
+        method: "get",
+        url: `/user/bookmark/${payload}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        context.commit('BOOKMARK_ONE', data)
+        // console.log(data);
+        
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
+    deleteBookmark(context, payload) {
+      axios({
+        url: `/user/bookmark/${payload}`,
+        method: "delete",
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        swal.fire('success delete anime from bookmark', '', 'success')
+        
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
+    statusBookmark(context, payload) {
+      axios({
+        url: `/user/bookmark/${payload}`,
+        method: "patch",
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      .then(({data}) => {
+        console.log(data);
+        
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
+    },
+
   },
   modules: {
   }

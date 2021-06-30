@@ -1,15 +1,33 @@
 <template>
     <div class="mt-1 container p-2" style="width: 60%; " >
-        <div class="text-start">
+        <div class="d-flex justify-content-between px-5">
             <router-link :to="{path: '/'}" class="text-decoration-none text-white"> 
-                <span class="material-icons">
+                <span class="material-icons display-6">
                 arrow_back
                 </span>
             </router-link>
+            <div class="text-end d-flex align-items-center">
+              <!-- <p>
+                Remove from Bookmark
+              </p>  -->
+              <span class="material-icons display-4" v-if="!bookmark && !bookmarked"
+                @click.prevent="addBookmark(animeOne.mal_id, animeOne.image_url, animeOne.title)"
+              >
+                bookmark_border
+              </span>
+              <span class="material-icons display-4" v-if="bookmark || bookmarked"
+                 @click.prevent="deleteBookmark(animeOne.mal_id)"
+              >
+                bookmark
+              </span>
+            </div>
         </div>
+        
+
         <div class="mb-4 p-2">
             <h3 class="h3"> {{ animeOne.title }} </h3>
         </div>
+
 
         <div class="d-flex justify-content-center px-5">
             <div class="mx-2">
@@ -81,9 +99,14 @@ import {mapState} from 'vuex'
 import EpisodeRow from '../components/EpisodeRow.vue'
 export default {
   name: 'Detail',
+  data() {
+    return {
+      bookmark: false
+    }
+  },
   components: {EpisodeRow},
   computed: {
-    ...mapState(['animeOne', 'animeEpisodes']),
+    ...mapState(['animeOne', 'animeEpisodes', 'bookmarkOne']),
     genres() {
       let genres = []
       if (this.animeOne.genres) {
@@ -93,14 +116,36 @@ export default {
       }
       genres = genres.join(', ')
       return genres
+    },
+    bookmarked() {
+      if (this.bookmarkOne) {
+        if (this.bookmarkOne.mal_id == this.animeOne.mal_id) {
+          return true
+        } 
+      }
+      return false
     }
 
+  },
+  methods: {
+      addBookmark(mal_id, image_url, title ) {
+        this.bookmark = true
+        let payload = {
+          mal_id, image_url, title
+        }
+        this.$store.dispatch('addBookmark' , payload)
+      },
+      deleteBookmark(value) {
+        this.bookmark = false
+        this.$store.dispatch('deleteBookmark' , value)
+      }
   },
   created() {
     let payload = {
       mal_id: this.$route.params.id
     }
     this.$store.dispatch('infoAnime', payload)
+    this.$store.dispatch('findOneBookmark', this.$route.params.id)
   }
 }
 </script>
