@@ -1,7 +1,5 @@
 <template>
-  <div id="card-library">
-    asdasdasd
-  </div>
+  <div id="profile"></div>
 </template>
 
 <script>

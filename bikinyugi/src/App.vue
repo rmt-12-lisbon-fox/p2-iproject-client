@@ -14,7 +14,10 @@
 import Navbar from './components/Navbar.vue'
 // import DeckList from './components/DeckList.vue'
 export default {
-  components: { Navbar }
+  components: { Navbar },
+  created () {
+    this.$store.commit('LOGINCHECK')
+  }
 }
 </script>
 
