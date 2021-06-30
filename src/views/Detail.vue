@@ -1,51 +1,74 @@
 <template>
-    <div class="container p-4 rounded border border-2" style="width: 50%;" >
-        <div class="text-start nav">
-            <router-link :to="{path: '/'}" class="text-decoration-none"> 
+    <div class="mt-1 container p-2" style="width: 60%; " >
+        <div class="text-start">
+            <router-link :to="{path: '/'}" class="text-decoration-none text-white"> 
                 <span class="material-icons">
                 arrow_back
                 </span>
             </router-link>
-
         </div>
-        <div class="mt-1 mb-3 p-2">
-            <h3 class="display-6"> hehe</h3>
+        <div class="mb-4 p-2">
+            <h3 class="h3"> {{ animeOne.title }} </h3>
         </div>
 
-        <div class="d-flex justify-content-center align-items-center px-5">
-            <div class="">
-                <img src=""
+        <div class="d-flex justify-content-center px-5">
+            <div class="mx-2">
+                <img :src="animeOne.image_url"
                 alt="Image"
                 class="rounded"
-                style="width: 15em; height:12em;"
                 />
+                <!-- style="width: 15em; height:12em;" -->
 
             </div>
 
-            <div class=" ms-5">
+            <div class=" ms-4 text-start">
                 <div class="row gy-1 text-start h6">
-                    <dt class="col-sm-4">Price</dt>
-                    <dd class="col-sm-8">Rp. </dd>
+                <dt class="h4">Synopsis</dt>
+                <dd class="mb-4">{{animeOne.synopsis}}</dd>
 
-                    <dt class="col-sm-4">Category</dt>
-                    <dd class="col-sm-8">haha</dd>
+                    <dt class="col-sm-3">Genres</dt>
+                    <dd class="col-sm-8">{{genres}}</dd>
 
-                    <dt class="col-sm-4">Description</dt>
-                    <dd class="col-sm-8">haha</dd>
+                    <dt class="col-sm-3">Rating</dt>
+                    <dd class="col-sm-8">{{animeOne.rating}}</dd>
 
-                    <dt class="col-sm-4">Added By</dt>
-                    <dd class="col-sm-8">haha</dd>
+                    <dt class="col-sm-3">Episodes</dt>
+                    <dd class="col-sm-8">{{animeOne.episodes || 'N/A'}}</dd>
+
+                    <dt class="col-sm-3">Score</dt>
+                    <dd class="col-sm-8">{{animeOne.score || 'N/A'}}</dd>
+
+                    <dt class="col-sm-3">Status</dt>
+                    <dd class="col-sm-8">{{animeOne.status}}</dd>
+                    
+                    <dt class="col-sm-3">Source</dt>
+                    <dd class="col-sm-8">{{animeOne.source}}</dd>
 
                 </div>
             </div>
 
         </div>
 
-        <div class="my-4 ">
-            <h5>Scan it to share this delicious food</h5>
-            <div>
-                QR CODE
-            </div>
+        <div v-if="animeEpisodes[0]" class="mt-5" style="padding-bottom: 8%;">
+          <hr size="8">
+          <h4>
+            List Episode
+          </h4>
+          <table class="table text-white mt-3">
+            <thead>
+              <tr>
+                <th scope="col-1">#</th>
+                <th scope="col">Episode</th>
+                <th scope="col">Updated</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <EpisodeRow 
+                v-for="(el,i) in animeEpisodes" :key="el.id" :el="el" :i="i"
+              />
+            </tbody>
+          </table>
         </div>
 
     </div>
@@ -53,11 +76,39 @@
 </template>
 
 <script>
+// import swal from 'sweetalert2'
+import {mapState} from 'vuex'
+import EpisodeRow from '../components/EpisodeRow.vue'
 export default {
-  name: 'Detail'
+  name: 'Detail',
+  components: {EpisodeRow},
+  computed: {
+    ...mapState(['animeOne', 'animeEpisodes']),
+    genres() {
+      let genres = []
+      if (this.animeOne.genres) {
+        this.animeOne.genres.forEach(el => {
+            genres.push(el.name)
+        });
+      }
+      genres = genres.join(', ')
+      return genres
+    }
+
+  },
+  created() {
+    let payload = {
+      mal_id: this.$route.params.id
+    }
+    this.$store.dispatch('infoAnime', payload)
+  }
 }
 </script>
 
 <style>
+.detail-page {
+  padding-bottom: 8% !important;
+}
+
 
 </style>

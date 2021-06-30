@@ -11,7 +11,6 @@
                 <p>
                     {{ description }}
                 </p >
-               <!-- <button type="button" class="btn btn-light btn-sm rounded-pill py-0 mt-1">Small button</button> -->
                 </b-card-body>
             </b-col>
             <b-col md="6">
@@ -30,7 +29,7 @@ export default {
     computed: {
         description() {
             if (this.el.synopsis) {
-                return this.el.synopsis.substring(0, 40) + '...'
+                return this.el.synopsis.substring(0, 30) + '...'
 
             }
         }

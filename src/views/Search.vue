@@ -6,15 +6,14 @@
       <div class="my-auto" v-if="!animeSearch.length">
         <h2 class="display-4">Sorry, cannot find what you search.</h2>
       </div>
-    <div class="container">
-      <div class="row row-cols-5 gy-4">
-          <AnimeCard v-for="el in animeSearch" 
-            :key="el.mal_id" :el="el"
-          />
+      <div class="container">
+        <div class="row row-cols-5 gy-4">
+            <AnimeCard v-for="el in animeSearch" 
+              :key="el.mal_id" :el="el"
+            />
+        </div>
       </div>
     </div>
-
-      </div>
   </div>
 </template>
 

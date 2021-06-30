@@ -11,11 +11,20 @@ export default new Vuex.Store({
     upcoming: [],
     animeOne: {},
     animeSearch: [],
-    animeVideos: []
+    animeEpisodes: []
   },
   mutations: {
+    UPCOMING_ANIME (state, payload) {
+      state.upcoming = payload
+    },
     SEARCH_ANIME (state, payload) {
       state.animeSearch = payload
+    },
+    SEARCH_ANIME_ONE (state, payload) {
+      state.animeOne = payload
+    },
+    SEARCH_ANIME_EPISODES (state, payload) {
+      state.animeEpisodes = payload
     }
   },
   actions: {
@@ -27,7 +36,7 @@ export default new Vuex.Store({
       })
       .then(({data}) => {
         let upcoming = data.anime.filter((el, i) => i <= 11)
-        console.log(upcoming);
+        context.commit('UPCOMING_ANIME', upcoming)
       })
       .catch(err => {
         swal.fire("error", '', 'error')
@@ -37,10 +46,11 @@ export default new Vuex.Store({
     // Search Anime
     searchAnime(context, payload) {
       // payload with q parameter
+      // console.log(payload);
+      let {q} = payload
       axios({
-        url: '/anime/search',
-        method: 'post',
-        data: payload
+        url: `/anime/search?q=${q}`,
+        method: 'get',
       })
       .then(({data}) => {
         let results = data.results
@@ -58,12 +68,21 @@ export default new Vuex.Store({
     // Anime information
     infoAnime(context, payload) {
       let {mal_id} = payload
+      let title = ""
+
       axios({
         url: `/anime/info/${mal_id}`,
         method: 'get'
       })
       .then(({data}) => {
-        console.log(data);
+        // console.log(data);
+        title = data.title
+        return context.commit('SEARCH_ANIME_ONE', data)
+
+      })
+      .then(_ => {
+        // console.log(title);
+        context.dispatch('searchAnimeVideos', title)
       })
       .catch(err => {
         swal.fire("error", '', 'error')
@@ -72,33 +91,50 @@ export default new Vuex.Store({
 
     // Search Anime Videos
     searchAnimeVideos(context, payload) {
-      // let {keyword} = payload
+      let keyword = payload
       axios({
-        url: `/anime/videos`,
-        method: 'get',
-        data: payload
+        url: `/anime/videos?keyword=${keyword}`,
+        method: 'get'
       })
       .then(({data}) => {
-        console.log(data);
+        let vid_id = data.video.vid_id
+        // console.log(vid_id, '=====')
+        context.dispatch('getAnimeEpisodes', vid_id)
       })
       .catch(err => {
         swal.fire("error", '', 'error')
       })
     },
 
-    // Detail Anime Videos (episodes)
-    detailAnimeVideos(context, payload) {
+    // Get Episodes
+    getAnimeEpisodes(context, payload) {
       // let {keyword} = payload
       axios({
-        url: `/anime/videos`,
+        url: `/anime/detail?vid_id=${payload}`,
         method: 'get',
-        data: payload
       })
       .then(({data}) => {
-        console.log(data);
+        let payload = data.episode
+        context.commit('SEARCH_ANIME_EPISODES', payload)
       })
       .catch(err => {
         swal.fire("error", '', 'error')
+      })
+    },
+
+    // Get Link Stream & Download
+    getAnimeLink(context, payload) {
+      // let {keyword} = payload
+      return axios({
+        url: `/anime/detail?vid_id=${payload}`,
+        method: 'get',
+      })
+      .then(({data}) => {
+        let payload = data.data
+        return payload
+      })
+      .catch(err => {
+        throw err
       })
     }
   },
