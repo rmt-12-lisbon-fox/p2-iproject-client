@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="d-flex justify-content-center">
-    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3">
+    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3 animate__animated animate__fadeInTopRight animate__slower2s">
          <div class="pricing-column">
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
@@ -44,7 +44,7 @@
               <figure class="pricing-row">Last: {{ btclast1 }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a @click="signalBtc" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
                 <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Add watchlist</a></div>
               </div>
             </div>
@@ -74,7 +74,7 @@
               </div>
             </div>
     </div>
-    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3">
+    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3 animate__animated animate__rollIn animate__slower2s">
       <div class="pricing-column">
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
@@ -124,7 +124,7 @@
               </div>
             </div>
     </div>
-    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3">
+    <div class="col-sm-2 col-md-2 pricing-column-wrapper me-3 animate__animated animate__rotateIn animate__slower-2s">
       <div class="pricing-column">
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
@@ -167,6 +167,9 @@ export default {
     },
     getConverted () {
       this.$store.dispatch('getConverted')
+    },
+    signalBtc () {
+      this.$store.dispatch('signalBtc')
     }
   },
   created () {

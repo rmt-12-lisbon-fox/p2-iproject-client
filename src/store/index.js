@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import api from '../api'
 import router from '../router'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+// import 'sweetalert2/dist/sweetalert2.min.css'
 
 Vue.use(Vuex)
 
@@ -126,12 +128,18 @@ export default new Vuex.Store({
           commit('LOGIN', data)
         })
         .catch(({ response }) => {
-          Vue.$toast.open({
-            message: `ERROR.., ${response.data.message}`,
-            position: 'top-right',
-            type: 'error',
-            duration: 7777
+          Swal.fire({
+            title: `${response.data.message}`,
+            timer: 1000,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
           })
+          // Vue.$toast.open({
+          //   message: `ERROR.., ${response.data.message}`,
+          //   position: 'top-right',
+          //   type: 'error',
+          //   duration: 7777
+          // })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
@@ -207,6 +215,37 @@ export default new Vuex.Store({
           })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    async signalBtc ({ commit }) {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const btc = await api.get('/bestbtc')
+      // .then(({ btc }) => {
+      if (await btc.data.btc === 'buy') {
+        Swal.fire({
+          title: `BTC signal: ${btc.data.btc}`,
+          text: 'Order you lambo',
+          imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image'
+        })
+      } else {
+        Swal.fire({
+          title: `BTC signal: ${btc.data.btc}`,
+          text: 'Order you ferrari',
+          imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image'
+        })
+      }
+      await Vue.$toast.clear()
+      // })
     }
   },
   modules: {

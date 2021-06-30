@@ -43,9 +43,9 @@
 <!-- Page Content -->
 <section class="py-5">
   <div class="container">
-    <h1 class="font-weight-light text-dark">Accurate signal never seen before</h1>
-    <p class="lead text-dark">Unlike all others website signal, here, provide more active orders</p>
-    <p class="lead text-dark">Change strategy and customizable</p>
+    <h1 class="font-weight-light text-dark animate__animated animate__bounce animate__repeat-2">Accurate signal never seen before</h1>
+    <p class="lead text-dark animate__animated animate__bounceInRight animate__delay-1s">Unlike all others website signal, here, provide more active orders</p>
+    <p class="lead text-dark animate__animated animate__bounceInLeft animate__delay-2s">Change strategy and customizable</p>
     <!-- <p class="lead">lorem ipsum dumet color <a href="https://unsplash.com">Unsplash</a>!</p> -->
   </div>
 </section>
