@@ -31,8 +31,12 @@ export default {
   },
   methods: {
     speechToText (message) {
+      const messageRaw = message.split(/\n| /)
+      const messageProcess = messageRaw.filter(el => {
+        return el.includes('http') === false
+      })
       const synth = window.speechSynthesis
-      const utter = new SpeechSynthesisUtterance(message)
+      const utter = new SpeechSynthesisUtterance(messageProcess.join(' '))
       // utter.text = message
       synth.speak(utter)
       // window.speechSynthesis.speak(utter)
