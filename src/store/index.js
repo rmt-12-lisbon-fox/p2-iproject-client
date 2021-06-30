@@ -12,7 +12,8 @@ export default new Vuex.Store({
     program : {},
     username : '',
     UserId : '',
-    age : ''
+    age : '',
+    schedule : []
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     AFTER_DETAIL_PROGRAM (state, payload) {
       state.program = payload
+    },
+    AFTER_FETCH_SCHEDULE (state, payload) {
+      state.schedule = payload
     }
   },
   actions: {
@@ -79,6 +83,36 @@ export default new Vuex.Store({
       })
       .catch( err => {
         console.log(err, `ini error dari detail programs`)
+      })
+    },
+    createSchedule(context, payload) {
+      axios({
+        url : `http://localhost:3000/mySchedule/`,
+        method : 'post',
+        headers : { access_token : localStorage.access_token },
+        data : { ProgramId:payload.ProgramId, intensity:payload.intensity }
+      })
+      .then( ({data}) => {
+        router.push('/')
+        console.log(data, `ini data create schedule`)
+      })
+      .catch( err=> {
+        console.log(err, `ini error create schedule`)
+      })
+    },
+    fetchSchedule(context) {
+      axios({
+        url : `https://go-exercise-server.herokuapp.com/mySchedule/`,
+        method : 'get',
+        headers : { access_token : localStorage.access_token },
+      })
+      .then( ({data}) => {
+        console.log(data, `ini fetch schedule`)
+        context.commit('AFTER_FETCH_SCHEDULE', data)
+        router.push('/schedule').catch( () => {} )
+      })
+      .catch( err => {
+        console.log(err, `ini error fetch schedule`)
       })
     }
   },

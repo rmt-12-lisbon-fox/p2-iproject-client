@@ -30,7 +30,7 @@
             </li>
 
             <li v-if="isLoggedIn" class="nav-item">
-              <a @click.prevent=""
+              <a @click.prevent="toMyPrograms"
                 class="nav-link active text-white"
                 aria-current="page"
                 href="#"
@@ -58,6 +58,9 @@ export default {
     },
     toHomePage() {
       this.$router.push('/').catch( () => {} )
+    },
+    toMyPrograms() {
+      this.$store.dispatch('fetchSchedule')
     }
   }
 }

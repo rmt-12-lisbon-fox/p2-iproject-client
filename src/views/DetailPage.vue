@@ -13,14 +13,15 @@
             <button disabled class="btn btn-warning m-4">Category : {{ program.type }} </button> 
             <br><button @click.prevent="showIntensity" class="btn btn-dark">Add to My Programs</button>
 
-            <form v-if="show" class="mt-3">
-                <label>Please choose the intentisy :</label><br>
-              <select @change.prevent="onChange($event)" class="custom-select">
-                <option value="low">Low (Today)</option>
-                <option value="moderate">Moderate (Mon,Wed,Fri)</option>
-                <option value="high">High (Mon - Fri)</option>
-              </select>
-              <button type="submit" class="btn btn primary">Confirm</button>
+            <form @submit.prevent="createSchedule(program.id)" v-if="show" class="mt-5">
+                
+                <label >Please Select The Intensity</label><br>
+              <select required v-model="intensity" class="custom-select">
+                <option v-for="(data, i) in choice" :key="i" :value="data.name">{{ data.desc }}</option>
+               
+              </select><br>
+
+              <button type="submit" class="btn btn-primary mt-3 mb-0">Confirm</button>
           </form>
 
           </div>
@@ -35,27 +36,39 @@ export default {
     data () {
       return {
         show : false,
-        intentisy : ''
+        intensity : '',
+        choice : [
+          {
+            name  : 'low',
+            desc : 'Low (Today)'
+          },
+          {
+            name  : 'moderate',
+            desc : 'Moderate (Mon,Wed,Fri)'
+          },
+          {
+            name  : 'high',
+            desc : 'High (Mon-Fri)'
+          },
+        ]
       }
     },
     computed : {
         program() {
           return this.$store.state.program
         },
-        UserId() {
-          return this.$store.state.UserId
-        }
     },
     methods : {
-      createSchedule(ProgramId, intentisy) {
-        let payload = { UserId, ProgramId, intentisy }
-        this.$store.dispatch('')
+      createSchedule(ProgramId) {
+        let intensity = this.intensity
+        let payload = { ProgramId, intensity }
+        this.$store.dispatch('createSchedule', payload)
       },
       showIntensity() {
         this.show = true
       },
       onChange(event) {
-        console.log(event.target.value)
+        this.intensity = event.target.value
       }
     },
     created () {
