@@ -4,8 +4,10 @@
       <div class="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
           <div class="text-center">
               <h1 class="text-gray-50 text-3xl font-semibold uppercase md:text-3xl">Inspire Your Design</h1>
-              <button v-if="!isLoggedIn" @click.prevent="toRegisterDesign" class="mt-4 px-4 py-2 bg-blue-600 text-white text-base
+              <button v-if="!isLoggedIn" @click.prevent="toRegisterDesign" class="mt-4 -mr-10 px-4 py-2 bg-blue-600 text-white text-base
               font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">Register as designer</button>
+              <button v-if="!isLoggedIn" @click.prevent="toRegisterCust" class="mt-4 ml-20 px-4 py-2 bg-blue-600 text-white text-base
+              font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">Register as customer</button>
           </div>
       </div>
     </div>
@@ -34,11 +36,8 @@
             <!-- Page -->
             <div class="flex justify-center">
                 <div class="flex rounded-md mt-8">
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
-                    <!-- <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>1</span></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>2</span></a>
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"><span>3</span></a> -->
-                    <a href="#" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"><span>Next</span></a>
+                    <a @click.prevent="prevPage" href="" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"><span>Previous</span></a>
+                    <a @click.prevent="nextPage" href="" class="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"><span>Next</span></a>
                 </div>
             </div>
         </div>
@@ -51,10 +50,32 @@ import Card from '../components/Card.vue'
 
 export default {
   name: 'Home',
+  data () {
+    return {
+      page: 1
+    }
+  },
   components: { Card },
   methods: {
     toRegisterDesign () {
       this.$router.push({ name: 'RegisterDesigner' }).catch(() => {})
+    },
+    toRegisterCust () {
+      this.$router.push({ name: 'RegisterCust' }).catch(() => {})
+    },
+    prevPage () {
+      this.page--
+      const url = `page=${this.page}&size=4`
+
+      this.$store.commit('QUERY', url)
+      this.$store.dispatch('getAllDesigns')
+    },
+    nextPage () {
+      this.page++
+      const url = `page=${this.page}&size=4`
+
+      this.$store.commit('QUERY', url)
+      this.$store.dispatch('getAllDesigns')
     }
   },
   computed: {

@@ -13,7 +13,9 @@ export default new Vuex.Store({
     isCustomer: false,
     myDesigns: null,
     bookmarks: null,
-    categories: null
+    categories: null,
+    isBookmarkPage: false,
+    query: ''
   },
   mutations: {
     GETALLDESIGNS (state, data) {
@@ -30,6 +32,9 @@ export default new Vuex.Store({
     },
     CATEGORIES (state, data) {
       state.categories = data
+    },
+    QUERY (state, url) {
+      state.query = url
     },
     LOGIN (state, data) {
       localStorage.setItem('access_token', data.access_token)
@@ -51,12 +56,20 @@ export default new Vuex.Store({
     },
     ISCUSTOMER (state) {
       state.isCustomer = true
+    },
+    ISBOOKMARKPAGE (state) {
+      state.isBookmarkPage = true
+    },
+    NOTBOOKMARKPAGE (state) {
+      state.isBookmarkPage = false
     }
   },
   actions: {
     getAllDesigns (context) {
+      const query = context.state.query
+
       axios({
-        url: '/',
+        url: `/?${query}`,
         method: 'get'
       })
         .then((result) => {
@@ -73,7 +86,6 @@ export default new Vuex.Store({
       })
         .then((result) => {
           context.commit('GETONEDESIGN', result.data)
-          router.push({ path: `/detail-page/${result.data.id}` }).catch(() => {})
         })
         .catch((err) => {
           console.log(err.response)
@@ -209,7 +221,79 @@ export default new Vuex.Store({
         processData: false
       })
         .then((result) => {
+          context.dispatch('getAllDesigns')
+          router.push({ name: 'MyDesign' }).catch(() => {})
           console.log(result.data)
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    editDesign (context, input) {
+      const name = input.name
+      const description = input.description
+      const DesignImage = []
+      const image1 = input.image1
+      const image2 = input.image2
+      const image3 = input.image3
+      const CategoriesId = input.CategoriesId
+      DesignImage.push(input.files[0], input.files[1], input.files[2])
+
+      const data = new FormData()
+      data.append('name', name)
+      data.append('description', description)
+      data.append('image1', image1)
+      data.append('image2', image2)
+      data.append('image3', image3)
+      data.append('DesignImage', DesignImage[0])
+      data.append('DesignImage', DesignImage[1])
+      data.append('DesignImage', DesignImage[2])
+      data.append('CategoriesId', CategoriesId)
+
+      axios({
+        url: `/${input.id}`,
+        method: 'put',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: data,
+        contentType: false,
+        processData: false
+      })
+        .then((result) => {
+          context.dispatch('getAllDesigns')
+          router.push({ name: 'MyDesign' }).catch(() => {})
+          console.log(result.data)
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    deleteDesign (context, id) {
+      axios({
+        url: `/${id}`,
+        method: 'delete',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+          context.dispatch('myDesign')
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    deleteBookmark (context, id) {
+      axios({
+        url: `/bookmark/${id}`,
+        method: 'delete',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+          context.dispatch('getAllBookmark')
         })
         .catch((err) => {
           console.log(err.response)

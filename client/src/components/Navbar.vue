@@ -69,9 +69,14 @@ export default {
       this.$router.push({ name: 'RegisterCust' }).catch(() => {})
     },
     toHome () {
+      const url = 'page=1&size=4'
+      this.$store.commit('NOTBOOKMARKPAGE')
+      this.$store.commit('QUERY', url)
+      this.$store.dispatch('getAllDesigns')
       this.$router.push({ name: 'Home' }).catch(() => {})
     },
     logout () {
+      this.$store.commit('NOTBOOKMARKPAGE')
       this.$store.commit('LOGOUT')
     },
     toMyDesign () {

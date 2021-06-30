@@ -24,12 +24,12 @@
                             <input required @change="onFileChange" ref="myFiles" multiple type="file" id="imageUrl" name="imageUrl" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
                       </div>
                       <div class="mb-6">
-                            <label for="imageUrl" class="text-sm text-gray-600 dark:text-gray-400">Picture 2<span style="color:#ff0000">*</span></label>
-                            <input required @change="onFileChange2" ref="myFiles" multiple type="file" id="imageUrl" name="imageUrl" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
+                            <label for="imageUrl" class="text-sm text-gray-600 dark:text-gray-400">Picture 2</label>
+                            <input @change="onFileChange2" ref="myFiles" multiple type="file" id="imageUrl" name="imageUrl" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
                       </div>
                       <div class="mb-6">
-                            <label for="imageUrl" class="text-sm text-gray-600 dark:text-gray-400">Picture 3<span style="color:#ff0000">*</span></label>
-                            <input required @change="onFileChange3" ref="myFiles" multiple type="file" id="imageUrl" name="imageUrl" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
+                            <label for="imageUrl" class="text-sm text-gray-600 dark:text-gray-400">Picture 3</label>
+                            <input @change="onFileChange3" ref="myFiles" multiple type="file" id="imageUrl" name="imageUrl" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500">
                       </div>
                       <div class="mb-6">
                         <label for="category" class="text-sm text-gray-600 dark:text-gray-400">Category<span style="color:#ff0000">*</span></label>

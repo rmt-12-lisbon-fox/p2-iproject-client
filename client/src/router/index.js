@@ -8,6 +8,7 @@ import RegisterDesigner from '../views/RegisterDesigner.vue'
 import MyDesign from '../views/MyDesign.vue'
 import Bookmark from '../views/Bookmark.vue'
 import AddDesign from '../views/AddDesign.vue'
+import EditDesign from '../views/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/add-design',
     name: 'AddDesign',
     component: AddDesign
+  },
+  {
+    path: '/edit-design/:id',
+    name: 'EditDesign',
+    component: EditDesign
   }
 ]
 

@@ -30,6 +30,7 @@ export default {
       this.$store.dispatch('myDesign')
     },
     toDetailPage (id) {
+      this.$router.push({ path: `/detail-page/${id}` }).catch(() => {})
       this.$store.dispatch('getOneDesign', id)
     }
   },

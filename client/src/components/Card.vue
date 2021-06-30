@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     toDetailPage (id) {
+      this.$router.push({ path: `/detail-page/${id}` }).catch(() => {})
       this.$store.dispatch('getOneDesign', id)
     }
   }
