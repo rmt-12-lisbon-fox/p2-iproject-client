@@ -33,9 +33,9 @@ export default {
 }
 
 body {
-  background-image: linear-gradient(315deg, #4dc7f7 10%, #9d00d6 100%);
+  /* background-image: linear-gradient(315deg, #458fac 10%, #9d00d6 100%); */
   /* background-image: linear-gradient(135deg, #330867 10% #3ed8d8 100%); */
-  /* background-image: linear-gradient(205deg, #3b1965 10%, #9708CC 100%); */
+  background-image: linear-gradient(205deg, #3b1965 10%, #9708CC 100%);
   min-height: 56rem;
   margin: 0%;
 }

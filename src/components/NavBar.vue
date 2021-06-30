@@ -8,8 +8,8 @@
         </div>
         
 
-        <form class="d-flex mx-5 align-items-center">
-            <input class="form-control col-6 mx-4" type="search" placeholder="Search anime title.." aria-label="Search">
+        <form class="d-flex mx-5 align-items-center" @submit.prevent="searchAnime">
+            <input class="form-control col-6 mx-4" type="search" placeholder="Search anime title.." aria-label="Search" v-model="q">
             <!-- <button class='btn btn-sm' type="submit"> -->
                 <span class="material-icons md-light" type="submit">search</span>
             <!-- </button> -->
@@ -39,7 +39,19 @@
 
 <script>
 export default {
-    name: 'NavBar'
+    name: 'NavBar',
+    data() {
+      return {
+        q: ""
+      }
+    },
+    methods: {
+      searchAnime() {
+        let payload = {q: this.q}
+        // console.log(payload);
+        this.$store.dispatch('searchAnime', payload)
+      }
+    }
 }
 </script>
 

@@ -14,16 +14,20 @@ export default new Vuex.Store({
     animeVideos: []
   },
   mutations: {
-
+    SEARCH_ANIME (state, payload) {
+      state.animeSearch = payload
+    }
   },
   actions: {
     // Upcoming Anime
     upcomingAnime(context, payload) {
       axios({
-        url: '/upcoming'
+        url: '/anime/upcoming',
+        method: 'get'
       })
       .then(({data}) => {
-        console.log(data);
+        let upcoming = data.anime.filter((el, i) => i <= 11)
+        console.log(upcoming);
       })
       .catch(err => {
         swal.fire("error", '', 'error')
@@ -33,14 +37,21 @@ export default new Vuex.Store({
     // Search Anime
     searchAnime(context, payload) {
       // payload with q parameter
+      // console.log(payload);
       axios({
-        url: '/search',
+        url: '/anime/search',
+        method: 'post',
         data: payload
       })
       .then(({data}) => {
-        console.log(data);
+        // console.log(data);
+        // let results = data.results.filter((el, i) => i <= 11)
+        context.commit('SEARCH_ANIME', results)
+
+        router.push('/search').catch(() => {})
       })
       .catch(err => {
+        console.log(err.response);
         swal.fire("error", '', 'error')
       })
     },
@@ -49,7 +60,8 @@ export default new Vuex.Store({
     infoAnime(context, payload) {
       let {mal_id} = payload
       axios({
-        url: `/info/${mal_id}`
+        url: `/anime/info/${mal_id}`,
+        method: 'get'
       })
       .then(({data}) => {
         console.log(data);
@@ -63,7 +75,8 @@ export default new Vuex.Store({
     searchAnimeVideos(context, payload) {
       // let {keyword} = payload
       axios({
-        url: `/videos`,
+        url: `/anime/videos`,
+        method: 'get',
         data: payload
       })
       .then(({data}) => {
@@ -78,7 +91,8 @@ export default new Vuex.Store({
     detailAnimeVideos(context, payload) {
       // let {keyword} = payload
       axios({
-        url: `/videos`,
+        url: `/anime/videos`,
+        method: 'get',
         data: payload
       })
       .then(({data}) => {
