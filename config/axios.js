@@ -1,5 +1,5 @@
 const axios = require('axios')
 
-const Axios = axios.create({ baseURL: 'http://localhost:3000' })
+const Axios = axios.create({ baseURL: 'https://healing-app.herokuapp.com' })
 
 export default Axios
