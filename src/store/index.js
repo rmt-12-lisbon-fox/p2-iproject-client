@@ -228,7 +228,7 @@ export default new Vuex.Store({
       if (await btc.data.btc === 'buy') {
         Swal.fire({
           title: `BTC signal: ${btc.data.btc}`,
-          text: 'Order you lambo',
+          text: 'Order your lambo',
           imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
           imageWidth: 400,
           imageHeight: 200,
@@ -237,7 +237,7 @@ export default new Vuex.Store({
       } else {
         Swal.fire({
           title: `BTC signal: ${btc.data.btc}`,
-          text: 'Order you ferrari',
+          text: 'Order your ferrari',
           imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
           imageWidth: 800,
           imageHeight: 400,
