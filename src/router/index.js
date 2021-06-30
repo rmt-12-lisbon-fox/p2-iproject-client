@@ -44,6 +44,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "MyComment" */ '../views/MyComment.vue')
   },
   {
+    path: '/editReview/:id',
+    name: 'EditReview',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "EditReview" */ '../views/EditReview.vue')
+  },
+  {
     path: '/films',
     name: 'Films',
     // route level code-splitting
@@ -58,6 +66,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "Films" */ '../views/EditProfile.vue')
+  },
+  {
+    path: '/review',
+    name: 'Review',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "Review" */ '../views/ReviewForm.vue')
   }
 ]
 
@@ -80,6 +96,8 @@ router.beforeEach((to, from, next) => {
     next({ path: '/login' });
   }else if (to.path === '/editProfile' && !store.state.isEdit) {
     next({ path: '/profile' });
+  }else if (to.path === '/review' && !store.state.isReview) {
+    next({ path: '/films' });
   }else {
     next();
   }

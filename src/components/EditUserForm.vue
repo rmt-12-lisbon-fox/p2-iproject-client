@@ -21,7 +21,7 @@
             <button  type="submit" class="transition duration-500 ease-in-out transform hover:scale-110 w-2/4 flex justify-center py-2 bg-secondary text-white rounded-md focus:outline-none">SUBMIT</button>
         </div>
         <div class="flex justify-center">
-            <router-link to="/profile" class="transition duration-500 ease-in-out transform hover:scale-110 w-2/4 flex justify-center py-2 bg-primary text-white rounded-md focus:outline-none">
+            <router-link to="/profile" @click.native="toProfile" class="transition duration-500 ease-in-out transform hover:scale-110 w-2/4 flex justify-center py-2 bg-primary text-white rounded-md focus:outline-none">
                 BACK
             </router-link>
         </div>
@@ -44,6 +44,9 @@ export default {
         getFiles(event) {
             this.data.imageUrl = event.target.files[0];
         },
+        toProfile() {
+            this.$store.commit('NOT_EDIT_PROFILE');
+        }
     },
     created() {
         this.image = this.data.imageUrl;

@@ -1,0 +1,48 @@
+<template>
+    <div class="relative w-1/2 h-full flex bg-primary rounded-lg shadow-lg">
+        <div>
+            <img :src="review.User.imageUrl" class="object-cover h-60 w-56 rounded-lg">
+        </div>
+        <div class="w-1/2 px-5 py-5 flex flex-col justify-start space-y-3">
+            <div>
+                <h5 class="text-base text-third font-medium">{{ review.User.email }}</h5>
+            </div>
+            <div>
+                <h3 class="text-xl text-white font-semibold">Title</h3>
+                <h5 class="text-base text-fourth font-medium">{{ review.title }}</h5>
+            </div>
+            <div>
+                <h4 class="text-base text-white font-semibold">Comment</h4>
+                <h5 class="break-words text-sm text-fourth font-medium overflow-y-auto h-16">{{ review.comment }}</h5>
+            </div>
+        </div>
+        <div class="absolute bottom-0 right-0 mr-3 mb-3">
+            <button v-if="isMine" @click="update(review.id)" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md  focus:outline-none">Edit</button>
+            <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md hover:bg-third hover:text-black focus:outline-none">Share</button>
+        </div>
+        <div v-if="isMine" class="absolute bottom-0 right-0 mr-20 mb-3">
+            <button class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Delete</button>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name: 'ReviewItem',
+    props: ['review'],
+    methods: {
+        update(id) {
+            this.$router.push({ path: `/editReview/${id}`});
+        }
+    },
+    computed: mapState([
+        'isMine'
+    ])
+}
+</script>
+
+<style>
+
+</style>

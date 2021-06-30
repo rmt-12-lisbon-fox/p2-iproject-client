@@ -9,7 +9,12 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     isEdit: false,
-    user: {}
+    isReview: false,
+    isMine: false,
+    user: {},
+    films: {},
+    reviews: [],
+    titleFilm: 'default'
   },
   mutations: {
     LOGIN (state) {
@@ -26,6 +31,28 @@ export default new Vuex.Store({
     },
     USER_INFO (state, data) {
       state.user = data;
+    },
+    FILMS (state, data) {
+      state.films = data;
+    },
+    REVIEW (state) {
+      state.isReview = true;
+      router.push({ path: '/review' })
+    },
+    NO_REVIEW (state) {
+      state.isReview = false;
+    },
+    TITLE_FILM (state, title) {
+      state.titleFilm = title;
+    },
+    LIST_OF_REVIEW (state, data) {
+      state.reviews = data;
+    },
+    IS_MINE (state) {
+      state.isMine = true;
+    },
+    NOT_IS_MINE (state) {
+      state.isMine = false;
     }
   },
   actions: {
@@ -150,11 +177,100 @@ export default new Vuex.Store({
           title: 'Update profile is successfull'
         });
         router.push({ path: '/profile' });
+        commit('NOT_EDIT_PROFILE');
       } catch (err) {
         let stringError = err.response.data.message;
         Vue.swal({
             icon: 'error',
             title: 'Register was failed',
+            text: stringError 
+         });
+      }
+    },
+    async getFilms({ commit }, page) {
+      try {
+        let result = await backEndAPI({
+          url: '/films',
+          method: 'GET',
+          params: {
+            page
+          },
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        commit('FILMS', result.data);
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getFilms was failed',
+            text: stringError 
+         });
+      }
+    },
+    async createReview(context, data) {
+      try {
+        let result = await backEndAPI({
+          url: '/reviews',
+          method: 'POST',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: { ...data }
+        })
+        Vue.swal({
+          icon: 'success',
+          title: 'Review is successfull'
+        });
+        router.push({ path: '/' });
+        commit('NO_REVIEW');
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'Review was failed',
+            text: stringError 
+         });
+      }
+    },
+    async listOfReview({  commit }) {
+      try {
+        let result = await backEndAPI({
+          url: '/reviews',
+          method: 'GET',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+        commit('LIST_OF_REVIEW', result.data.rows);
+        commit('NOT_IS_MINE');
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getListOfReview was failed',
+            text: stringError 
+         });
+      }
+    },
+    async listOfReviewByUser({ commit }) {
+      try {
+        let result = await backEndAPI({
+          url: '/reviews/findByUserId',
+          method: 'GET',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+        commit('IS_MINE');
+        console.log(result.data)
+        commit('LIST_OF_REVIEW', result.data);
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getListOfReviewByUser was failed',
             text: stringError 
          });
       }
