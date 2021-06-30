@@ -22,36 +22,34 @@
                   </select>
                 </div>
                 <div class="col-3 text-center">
-                  <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#form-email">
-                    Send result to my email
-                  </button>
-                  <!-- Modal -->
-                  <div class="modal fade text-start" id="form-email" tabindex="-1">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="form-email-label">Send result to my email</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div>
+                    <b-button id="show-btn" class="btn-sm" variant="primary" @click="$bvModal.show('form-modal')">Send Result to Email</b-button>
+
+                    <b-modal id="form-modal" hide-footer>
+                      <template #modal-title>
+                        Send Result to Email
+                      </template>
+                      <form v-on:submit.prevent="sendEmail">
+                        <div class="container mb-3">
+                          <label for="email" class="form-label">Email:</label>
+                          <input type="email" id="email"
+                            class="form-control"
+                            v-model="email"
+                          >
                         </div>
-                        <div class="modal-body">
-                          <form>
-                            <div class="mb-3">
-                              <label for="email" class="col-form-label">Email:</label>
-                              <input type="email" class="form-control" id="email"
-                                v-model="email"
-                              >
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary">Submit</button>
-                            </div>
-                          </form>
+                        <div class="modal-footer">
+                          <b-button type="submit" class="mt-3" variant="primary" block @click="$bvModal.hide('form-modal')">Submit</b-button>
                         </div>
-                      </div>
-                    </div>
+                      </form>
+                    </b-modal>
                   </div>
                 </div>
                 <div class="col text-center">
-                  <button class="btn btn-primary btn-sm">Table Guide</button>
+                  <button class="btn btn-primary btn-sm">
+                    <router-link to="/guide" target="_blank"  style="text-decoration: none; color: inherit;">
+                      Table Guide
+                    </router-link>
+                  </button>
                 </div>
               </div>
                 <h6>Lat: {{ coordinates.lat }}, Long: {{ coordinates.long }}</h6>
@@ -126,6 +124,19 @@ export default {
     return {
       filterType: 'All',
       email: ''
+    }
+  },
+  methods: {
+    sendEmail () {
+      console.log('masuk')
+      const payload = {
+        email: this.email,
+        city: this.result.city,
+        data: this.result.data,
+        lat: this.result.latitude,
+        long: this.result.longitude
+      }
+      this.$store.dispatch('sendEmail', payload)
     }
   },
   computed: {

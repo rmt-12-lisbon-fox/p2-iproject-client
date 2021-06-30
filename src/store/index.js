@@ -102,6 +102,23 @@ export default new Vuex.Store({
         /* geolocation IS NOT available  */
         console.log('geolocation IS NOT available on your browser')
       }
+    },
+
+    sendEmail (context, payload) {
+      console.log('masuk axios')
+      axios({
+        url: 'http://localhost:3000/email',
+        method: 'post',
+        data: payload
+      })
+        .then(() => {
+          console.log('email sent!')
+          router.push('/result')
+            .catch(() => {})
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   getters: {
