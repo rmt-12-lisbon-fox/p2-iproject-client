@@ -14,6 +14,9 @@ export default new Vuex.Store({
     translate: {
       resultTextInd: "",
       resultTextEng: ""
+    },
+    challenge: {
+      data: []
     }
   },
   mutations: {
@@ -29,6 +32,9 @@ export default new Vuex.Store({
     TRANSLATE_TEXT(state, payload) {
       state.translate.resultTextInd = payload.resultTextInd;
       state.translate.resultTextEng = payload.resultTextEng;
+    },
+    GAMES_PAGE(state, payload) {
+      state.user.fullName = payload;
     }
   },
   actions: {
@@ -105,6 +111,10 @@ export default new Vuex.Store({
     toHomePage(context, payload) {
       context.commit("HOME_PAGE", localStorage.name);
       router.push({ path: "/" }).catch(() => {});
+    },
+    toGamesPage(context, payload) {
+      context.commit("GAMES_PAGE", localStorage.name);
+      router.push({ path: "/games" }).catch(() => {});
     }
   },
   modules: {}
