@@ -40,7 +40,7 @@
               </li>
               <router-link to='/dashboard'>
               <li v-if='isLoggedIn && isAdmin' class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link active" aria-current="page" aria-expanded="false" href="#">
                     <span style="font-size: 1rem; color: grey;">
                         <i class='fas fa-user-cog fs-5 text-gray-600' data-bs-toggle="tooltip" data-bs-placement="bottom"
                         title="Edit My Profile"></i>
@@ -81,7 +81,7 @@
     </div>
 
     <!-- NEWS SLIDER -->
-    <Slider v-if='isLoggedIn'
+    <Slider v-if='isLoggedIn && slider'
       animation="fade"
       v-model="sliderValue"
       :duration="5000"
@@ -132,6 +132,9 @@ export default {
     }
   },
   computed: {
+    slider() {
+      return this.$store.state.slider
+    },
     home() {
       return this.$store.state.home
     },
@@ -143,7 +146,10 @@ export default {
     },
     isLoggedIn () {
       return this.$store.state.isLoggedIn
-    }
+    },
+    isAdmin() {
+      return this.$store.state.isAdmin
+    },
   },
   methods: {
     toLogin() {
@@ -158,6 +164,7 @@ export default {
     addReview() {
       if (this.isLoggedIn) {
         router.push({ path: `/add-review#add-review`})
+        this.$store.commit('SLIDERTOGGLE', true)
       } else {
         this.$store.commit('TOLOGINPAGE')
         Vue.$toast.error('Register / login to write a new review')
@@ -168,6 +175,7 @@ export default {
   created() {
     this.$store.dispatch('getnews')
     this.list = this.news
+    this.$store.commit('POSTLOGINDETAILS')
   },
   mounted() {
     setTimeout(

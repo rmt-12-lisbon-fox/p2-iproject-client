@@ -10,6 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
+    slider: true,
     isAdmin: false,
     login: false,
     home: true,
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     review: {},
     translation: '',
     investors: [],
+    allinvestors: [],
     activationMessage: ''
   },
   mutations: {
@@ -38,11 +40,14 @@ export default new Vuex.Store({
       state.user.id = localStorage.id
       state.user.email = localStorage.email
       state.user.profilePic = localStorage.profilePic
-      if (localStorage.admin_status == true) {
+      if (localStorage.admin_status == 'true') {
         state.isAdmin = true
       } else {
         state.isAdmin = false
       }
+    },
+    SLIDERTOGGLE(state, payload) {
+      state.slider = payload
     },
     ISLOGGEDIN(state, payload) {
       state.isLoggedIn = payload
@@ -87,6 +92,9 @@ export default new Vuex.Store({
     },
     SAVEINVESTORS(state, payload) {
       state.investors = payload
+    },
+    SAVEALLINVESTORS(state, payload) {
+      state.allinvestors = payload
     },
     ACTIVATEACCOUNT(state, payload) {
       console.log('MASUKKKKKKKKKKKKKKKKK', payload)
@@ -332,6 +340,22 @@ export default new Vuex.Store({
         Vue.$toast.error(err.response.data.message)
       })
     },
+    fetchAllInvestors({commit}) {
+      axios({
+        url: `${rootUrl}/investors/all`,
+        method: 'get',
+        headers: {
+          accessToken: localStorage.accessToken
+        }
+      })
+      .then(data => {
+        commit('SAVEALLINVESTORS', data.data)
+      })
+      .catch(err => {
+        console.log('Error:', err)
+        Vue.$toast.error(err.response.data.message)
+      })
+    },
     addReview({commit}, payload) {
       let review = payload
       axios({
@@ -394,6 +418,32 @@ export default new Vuex.Store({
         console.log(data.data)
         Vue.$toast.success('Thank you! You will be notified via Whatsapp when the investor has been verified.')
         router.push({ path: `/`})
+      })
+      .catch(err => {
+        console.log('Error:', err)
+        if (Array.isArray(err.response.data.message)) {
+          for (let i = 0; i < err.response.data.message.length; i++) {
+            Vue.$toast.error(err.response.data.message[i])            
+          }
+        } else {
+          Vue.$toast.error(err.response.data.message)
+        }
+      })
+    },
+    verifyInvestor({dispatch}, payload) {
+      let investorId = +payload
+      axios({
+        url: `${rootUrl}/investors/verify/${investorId}`,
+        method: 'patch',
+        headers: {
+          accessToken: localStorage.accessToken
+        }
+      })
+      .then(data => {
+        console.log(data.data)
+        Vue.$toast.success(data.data.message)
+        dispatch('fetchAllInvestors')
+        router.push({ path: `/dashboard`}).catch(()=>{})
       })
       .catch(err => {
         console.log('Error:', err)

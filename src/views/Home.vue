@@ -3,7 +3,8 @@
     <section id="home" class='subBody'>
 
     <!-- REVIEWS -->
-    <div tyle='padding-top:20px; padding-left:5%; padding-right: 5px;'>
+    <div tyle='padding-top:20px; padding-le
+    t:5%; padding-right: 5px;'>
 
         <h1 style='color:black; text-shadow: 2px 2px 4px #868686'>All Reviews</h1><br>
         <h5 style='color:darkslategray'>{{`${totalReview} reviews from ${totalFounder} founder`}}s</h5><br>
@@ -54,6 +55,7 @@ export default {
   },
   created() {
       this.$store.dispatch('getReviews')
+      this.$store.commit('SLIDERTOGGLE', true)
   },
   updated() {
       this.totalReviewCount()
