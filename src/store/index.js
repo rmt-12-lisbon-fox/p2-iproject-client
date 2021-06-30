@@ -17,7 +17,22 @@ export default new Vuex.Store({
     converteth: '',
     convertltc: '',
     convertdoge: '',
-    convertxrp: ''
+    convertxrp: '',
+    xrplow: '',
+    xrphigh: '',
+    xrplast: '',
+    dogelow: '',
+    dogehigh: '',
+    dogelast: '',
+    ltclow: '',
+    ltchigh: '',
+    ltclast: '',
+    ethlow: '',
+    ethhigh: '',
+    ethlast: '',
+    btclow: '',
+    btchigh: '',
+    btclast: ''
   },
   mutations: {
     LOGIN (state, payload) {
@@ -69,6 +84,21 @@ export default new Vuex.Store({
     },
     GET_MARKET (state, payload) {
       state.market = payload
+      state.xrplow = +payload.xrp.low
+      state.xrphigh = +payload.xrp.high
+      state.xrplast = +payload.xrp.last
+      state.dogelow = +payload.doge.low
+      state.dogehigh = +payload.doge.high
+      state.dogelast = +payload.doge.last
+      state.ltclow = +payload.ltc.low
+      state.ltchigh = +payload.ltc.high
+      state.ltclast = +payload.ltc.last
+      state.ethlow = +payload.eth.low
+      state.ethhigh = +payload.eth.high
+      state.ethlast = +payload.eth.last
+      state.btclow = +payload.btc.low
+      state.btchigh = +payload.btc.high
+      state.btclast = +payload.btc.last
     },
     GET_CONVERTED (state, payload) {
       state.converted = payload
