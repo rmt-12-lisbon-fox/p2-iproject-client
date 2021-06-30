@@ -39,6 +39,9 @@ export default new Vuex.Store({
     SELECT_CHALLENGE(state, payload) {
       state.challenge.data = payload.data;
       state.challenge.access_token = payload.access_token;
+    },
+    BACK_GAMES(state, payload) {
+      state.challenge.data = [];
     }
   },
   actions: {
@@ -175,6 +178,9 @@ export default new Vuex.Store({
             text: error.response.data.message
           });
         });
+    },
+    backGames(context, payload) {
+      context.commit("BACK_GAMES");
     }
   },
   modules: {}
