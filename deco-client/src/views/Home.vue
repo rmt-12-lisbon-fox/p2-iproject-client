@@ -9,8 +9,6 @@
     </div>
     <div class="border-chat">
       <div class="conversation-section" v-chat-scroll >
-        <!-- <chatbot-answer></chatbot-answer>
-        <user-answer></user-answer> -->
         <answer v-for="(data, index) in messages" :key="index" :data="data"></answer>
       </div>
       <div class="type-section">
@@ -27,8 +25,6 @@
 </template>
 
 <script>
-// import ChatbotAnswer from '../components/ChatbotAnswer.vue'
-// import UserAnswer from '../components/UserAnswer.vue'
 import Answer from '../components/Answer.vue'
 export default {
   name: 'Home',
