@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '../api'
 import router from '../router'
-// import axios from 'axios'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+// import 'sweetalert2/dist/sweetalert2.min.css'
 
 Vue.use(Vuex)
 
@@ -10,7 +12,29 @@ export default new Vuex.Store({
   state: {
     userInfo: {},
     isLogin: false,
-    activePage: '/'
+    activePage: '/',
+    market: {},
+    converted: {},
+    convertbtc: '',
+    converteth: '',
+    convertltc: '',
+    convertdoge: '',
+    convertxrp: '',
+    xrplow: '',
+    xrphigh: '',
+    xrplast: '',
+    dogelow: '',
+    dogehigh: '',
+    dogelast: '',
+    ltclow: '',
+    ltchigh: '',
+    ltclast: '',
+    ethlow: '',
+    ethhigh: '',
+    ethlast: '',
+    btclow: '',
+    btchigh: '',
+    btclast: ''
   },
   mutations: {
     LOGIN (state, payload) {
@@ -54,11 +78,40 @@ export default new Vuex.Store({
     LOGOUT (state) {
       state.isLogin = false
       localStorage.clear()
-      this.$router.push('/').catch(() => {})
+      router.push('/').catch(() => {})
       state.activePage = '/'
     },
     ACTIVE_PAGE (state, payload) {
       state.activePage = payload
+    },
+    GET_MARKET (state, payload) {
+      state.market = payload
+      state.xrplow = +payload.xrp.low
+      state.xrphigh = +payload.xrp.high
+      state.xrplast = +payload.xrp.last
+      state.dogelow = +payload.doge.low
+      state.dogehigh = +payload.doge.high
+      state.dogelast = +payload.doge.last
+      state.ltclow = +payload.ltc.low
+      state.ltchigh = +payload.ltc.high
+      state.ltclast = +payload.ltc.last
+      state.ethlow = +payload.eth.low
+      state.ethhigh = +payload.eth.high
+      state.ethlast = +payload.eth.last
+      state.btclow = +payload.btc.low
+      state.btchigh = +payload.btc.high
+      state.btclast = +payload.btc.last
+    },
+    GET_CONVERTED (state, payload) {
+      state.converted = payload
+      state.convertbtc = payload[1].converted_last.btc
+      state.converteth = payload[3].converted_last.btc
+      state.convertltc = payload[25].converted_last.btc
+      state.convertdoge = payload[11].converted_last.btc
+      state.convertxrp = payload[9].converted_last.btc
+    },
+    ISLOGIN (state) {
+      state.isLogin = true
     }
   },
   actions: {
@@ -75,12 +128,18 @@ export default new Vuex.Store({
           commit('LOGIN', data)
         })
         .catch(({ response }) => {
-          Vue.$toast.open({
-            message: `ERROR.., ${response.data.message}`,
-            position: 'top-right',
-            type: 'error',
-            duration: 7777
+          Swal.fire({
+            title: `${response.data.message}`,
+            timer: 1000,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
           })
+          // Vue.$toast.open({
+          //   message: `ERROR.., ${response.data.message}`,
+          //   position: 'top-right',
+          //   type: 'error',
+          //   duration: 7777
+          // })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
@@ -106,6 +165,221 @@ export default new Vuex.Store({
           })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    getMarket ({ commit }) {
+      Vue.$toast.open({
+        message: 'please wait.. fetching data',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      api.get('/market')
+        .then(({ data }) => {
+          commit('GET_MARKET', data)
+        })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    getConverted ({ commit }) {
+      Vue.$toast.open({
+        message: 'please wait.. ',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      axios({
+        method: 'GET',
+        url: 'https://coingecko.p.rapidapi.com/exchanges/binance',
+        headers: {
+          'x-rapidapi-key': process.env.VUE_APP_KEY,
+          // 'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
+          'x-rapidapi-host': 'coingecko.p.rapidapi.com'
+        }
+      })
+        .then(({ data }) => {
+          commit('GET_CONVERTED', data.tickers)
+        })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    async signalBtc () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const btc = await api.get('/bestbtc')
+      // .then(({ btc }) => {
+      if (await btc.data.btc === 'buy') {
+        Swal.fire({
+          title: `BTC signal: ${btc.data.btc}`,
+          text: 'Order your lambo',
+          imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      } else {
+        Swal.fire({
+          title: `BTC signal: ${btc.data.btc}`,
+          text: 'Order your ferrari',
+          imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalEth () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const eth = await api.get('/besteth')
+      // .then(({ eth }) => {
+      if (await eth.data.eth === 'buy') {
+        Swal.fire({
+          title: `ETH signal: ${eth.data.eth}`,
+          text: 'Order your yacht',
+          imageUrl: 'https://static2.yachtico.com/sites/default/files/imagecache/500-375/boat_pic/1/luxury_yachts-technema_95-5-2006-164356-picture-001.jpg',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInLeft' }
+        })
+      } else {
+        Swal.fire({
+          title: `ETH signal: ${eth.data.eth}`,
+          text: 'order your private jet',
+          imageUrl: 'https://www.bankrate.com/2017/07/20155935/sky-high-the-cost-of-a-private-jet.jpg?auto=webp&optimize=high&crop=16:9',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInLeft' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalLtc () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const ltc = await api.get('/bestltc')
+      // .then(({ ltc }) => {
+      if (await ltc.data.ltc === 'buy') {
+        Swal.fire({
+          title: `LTC signal: ${ltc.data.ltc}`,
+          text: 'Order your villa',
+          imageUrl: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/06/30/1561913398748-1dcbb06ae2f0224cbb4f0235f74934d3.jpeg?tr=q-75,w-439,h-294',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      } else {
+        Swal.fire({
+          title: `LTC signal: ${ltc.data.ltc}`,
+          text: 'order your private helicopter',
+          imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4RBNXpNtBBidG5iHHbobCfZhySQ5a1z331w&usqp=CAU',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalDoge () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const doge = await api.get('/bestdoge')
+      // .then(({ doge }) => {
+      if (await doge.data.doge === 'buy') {
+        Swal.fire({
+          title: `DOGE signal: ${doge.data.doge}`,
+          text: 'Order your yacht',
+          imageUrl: 'https://static2.yachtico.com/sites/default/files/imagecache/500-375/boat_pic/1/luxury_yachts-technema_95-5-2006-164356-picture-001.jpg',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInRight' }
+        })
+      } else {
+        Swal.fire({
+          title: `DOGE signal: ${doge.data.doge}`,
+          text: 'order your private jet',
+          imageUrl: 'https://www.bankrate.com/2017/07/20155935/sky-high-the-cost-of-a-private-jet.jpg?auto=webp&optimize=high&crop=16:9',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInRight' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalXrp () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const xrp = await api.get('/bestxrp')
+      // .then(({ xrp }) => {
+      if (await xrp.data.xrp === 'buy') {
+        Swal.fire({
+          title: `XRP signal: ${xrp.data.xrp}`,
+          text: 'Order your lambo',
+          imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      } else {
+        Swal.fire({
+          title: `XRP signal: ${xrp.data.xrp}`,
+          text: 'Order your ferrari',
+          imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
     }
   },
   modules: {
