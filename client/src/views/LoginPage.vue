@@ -28,13 +28,11 @@
       <div class="row mb-3">
         <div class="col"></div>
         <div class="col">
+        </div>
+        <div class="col">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col">
-          <p>Or</p>
-        </div>
-        <div class="col">
-          <button type="submit" class="btn btn-primary">Steam</button>
         </div>
         <div class="col"></div>
       </div>
@@ -61,7 +59,6 @@ export default {
         username: this.username,
         password: this.password
       }
-      // console.log(data, 'masuk login handler')
       this.$store.dispatch('loginHandler', data)
     }
   }

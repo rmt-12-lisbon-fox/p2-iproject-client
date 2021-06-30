@@ -2,15 +2,20 @@
   <div id="app">
     <nav-bar/>
     <router-view/>
-    <Footer/>
+    <HFooter class="fixed-bottom"/>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
-import Footer from './components/Footer.vue'
+import HFooter from 'vue-hacktiv8-footer'
 export default {
   name: 'app',
-  components: { NavBar, Footer }
+  components: { NavBar, HFooter },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.commit('LOGIN_FLAG', true)
+    }
+  }
 }
 </script>

@@ -1,32 +1,26 @@
 <template>
-  <div class="home">
-    <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div> -->
+  <div class="row d-flex justify-content-evenly" style="padding-bottom: 100px">
+    <home-video v-for="(el, i) in allVideos" :key='i' :el='el' />
   </div>
 </template>
 
 <script>
-
+import HomeVideo from '../components/HomeVideo.vue'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { HomeVideo },
+  computed: {
+    allVideos () {
+      return this.$store.state.popularVideo
+    }
+  },
+  methods: {
+    fetchAllVideos () {
+      this.$store.dispatch('getPopularVideo')
+    }
+  },
+  created () {
+    this.fetchAllVideos()
+  }
 }
 </script>

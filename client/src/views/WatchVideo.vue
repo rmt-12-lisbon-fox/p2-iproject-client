@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col"></div>
-      <div class="col">
+  <div class="container" style="padding-bottom: 100px">
         <form action="" @submit.prevent="fetchVideo">
+          <div class="row mb-3 text-center">
           <label for=""> Search Video</label>
-          <input type="text" name="" id="" v-model="title">
-          <button type="submit">Search</button>
+          </div>
+          <div class="row mb-3 d-flex justify-content-evenly">
+          <input class="form-control w-25" type="text" name="" id="" v-model="title">
+          </div>
+          <div class="row mb-3 d-flex justify-content-evenly">
+          <button class="btn btn-dark w-25" type="submit">Search</button>
+          </div>
         </form>
-      </div>
-      <div class="col"></div>
-    </div>
     <div class="row">
       <watch-video v-for="el in dataVideo" :key='el.id' :el='el'/>
     </div>
