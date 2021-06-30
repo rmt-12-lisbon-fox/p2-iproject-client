@@ -7,7 +7,7 @@
     <div class="d-flex justify-content-around col-sm-4">
     <a class="navbar-brand h2" @click.prevent="toMarket">Market</a>
     <a class="navbar-brand h2" >Signal</a>
-    <a class="navbar-brand h2" @click.prevent="toLogin">Sign In</a>
+    <a class="navbar-brand h2" v-if="!isLogin" @click.prevent="toLogin">Sign In</a>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
         <a class="nav-link active pointer" >Watchlist</a>
         </div>
         <div class="d-flex justify-content-end">
-        <a @click="logout" class="nav-link active pointer" >Sign Out</a>
+        <a @click="logout" v-if="isLogin" class="nav-link active pointer" >Sign Out</a>
         </div>
       </div>
     </div>
