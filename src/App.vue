@@ -1,16 +1,17 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <Footer></Footer>
+    <HFooter></HFooter>
   </div>
 </template>
 
 <script>
 import NavBar from "./views/NavBar.vue";
-import Footer from "./views/Footer.vue";
+import HFooter from "vue-hacktiv8-footer";
+
 export default {
   name: "App",
-  components: { NavBar, Footer },
+  components: { NavBar, HFooter },
   methods: {
     dataTamplate() {
       this.$store.dispatch("dataTamplate");

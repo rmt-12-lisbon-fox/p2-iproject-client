@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="box-content mx-4 p-4 bg-white border-2 rounded-2xl">
-        <form @submit.prevent="save">
+        <form @submit.prevent="update">
           <div>
             <label for="">Name Male</label>
             <input
@@ -197,7 +197,7 @@
               type="submit"
               class="bg-yellow-500 m-4 p-2 rounded-xl place-self-auto"
             >
-              Save
+              Update
             </button>
           </div>
         </form>
@@ -208,7 +208,7 @@
 
 <script>
 export default {
-  name: "Form",
+  name: "Edit",
   data() {
     return {
       nameMale: "",
@@ -219,11 +219,37 @@ export default {
       dateReception: "",
       addressReception: "",
       MusicId: "",
+      id: "",
+      InviteMusicId: "",
     };
   },
+  computed: {
+    editData() {
+      const editData = { ...this.$store.state.editData };
+      this.id = editData.id;
+      this.nameMale = editData.nameMale;
+      this.nameFemale = editData.nameFemale;
+      this.loveStory = editData.loveStory;
+      this.dateAkad = editData.dateAkad.slice(0, 10);
+      this.addressAkad = editData.addressAkad;
+      this.dateReception = editData.dateAkad.slice(0, 10);
+      this.addressReception = editData.addressReception;
+      this.MusicId = editData.Music[0].id;
+      this.InviteMusicId = editData.InviteMusics[0].id;
+      return this.$store.state.editData;
+    },
+    music() {
+      return this.$store.state.music;
+    },
+  },
   methods: {
-    save() {
+    edit() {
+      const payload = localStorage.edit;
+      this.$store.dispatch("dataInvited", payload);
+    },
+    update() {
       const payload = {
+        id: this.id,
         nameMale: this.nameMale,
         nameFemale: this.nameFemale,
         loveStory: this.loveStory,
@@ -233,14 +259,15 @@ export default {
         addressReception: this.addressReception,
         TamplateId: localStorage.TamplateId,
         MusicId: this.MusicId,
+        InviteMusicId: this.InviteMusicId,
       };
-      this.$store.dispatch("save", payload);
+      this.$store.dispatch("update", payload);
     },
   },
-  computed: {
-    music() {
-      return this.$store.state.music;
-    },
+  created() {
+    if (localStorage.edit) {
+      this.edit();
+    }
   },
 };
 </script>

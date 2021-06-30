@@ -11,6 +11,7 @@ import Form from '../views/Form.vue'
 import Preview from '../views/Preview.vue'
 import ViewsInvite from '../components/ViewsInvite.vue'
 import GenerateLink from '../views/GenerateLink.vue'
+import EditInvite from '../components/EditInvite.vue'
 
 Vue.use(VueRouter)
 
@@ -69,23 +70,46 @@ const routes = [
     path: '/generatelink',
     name: 'GenerateLink',
     component: GenerateLink
+  },
+  {
+    path: '/edit/:id',
+    name: 'EditInvite',
+    component: EditInvite
   }
-
-  // GenerateLink
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Home' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'Blog' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'Product' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'DetailInvite' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'Form' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'Preview' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'ViewsInvite' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'GenerateLink' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'EditInvite' && !localStorage.access_token) {
+    next('/login')
+  } else if (to.name === 'Login' && localStorage.access_token) {
+    next('/home')
+  } else if (to.name === 'Register' && localStorage.access_token) {
+    next('/home')
+  } else {
+    next()
+  }
 })
 
 export default router

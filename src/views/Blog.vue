@@ -1,6 +1,9 @@
 <template>
   <section class="md:h-full flex items-center text-gray-600">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-4 mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-6xl text-gray-700 font-semibold">Blog</h1>
+      </div>
       <div class="flex flex-wrap -m-4">
         <div class="p-4 sm:w-1/2 lg:w-1/3">
           <div

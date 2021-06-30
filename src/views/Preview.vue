@@ -1,6 +1,11 @@
 <template>
   <section class="md:h-full flex items-center text-gray-600">
-    <div class="container px-5 py-24 mx-auto">
+    <div class="container px-5 py-4 mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-6xl text-gray-700 font-semibold">
+          Preview
+        </h1>
+      </div>
       <div class="flex flex-wrap -m-4">
         <div
           class="p-4 sm:w-1/2 lg:w-1/3"
@@ -58,9 +63,29 @@
                   px-2
                   ml-3
                 "
-                @click.prevent="form(data.id)"
+                @click.prevent="edit(data.id)"
               >
                 Edit
+              </button>
+              <button
+                type="submit"
+                class="
+                  text-indigo-300
+                  inline-flex
+                  items-center
+                  md:mb-2
+                  lg:mb-0
+                  cursor-pointer
+                  hover:bg-indigo-900
+                  hover:text-white
+                  border
+                  rounded-xl
+                  px-2
+                  ml-3
+                "
+                @click.prevent="remove(data.id)"
+              >
+                delete
               </button>
             </div>
           </div>
@@ -82,9 +107,11 @@ export default {
     viewsInvite(id) {
       this.$store.dispatch("viewsInvite", id);
     },
-    Edit(id) {
-      localStorage.setItem("TamplateId", id);
-      this.$router.push("./form");
+    edit(id) {
+      this.$store.dispatch("edit", id);
+    },
+    remove(id) {
+      this.$store.dispatch("delete", id);
     },
   },
 };

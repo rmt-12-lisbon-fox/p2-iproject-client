@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     username: '',
     dataInvite: '',
     dataViewsInvite: '',
-    generatedLink: ''
+    generatedLink: '',
+    editData: ''
   },
   mutations: {
     ISLOGIN(state, payload) {
@@ -24,8 +26,7 @@ export default new Vuex.Store({
       state.isLogin = true
     },
     LOGOUT(state) {
-      localStorage.clear()
-      state.username = ''
+      state.username = "";
       state.isLogin = false
     },
     DATATAMPLATE(state, payload) {
@@ -51,6 +52,10 @@ export default new Vuex.Store({
     },
     GENERATEDLINK(state, payload) {
       state.generatedLink = payload
+    },
+    EDIT(state, payload) {
+      state.editData = payload
+      state.dataViewsInvite = payload
     }
   },
   actions: {
@@ -149,11 +154,28 @@ export default new Vuex.Store({
           access_token: localStorage.access_token
         }
       })
-        .then(data => {
-          console.log(data)
+        .then(_ => {
+          Swal.fire({
+            title: 'Do you want to save the changes?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Save`,
+            denyButtonText: `Don't save`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Swal.fire('Saved!', '', 'success')
+            } else if (result.isDenied) {
+              Swal.fire('Changes are not saved', '', 'info')
+            }
+          })
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err.response.data.message}`,
+          })
         })
     },
     login(context, payload) {
@@ -170,15 +192,26 @@ export default new Vuex.Store({
           context.dispatch('dataBlog')
           context.dispatch('dataInvite')
           router.push('/')
+          Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: 'Success Login',
+            showConfirmButton: false,
+            timer: 1500
+          })
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err.response.data.message}`,
+          })
         })
     },
     onSuccess(context, googleUser) {
       const idToken = googleUser.getAuthResponse().id_token
       axios({
-        url: '/customers/googleLogin',
+        url: '/outh/googlelogin',
         method: 'post',
         data: {
           id_token: idToken
@@ -236,7 +269,6 @@ export default new Vuex.Store({
         }
       })
         .then((data) => {
-          console.log(data.data.data);
           router.push(`/viewsinvite/${payload}`)
           localStorage.setItem('idViewsInvite', payload)
           context.commit('VIEWSINVITE', data.data.data)
@@ -246,7 +278,6 @@ export default new Vuex.Store({
         })
     },
     generateLink(context, payload) {
-      console.log(payload, '>>>>>');
       axios({
         url: `/invites/generateLink`,
         method: 'post',
@@ -256,11 +287,108 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          context.commit("GENERATEDLINK", data.data)
+          console.log(data.data.url);
+          context.commit("GENERATEDLINK", data.data.url)
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Success Generate Link",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         })
         .catch(err => {
-          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `errors`,
+          })
         })
+    },
+    edit(context, payload) {
+      axios({
+        url: `/invites/${payload}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((data) => {
+          console.log(data.data.data);
+          router.push(`/edit/${payload}`)
+          localStorage.setItem('edit', payload)
+          context.commit('EDIT', data.data.data)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+    },
+    dataInvited(context, payload) {
+      axios({
+        url: `/invites/${payload}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((data) => {
+          localStorage.setItem('edit', payload)
+          context.commit('EDIT', data.data.data)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+    },
+    update(context, payload) {
+      axios({
+        url: `/invites/${payload.id}`,
+        method: 'put',
+        data: { ...payload },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then((data) => {
+        router.push('/preview')
+      }).catch((err) => {
+        console.log(err);
+      })
+    },
+    delete(context, payload) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          context.dispatch('remove', payload)
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+    },
+    remove(context, payload) {
+      axios({
+        url: `/invites/${payload}`,
+        method: 'delete',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      }).then((data) => {
+        context.dispatch('dataInvite')
+      }).catch((err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `errors`,
+        })
+      })
     }
   },
   modules: {

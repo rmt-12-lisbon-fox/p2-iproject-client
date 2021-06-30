@@ -159,6 +159,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "NavBar",
   computed: {
@@ -171,7 +172,16 @@ export default {
   },
   methods: {
     logout() {
+      localStorage.clear();
+      this.$router.push("/login");
       this.$store.commit("LOGOUT");
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Success Logout",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   },
 };
