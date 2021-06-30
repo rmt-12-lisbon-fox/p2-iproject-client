@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
 import Detail from '../views/Detail.vue'
+import Bookmark from '../views/Bookmark.vue'
 import store from '../store/index'
 
 Vue.use(VueRouter)
@@ -23,6 +24,12 @@ const routes = [
     path: '/detail/:id',
     name: 'Detail',
     component: Detail
+
+  },
+  {
+    path: '/bookmark',
+    name: 'Bookmark',
+    component: Bookmark
 
   },
   {
