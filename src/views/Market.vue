@@ -44,8 +44,8 @@
               <figure class="pricing-row">Last: 777</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a href="https://www.enationalelectronics.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a href="https://www.enationalelectronics.com" target="_blank" class="gem-button gem-green">Add watchlist</a></div>
+                <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Add watchlist</a></div>
               </div>
             </div>
     </div>
@@ -144,8 +144,8 @@
               <figure class="pricing-row">Last: 777</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Add Watchlist</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-cyan">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-cyan">Add Watchlist</a></div>
               </div>
             </div>
     </div>
@@ -766,6 +766,12 @@ body
   /* color: #272ae0; */
   color: #ff994e;
 }
+ /* ! // tombol */
+.pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper .pricing-row:before
+{
+  /* color: #272ae0; */
+  color: #78DEC7;
+}
 
 .gem-button
 {
@@ -833,6 +839,18 @@ body
 .gem-yellow:hover
 {
      background-color: #ff994e;
+    color: rgb(255, 255, 255) !important;
+}
+/* ! BUTTON tombol */
+.gem-cyan
+{
+  border-radius: 0px;
+    border-color: #78DEC7;
+    color: #78DEC7 !important;
+}
+.gem-cyan:hover
+{
+     background-color: #78DEC7;
     color: rgb(255, 255, 255) !important;
 }
 
