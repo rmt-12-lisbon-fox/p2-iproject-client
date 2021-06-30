@@ -1,0 +1,89 @@
+/* * {
+  height: 100%;
+} */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg-img {
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+}
+
+.bg-opaque {
+  background-blend-mode: lighten;
+}
+
+#home-card {
+  background: rgba(204, 204, 204, 0.75);
+  height: auto;
+  width: 75%;
+  border-radius: 40px;
+  padding: 5px;
+  align-items: center;
+}
+
+#about-card {
+  background: rgba(204, 204, 204, 0.75);
+  height: auto;
+  width: 75%;
+  border-radius: 40px;
+  padding: 5px;
+  color: black;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+#explanation {
+  margin-bottom: 0;
+}
+
+h3 {
+  color: black;
+}
+
+.fa-chevron-right {
+  color: white;
+  font-size: 3em;
+  height: auto;
+  top: 50%;
+  left: 95%;
+}
+
+.fa-chevron-left {
+  color: white;
+  font-size: 3em;
+  height: auto;
+  top: 50%;
+  left: 5%;
+}
+
+.fa-chevron-up {
+  color: white;
+  font-size: 3em;
+  height: auto;
+  top: 5%;
+  left: 50%;
+}
+
+.main-caption {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.table-responsive {
+  max-height: 300px;
+}
+
+.table {
+  font-size: 0.87rem;
+  border-color: black !important;
+}
