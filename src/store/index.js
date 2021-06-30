@@ -15,6 +15,9 @@ export default new Vuex.Store({
   mutations: {
     LOGIN(state, payload) {
       state.user.fullName = payload;
+    },
+    LOGOUT(state, payload) {
+      state.user.fullName = "";
     }
   },
   actions: {
@@ -57,6 +60,11 @@ export default new Vuex.Store({
           text: error.response.data.message
         });
       }
+    },
+    logout(context) {
+      localStorage.clear();
+      context.commit("LOGOUT");
+      router.push({ path: "/login" }).catch(_ => {});
     }
   },
   modules: {}
