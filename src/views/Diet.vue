@@ -9,7 +9,10 @@
 
             <div class="text-center darken-grey-text mb-4">
                 <h1 class="font-bold mt-4 mb-3 h5">https://peraturan.bpk.go.id/Home/Details/138621/permenkes-no-28-tahun-2019</h1>
-                <a class="btn btn-danger btn-md" href="https://mdbootstrap.com/material-design-for-bootstrap/" target="_blank">Free download<i class="fa fa-download pl-2"></i></a>
+                <a class="btn btn-danger btn-md"
+                @click.prevent="download"
+                
+                >Free download<i class="fa fa-download pl-2"></i></a>
             </div>
 
             <div class="card mb-4">
@@ -28,7 +31,7 @@
                     </div>
                     <!-- Grid row -->
                     <!--Table-->
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="my-table">
                         <!--Table head-->
                         <thead>
                             <tr>
@@ -46,17 +49,9 @@
                         <!--Table head-->
                         <!--Table body-->
                         <tbody>
-                            <tr v-for="row in dietLog" :key="row.id" >
-                                <th scope="row">1</th>
-                                <td> {{ row.createdAt}} </td>
-                                <td> {{ row.Food.name}} </td>
-                                <td> {{ row.Food.protein}} </td>
-                                <td> {{ row.Food.energy}} </td>
-                                <td> {{ row.Food.fat}} </td>
-                                <td> {{ row.Food.cholesterol}} </td>
-                                <td> {{ row.Food.carbohydrate}} </td>
-                                <td> {{ row.Food.sugars}} </td>
-                            </tr>
+                            <Row
+                            v-for="row in dietLog" :key="row.id" :row="row"
+                            />
                         </tbody>
                         <!--Table body-->
                     </table>
@@ -76,6 +71,9 @@
       
     </div>
 
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
 
 
   </div>
@@ -84,21 +82,93 @@
 <script>
 import Nav from '../components/Nav.vue'
 import Bar from '../components/Bar.vue'
+import Row from '../components/Row.vue'
 import SelectCard from '../components/SelectCard.vue'
 import { mapState } from 'vuex'
+import { jsPDF } from "jspdf";
+import 'jspdf-autotable'
+
+const config = {
+  type: 'radar',
+  data: data,
+  options: {
+    elements: {
+      line: {
+        borderWidth: 3
+      }
+    }
+  },
+};
+
+const data = {
+  labels: [
+    'Eating',
+    'Drinking',
+    'Sleeping',
+    'Designing',
+    'Coding',
+    'Cycling',
+    'Running'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [65, 59, 90, 81, 56, 55, 40],
+    fill: true,
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    borderColor: 'rgb(255, 99, 132)',
+    pointBackgroundColor: 'rgb(255, 99, 132)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(255, 99, 132)'
+  }, {
+    label: 'My Second Dataset',
+    data: [28, 48, 40, 19, 96, 27, 100],
+    fill: true,
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgb(54, 162, 235)',
+    pointBackgroundColor: 'rgb(54, 162, 235)',
+    pointBorderColor: '#fff',
+    pointHoverBackgroundColor: '#fff',
+    pointHoverBorderColor: 'rgb(54, 162, 235)'
+  }]
+};
 
 export default {
   name: "Diet",
-  components : { Nav, Bar, SelectCard },
+  components : { Nav, Bar, SelectCard, Row },
   data() {
     return  {
     }
   },
   methods : {
+    download() {
+      const doc = new jsPDF();
+
+      doc.autoTable({ html: '#my-table' })
+
+// Or use javascript directly:
+      // doc.autoTable({
+      //   head: [['Name', 'Email', 'Country']],
+      //   body: [
+      //     ['David', 'david@example.com', 'Sweden'],
+      //     ['Castille', 'castille@example.com', 'Spain'],
+      //     // ...
+      //   ],
+      // })
+
+      doc.save('table.pdf')
+    }
   },
-  computed: mapState([
-  'dietLog'
-])
+  computed: {
+  localComputed () { 
+    return "halo"
+    /* ... */ },
+  // mix this into the outer object with the object spread operator
+  ...mapState({
+    // ...
+    dietLog : 'dietLog'
+  })
+}
 }
 </script>
 
