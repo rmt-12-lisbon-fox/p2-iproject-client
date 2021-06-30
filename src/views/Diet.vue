@@ -100,17 +100,20 @@ export default {
   },
   methods : {
     download() {
-      const doc = new jsPDF();
+      const doc = new jsPDF({
+        orientation: "landscape"
+      });
       doc.autoTable({ html: '#my-table' })
-      // doc.save('table.pdf')
+      doc.text("Your Meal Intake Record", 120, 10);
+      doc.save('table.pdf')
 
-      html2PDF(document.getElementById('page'), {
-        jsPDF: {
-          format: 'a4',
-        },
-        imageType: 'image/jpeg',
-        output: './pdf/generate.pdf'
-      })
+      // html2PDF(document.getElementById('page'), {
+      //   jsPDF: {
+      //     format: 'a4',
+      //   },
+      //   imageType: 'image/jpeg',
+      //   output: './pdf/generate.pdf'
+      // })
     },
     getChart() {
       this.$store.dispatch("getChart")

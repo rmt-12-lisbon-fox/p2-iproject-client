@@ -23,6 +23,15 @@ export default {
     cursor: pointer;
   }
 
+  body {
+    height: 100%;
+  }
+
+  html {
+   width: 100%;
+   height: 100%;
+  }
+
   .home, html {
     background-color: #fff;
   }
