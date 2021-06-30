@@ -2,17 +2,26 @@
   <div>
     <div
       v-bind:style="{ backgroundImage: 'url(' + background.img + ')' }"
-      class="bg bg-opaque d-flex"
+      class="bg-img bg-opaque d-flex"
     >
-      <div class="d-flex justify-content-center" id="outer-card">
+      <div class="d-flex justify-content-center" id="home-card">
         <div class="card-title">
-          <div class="container p-4 mb-5">
-            <h3
+          <div class="container p-4">
+            <h2 class="text-center">Welcome to findISS</h2>
+            <hr>
+          </div>
+          <div class="card-body mb-5">
+            <h4
               class="main-caption"
-            >Predict the time the International Space Station (ISS) passes over your area! ISS, the third brightest object in the sky, looks like a fast-moving plane only much higher and traveling thousand of kilometers an hour faster!</h3>
+            >
+              Predict the time the International Space Station (ISS) passes over your area! ISS, the third brightest object in the sky after sun and moon, looks like a fast-moving plane only much higher and traveling thousand of kilometers an hour faster!
+            </h4>
           </div>
           <div class="d-flex justify-content-center">
-            <button class="btn-lg btn-primary mb-4">Let's find out!</button>
+            <button
+              v-on:click.prevent="getResult"
+              class="btn-lg btn-primary mb-4"
+            >Let's find out!</button>
           </div>
         </div>
       </div>
@@ -32,6 +41,11 @@ export default {
   computed: {
     background () {
       return this.$store.state.background
+    }
+  },
+  methods: {
+    getResult () {
+      this.$store.dispatch('getResult')
     }
   }
 }
