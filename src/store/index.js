@@ -10,6 +10,10 @@ export default new Vuex.Store({
   state: {
     user: {
       fullName: ""
+    },
+    translate: {
+      resultTextInd: "",
+      resultTextEng: ""
     }
   },
   mutations: {
@@ -18,6 +22,13 @@ export default new Vuex.Store({
     },
     LOGOUT(state, payload) {
       state.user.fullName = "";
+    },
+    HOME_PAGE(state, payload) {
+      state.user.fullName = payload;
+    },
+    TRANSLATE_TEXT(state, payload) {
+      state.translate.resultTextInd = payload.resultTextInd;
+      state.translate.resultTextEng = payload.resultTextEng;
     }
   },
   actions: {
@@ -65,6 +76,35 @@ export default new Vuex.Store({
       localStorage.clear();
       context.commit("LOGOUT");
       router.push({ path: "/login" }).catch(_ => {});
+    },
+    async registerButton(context, payload) {
+      try {
+        const result = await axios({
+          url: "/register",
+          method: "POST",
+          data: { ...payload }
+        });
+        Vue.swal({
+          icon: "success",
+          title: "Congratulation",
+          text: `${result.data.email} success to register`
+        });
+        router.push({ path: "/login" });
+      } catch (error) {
+        let message = error.response.data.message;
+        if (Array.isArray(error.response.data.message)) {
+          message = error.response.data.message.join(", ");
+        }
+        Vue.swal({
+          icon: "error",
+          title: "Failed to register",
+          text: message
+        });
+      }
+    },
+    toHomePage(context, payload) {
+      context.commit("HOME_PAGE", localStorage.name);
+      router.push({ path: "/" }).catch(() => {});
     }
   },
   modules: {}
