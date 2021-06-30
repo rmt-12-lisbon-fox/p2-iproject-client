@@ -29,6 +29,9 @@ export default {
     music() {
       this.$store.dispatch("music");
     },
+    dataUserLogin() {
+      this.$store.dispatch("dataUserLogin", localStorage.idLogin);
+    },
   },
   created() {
     if (localStorage.access_token) {
@@ -37,6 +40,7 @@ export default {
       this.isLogin();
       this.dataInvite();
       this.music();
+      this.dataUserLogin();
     }
   },
 };

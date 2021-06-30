@@ -12,6 +12,7 @@ import Preview from '../views/Preview.vue'
 import ViewsInvite from '../components/ViewsInvite.vue'
 import GenerateLink from '../views/GenerateLink.vue'
 import EditInvite from '../components/EditInvite.vue'
+import BoxChat from '../views/BoxChat.vue'
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
     path: '/edit/:id',
     name: 'EditInvite',
     component: EditInvite
+  },
+  {
+    path: '/chat',
+    name: 'BoxChat',
+    component: BoxChat
   }
 ]
 

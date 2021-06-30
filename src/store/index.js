@@ -18,7 +18,9 @@ export default new Vuex.Store({
     dataInvite: '',
     dataViewsInvite: '',
     generatedLink: '',
-    editData: ''
+    editData: '',
+    message: [],
+    photoUserLogin: ''
   },
   mutations: {
     ISLOGIN(state, payload) {
@@ -51,11 +53,17 @@ export default new Vuex.Store({
       state.dataViewsInvite = payload
     },
     GENERATEDLINK(state, payload) {
-      state.generatedLink = payload
+      state.generatedLink = payloa
     },
     EDIT(state, payload) {
       state.editData = payload
       state.dataViewsInvite = payload
+    },
+    SENDMESSAGE(state, payload) {
+      state.message.push(payload)
+    },
+    DATAUSERLOGIN(state, payload) {
+      state.photoUserLogin = payload
     }
   },
   actions: {
@@ -187,6 +195,8 @@ export default new Vuex.Store({
         .then(data => {
           localStorage.setItem('access_token', data.data.access_token)
           localStorage.setItem('username', data.data.username)
+          localStorage.setItem('idLogin', data.data.id)
+          context.dispatch('dataUser', data.data.id)
           context.commit('ISLOGIN', data.data.username)
           context.dispatch('dataTamplate')
           context.dispatch('dataBlog')
@@ -220,7 +230,8 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           localStorage.setItem('username', data.username)
-          localStorage.setItem('id', data.id)
+          localStorage.setItem('idLogin', data.id)
+          context.dispatch('dataUser', data.id)
           context.dispatch('dataTamplate')
           context.dispatch('dataBlog')
           context.dispatch('dataInvite')
@@ -389,6 +400,21 @@ export default new Vuex.Store({
           text: `errors`,
         })
       })
+    },
+    // sendMessage(context, payload) {
+    //   context.commit("SENDMESSAGE", payload)
+    // },
+    dataUser(context, payload) {
+      axios({
+        url: `users/${payload}`,
+        method: 'get',
+      })
+        .then((data) => {
+          context.commit('DATAUSERLOGIN', data.data.data.photo)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
     }
   },
   modules: {
