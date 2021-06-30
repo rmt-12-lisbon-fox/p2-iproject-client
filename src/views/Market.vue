@@ -37,12 +37,12 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">BTC - IDR</div>
               </div>
-              <figure class="pricing-row">Photo sharing school</figure>
-              <figure class="pricing-row"><span>Drop out ramen hustle</span></figure>
-              <figure class="pricing-row strike">Crush revenue traction</figure>
-              <figure class="pricing-row strike">Crush revenue traction</figure>
-              <figure class="pricing-row strike">User base minimum viable</figure>
-              <figure class="pricing-row strike">Lorem ipsum dolor</figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">High: 777</figure>
+              <figure class="pricing-row">Last: 777</figure>
+              <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a href="https://www.enationalelectronics.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
                 <div class="gem-button-container gem-button-position-center"><a href="https://www.enationalelectronics.com" target="_blank" class="gem-button gem-green">Add watchlist</a></div>
@@ -62,14 +62,15 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">ETH - IDR</div>
               </div>
-              <figure class="pricing-row">Photo sharing school</figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Drop out ramen hustle</span></figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Crush revenue traction</span></figure>
-              <figure class="pricing-row strike">Crush revenue traction</figure>
-              <figure class="pricing-row strike">User base minimum viable</figure>
-              <figure class="pricing-row strike">Lorem ipsum dolor</figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">High: 777</figure>
+              <figure class="pricing-row">Last: 777</figure>
+              <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-purpel">order now</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-purpel">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-purpel">Add watchlist</a></div>
               </div>
             </div>
     </div>
@@ -86,15 +87,15 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">LTC - IDR</div>
               </div>
-              <figure class="pricing-row">Photo sharing school</figure>
-              <figure class="pricing-row"><span>Drop out ramen hustle</span></figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Crush revenue traction</span></figure>
-              <figure class="pricing-row">Crush revenue traction</figure>
-              <figure class="pricing-row strike">User base minimum viable</figure>
-              <figure class="pricing-row strike">Lorem ipsum dolor</figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">High: 777</figure>
+              <figure class="pricing-row">Last: 777</figure>
+              <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center">
-                  <a class="gem-button gem-orange">order now</a></div>
+                <div class="gem-button-container gem-button-position-center"> <a class="gem-button gem-orange">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"> <a class="gem-button gem-orange">Add Watchlist</a></div>
               </div>
             </div>
     </div>
@@ -111,14 +112,15 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">DOGE - IDR</div>
               </div>
-              <figure class="pricing-row">Photo sharing school</figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Drop out ramen hustle</span></figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Crush revenue traction</span></figure>
-              <figure class="pricing-row">Crush revenue traction</figure>
-              <figure class="pricing-row">User base minimum</figure>
-              <figure class="pricing-row strike">Lorem ipsum dolor</figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">High: 777</figure>
+              <figure class="pricing-row">Last: 777</figure>
+              <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">order now</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Add Watchlist</a></div>
               </div>
             </div>
     </div>
@@ -135,14 +137,15 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">XRP - IDR</div>
               </div>
-              <figure class="pricing-row">Photo sharing school</figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Drop out ramen hustle</span></figure>
-              <figure class="pricing-row"><span style="color: #5f727f;">Crush revenue traction</span></figure>
-              <figure class="pricing-row">Crush revenue traction</figure>
-              <figure class="pricing-row">User base minimum</figure>
-              <figure class="pricing-row strike">Lorem ipsum dolor</figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">High: 777</figure>
+              <figure class="pricing-row">Last: 777</figure>
+              <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
-                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">order now</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Watch Signal</a></div>
+                <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Add Watchlist</a></div>
               </div>
             </div>
     </div>
