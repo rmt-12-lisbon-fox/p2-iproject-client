@@ -13,7 +13,7 @@
                     <a href=# class="card-title d-flex align-middle" style='width:80%; align-items:center'><h5 style='margin-right:15px'>{{review.Investor.name}}</h5>
                         <a class="badge" :class='badgeClass' style='height:20px; margin-bottom: .3rem' href='#'>{{review.Investor.status}}</a>
                     </a>
-                    <a href><i :class='likeIcon' href='#' @click.prevent='addLike'>{{`${reviewItem.likes} likes`}}</i></a>
+                    <i :class='likeIcon' href='#'>{{`${review.likes} likes`}}</i>
                 </div>
                 <div class="d-flex justify-content-left">
                     <h6>{{`"${review.title}"`}}</h6><br>
@@ -40,11 +40,6 @@ export default {
         }
     },
     methods: {
-        addLike() {
-            let reviewId = this.$route.params.id
-            console.log(reviewId)
-            this.$store.dispatch('addLike', reviewId)
-        },
         expandToggle() {
             if (this.overflow == true) {
                 this.overflow = false
@@ -147,6 +142,7 @@ export default {
     },
     created() {
         this.changeBadge()
+        this.$store.commit('LOGINPAGEOFF')
     }
 }
 </script>

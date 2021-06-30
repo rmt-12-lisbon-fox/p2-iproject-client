@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import router from '../router'
 export default {
     name: 'Login',
     data () {
@@ -37,27 +38,33 @@ export default {
     }
   },
   methods: {
+    toRegisterPage() {
+      router.push({ path: `/register`})
+    },
     login () {
       const loginData = {
         email: this.email,
         password: this.password
       }
       this.$store.dispatch('login', loginData)
-    }
-  },
-  OnGoogleAuthSuccess (id_token) {
-      this.$store.dispatch('googlelogin', id_token)
     },
-  OnGoogleAuthFail (error) {
-    if (error.error == 'popup_closed_by_user') {
-        swal('Warning', 'Please clear your browser cache', 'error')
-    }
-    console.log(error, 'error')
+    OnGoogleAuthSuccess (id_token) {
+        this.$store.dispatch('googlelogin', id_token)
+      },
+    OnGoogleAuthFail (error) {
+      if (error.error == 'popup_closed_by_user') {
+          swal('Warning', 'Please clear your browser cache', 'error')
+      }
+      console.log(error, 'error')
+    },
   },
   computed: {
     loading () {
       return this.$store.state.loading
     }
+  },
+  created() {
+    this.$store.commit('TOLOGINPAGE')
   }
 
 }

@@ -24,7 +24,15 @@ export default {
     }
   },
   created() {
-  }
+    if (localStorage.accessToken) {
+      this.$store.commit('ISLOGGEDIN', true)
+      this.$store.commit('POSTLOGINDETAILS')
+    } else {
+      this.$store.commit('ISLOGGEDIN', false)
+    }
+    this.$store.dispatch('fetchInvestors')
+  },
+  
 }
 </script>
 

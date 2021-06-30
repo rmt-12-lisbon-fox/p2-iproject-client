@@ -145,12 +145,8 @@ export default {
             let reviewId = this.$route.params.id
             console.log(reviewId)
             this.$store.dispatch('addLike', reviewId)
+            router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
         },
-        // button() {
-        //     if (this.reviewContent.length <= 171) {
-        //         this.expandButton = false
-        //     }
-        // },
         getReviewById() {
             // console.log('CALL METHODDDD')
             let reviewId = this.$route.params.id
@@ -295,15 +291,12 @@ export default {
     created() {
         this.getReviewById()
         this.changeBadge()
-        // this.button()
+        this.$store.commit('LOGINPAGEOFF')
         router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
     },
     beforeUpdate() {
         this.changeBadge()
-        // this.button()
-        // this.refreshTranslation()
     },
-    // update()
 }
 </script>
 
