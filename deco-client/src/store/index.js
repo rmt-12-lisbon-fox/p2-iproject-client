@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     profilePic: '',
-    messages: []
+    messages: [],
+    userEmail: ''
   },
   mutations: {
     CHANGE_LOGIN (state, status) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     CLEAR_MESSAGES (state) {
       state.messages = []
+    },
+    FETCH_USER_EMAIL (state, email) {
+      state.userEmail = email
     }
   },
   actions: {
@@ -37,6 +41,7 @@ export default new Vuex.Store({
         .then(response => {
           localStorage.setItem('access_token', response.data.access_token)
           context.commit('FETCH_PROFILE_PIC', response.data.profilePic)
+          context.commit('FETCH_USER_EMAIL', response.data.email)
           Swal.fire('You have successfully sign in', '', 'success')
           router.push('/')
           context.commit('CHANGE_LOGIN', true)
@@ -78,6 +83,22 @@ export default new Vuex.Store({
       context.commit('CLEAR_MESSAGES')
       router.push('/login')
       Swal.fire('You have successfully logout', '', 'success')
+    },
+    sendChatLog (context, payload) {
+      console.log(payload, 'payloaddd')
+      axios
+        .post('/sendLog', payload, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        .then(response => {
+          Swal.fire('The chat log has been successfully sent to your email', '', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+          Swal.fire(err.response.data.message, '', 'error')
+        })
     }
   },
   modules: {

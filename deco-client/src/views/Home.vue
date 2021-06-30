@@ -5,7 +5,7 @@
         <img class="logout-icon" src="https://ik.imagekit.io/vrvrzbdh5xfk/logout_ITHl1w1gn.png" alt="Logout Icon">
       </a>
       <img class="logo-img" src="https://ik.imagekit.io/vrvrzbdh5xfk/thumbnail_just_text_1__3iAOz4E6c.png" alt="DECO Logo Text">
-      <button class="btn-talk-doctor">Talk to a doctor</button>
+      <button @click.prevent="sendChatLog" class="btn-talk-doctor">Send Chat Log</button>
     </div>
     <div class="border-chat">
       <div class="conversation-section" v-chat-scroll >
@@ -37,6 +37,9 @@ export default {
   computed: {
     messages () {
       return this.$store.state.messages
+    },
+    userEmail () {
+      return this.$store.state.userEmail
     }
   },
   methods: {
@@ -50,7 +53,7 @@ export default {
     logoutEvent () {
       this.$store.dispatch('logoutEvent')
     },
-    listenSpeak (context) {
+    listenSpeak () {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
       recognition.continuous = false
       recognition.lang = 'en-US'
@@ -61,6 +64,14 @@ export default {
         const textListen = e.results[0][0].transcript.trim()
         this.$store.dispatch('sendUserMessage', textListen)
       }
+    },
+    sendChatLog () {
+      console.log('di send log')
+      const payload = {
+        messages: this.messages,
+        email: this.userEmail
+      }
+      this.$store.dispatch('sendChatLog', payload)
     }
   },
   created () {
