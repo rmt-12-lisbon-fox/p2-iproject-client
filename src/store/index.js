@@ -216,7 +216,7 @@ export default new Vuex.Store({
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
-    async signalBtc ({ commit }) {
+    async signalBtc () {
       Vue.$toast.open({
         message: 'please wait.. fetching Signal',
         position: 'top-right',
@@ -232,7 +232,8 @@ export default new Vuex.Store({
           imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
           imageWidth: 400,
           imageHeight: 200,
-          imageAlt: 'image'
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
         })
       } else {
         Swal.fire({
@@ -241,7 +242,140 @@ export default new Vuex.Store({
           imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
           imageWidth: 800,
           imageHeight: 400,
-          imageAlt: 'image'
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalEth () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const eth = await api.get('/besteth')
+      // .then(({ eth }) => {
+      if (await eth.data.eth === 'buy') {
+        Swal.fire({
+          title: `ETH signal: ${eth.data.eth}`,
+          text: 'Order your yacht',
+          imageUrl: 'https://static2.yachtico.com/sites/default/files/imagecache/500-375/boat_pic/1/luxury_yachts-technema_95-5-2006-164356-picture-001.jpg',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInLeft' }
+        })
+      } else {
+        Swal.fire({
+          title: `ETH signal: ${eth.data.eth}`,
+          text: 'order your private jet',
+          imageUrl: 'https://www.bankrate.com/2017/07/20155935/sky-high-the-cost-of-a-private-jet.jpg?auto=webp&optimize=high&crop=16:9',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInLeft' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalLtc () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const ltc = await api.get('/bestltc')
+      // .then(({ ltc }) => {
+      if (await ltc.data.ltc === 'buy') {
+        Swal.fire({
+          title: `LTC signal: ${ltc.data.ltc}`,
+          text: 'Order your villa',
+          imageUrl: 'https://ik.imagekit.io/tvlk/image/imageResource/2019/06/30/1561913398748-1dcbb06ae2f0224cbb4f0235f74934d3.jpeg?tr=q-75,w-439,h-294',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      } else {
+        Swal.fire({
+          title: `LTC signal: ${ltc.data.ltc}`,
+          text: 'order your private helicopter',
+          imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4RBNXpNtBBidG5iHHbobCfZhySQ5a1z331w&usqp=CAU',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalDoge () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const doge = await api.get('/bestdoge')
+      // .then(({ doge }) => {
+      if (await doge.data.doge === 'buy') {
+        Swal.fire({
+          title: `DOGE signal: ${doge.data.doge}`,
+          text: 'Order your yacht',
+          imageUrl: 'https://static2.yachtico.com/sites/default/files/imagecache/500-375/boat_pic/1/luxury_yachts-technema_95-5-2006-164356-picture-001.jpg',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInRight' }
+        })
+      } else {
+        Swal.fire({
+          title: `DOGE signal: ${doge.data.doge}`,
+          text: 'order your private jet',
+          imageUrl: 'https://www.bankrate.com/2017/07/20155935/sky-high-the-cost-of-a-private-jet.jpg?auto=webp&optimize=high&crop=16:9',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__backInRight' }
+        })
+      }
+      await Vue.$toast.clear()
+      // })
+    },
+    async signalXrp () {
+      Vue.$toast.open({
+        message: 'please wait.. fetching Signal',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
+      const xrp = await api.get('/bestxrp')
+      // .then(({ xrp }) => {
+      if (await xrp.data.xrp === 'buy') {
+        Swal.fire({
+          title: `XRP signal: ${xrp.data.xrp}`,
+          text: 'Order your lambo',
+          imageUrl: 'https://carwallpaperscar.files.wordpress.com/2020/02/lam_aventador_lp700-4_roadster_2014_16_2560x1600.jpg?w=1024',
+          imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
+        })
+      } else {
+        Swal.fire({
+          title: `XRP signal: ${xrp.data.xrp}`,
+          text: 'Order your ferrari',
+          imageUrl: 'https://cdn1-production-images-kly.akamaized.net/AZze9KLVuKV0JTdtC4Owh_f7yR0=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2820664/original/096463900_1559315929-Ferrari_hybrid.jpg',
+          imageWidth: 800,
+          imageHeight: 400,
+          imageAlt: 'image',
+          showClass: { popup: 'animate__animated animate__fadeInDown' }
         })
       }
       await Vue.$toast.clear()
