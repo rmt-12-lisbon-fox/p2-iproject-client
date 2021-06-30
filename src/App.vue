@@ -22,12 +22,20 @@ export default {
       const username = localStorage.username;
       this.$store.commit("ISLOGIN", username);
     },
+    dataInvite() {
+      this.$store.dispatch("dataInvite");
+    },
+    music() {
+      this.$store.dispatch("music");
+    },
   },
   created() {
     if (localStorage.access_token) {
       this.dataTamplate();
       this.dataBlog();
       this.isLogin();
+      this.dataInvite();
+      this.music();
     }
   },
 };

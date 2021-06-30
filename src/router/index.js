@@ -9,6 +9,8 @@ import DetailInvite from '../components/DetailInvite.vue'
 import DetailBlog from '../components/DetailBlog.vue'
 import Form from '../views/Form.vue'
 import Preview from '../views/Preview.vue'
+import ViewsInvite from '../components/ViewsInvite.vue'
+import GenerateLink from '../views/GenerateLink.vue'
 
 Vue.use(VueRouter)
 
@@ -57,7 +59,19 @@ const routes = [
     path: '/preview',
     name: 'Preview',
     component: Preview
+  },
+  {
+    path: '/viewsinvite/:id',
+    name: 'ViewsInvite',
+    component: ViewsInvite
+  },
+  {
+    path: '/generatelink',
+    name: 'GenerateLink',
+    component: GenerateLink
   }
+
+  // GenerateLink
   // {
   //   path: '/about',
   //   name: 'About',

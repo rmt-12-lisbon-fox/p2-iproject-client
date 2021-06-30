@@ -20,6 +20,7 @@
               :src="data.imgT"
               alt="blog"
             />
+            <h1 class="text-center pb-4">{{ data.version }}</h1>
             <div class="flex items-center flex-wrap">
               <button
                 type="submit"

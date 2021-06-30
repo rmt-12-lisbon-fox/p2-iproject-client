@@ -170,6 +170,28 @@
               v-model="addressReception"
             />
           </div>
+          <div>
+            <!-- v-model="musicId" -->
+            <select
+              class="
+                border-2 border-blue-500
+                rounded-md
+                m-6
+                p-2
+                px-16
+                focus:outline-none
+                focus:ring-2 focus:ring-blue-600
+                focus:border-transparent
+                ...
+              "
+              v-model="MusicId"
+            >
+              <option value="">Status</option>
+              <option :value="data.id" v-for="data in music" :key="data.id">
+                {{ data.title }}
+              </option>
+            </select>
+          </div>
           <div class="grid grid-cols-1 gap-1">
             <button
               type="submit"
@@ -196,6 +218,7 @@ export default {
       addressAkad: "",
       dateReception: "",
       addressReception: "",
+      MusicId: "",
     };
   },
   methods: {
@@ -209,8 +232,14 @@ export default {
         dateReception: this.dateReception,
         addressReception: this.addressReception,
         TamplateId: localStorage.TamplateId,
+        MusicId: this.MusicId,
       };
       this.$store.dispatch("save", payload);
+    },
+  },
+  computed: {
+    music() {
+      return this.$store.state.music;
     },
   },
 };

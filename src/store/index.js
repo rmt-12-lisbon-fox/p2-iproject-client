@@ -13,7 +13,10 @@ export default new Vuex.Store({
     dataTamplateById: '',
     detaiBlog: '',
     music: '',
-    username: ''
+    username: '',
+    dataInvite: '',
+    dataViewsInvite: '',
+    generatedLink: ''
   },
   mutations: {
     ISLOGIN(state, payload) {
@@ -39,6 +42,15 @@ export default new Vuex.Store({
     },
     MUSIC(state, payload) {
       state.music = payload
+    },
+    DATAINVITE(state, payload) {
+      state.dataInvite = payload
+    },
+    VIEWSINVITE(state, payload) {
+      state.dataViewsInvite = payload
+    },
+    GENERATEDLINK(state, payload) {
+      state.generatedLink = payload
     }
   },
   actions: {
@@ -128,10 +140,14 @@ export default new Vuex.Store({
         })
     },
     save(context, payload) {
+      console.log(payload);
       axios({
         url: '/invites',
         method: 'post',
-        data: { ...payload }
+        data: { ...payload },
+        headers: {
+          access_token: localStorage.access_token
+        }
       })
         .then(data => {
           console.log(data)
@@ -141,7 +157,6 @@ export default new Vuex.Store({
         })
     },
     login(context, payload) {
-      console.log(payload, '>>>>>>>');
       axios({
         url: '/outh/login',
         method: 'post',
@@ -153,6 +168,7 @@ export default new Vuex.Store({
           context.commit('ISLOGIN', data.data.username)
           context.dispatch('dataTamplate')
           context.dispatch('dataBlog')
+          context.dispatch('dataInvite')
           router.push('/')
         })
         .catch(err => {
@@ -172,6 +188,9 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', data.access_token)
           localStorage.setItem('username', data.username)
           localStorage.setItem('id', data.id)
+          context.dispatch('dataTamplate')
+          context.dispatch('dataBlog')
+          context.dispatch('dataInvite')
           router.push({ path: '/' })
           context.commit('ISLOGIN')
           Swal.fire({
@@ -193,6 +212,56 @@ export default new Vuex.Store({
           })
         })
     },
+    dataInvite(context) {
+      axios({
+        url: '/invites',
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((data) => {
+          context.commit('DATAINVITE', data.data.data)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+    },
+    viewsInvite(context, payload) {
+      axios({
+        url: `/invites/${payload}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((data) => {
+          console.log(data.data.data);
+          router.push(`/viewsinvite/${payload}`)
+          localStorage.setItem('idViewsInvite', payload)
+          context.commit('VIEWSINVITE', data.data.data)
+        })
+        .catch((err) => {
+          console.log(err.response);
+        })
+    },
+    generateLink(context, payload) {
+      console.log(payload, '>>>>>');
+      axios({
+        url: `/invites/generateLink`,
+        method: 'post',
+        data: { payload },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(data => {
+          context.commit("GENERATEDLINK", data.data)
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   },
   modules: {
   }
