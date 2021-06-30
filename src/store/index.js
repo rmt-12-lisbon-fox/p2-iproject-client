@@ -68,6 +68,9 @@ export default new Vuex.Store({
     GET_CONVERTED (state, payload) {
       state.converted = payload
       console.log('aaaaaa', state.converted)
+    },
+    ISLOGIN (state) {
+      state.isLogin = true
     }
   },
   actions: {
@@ -125,7 +128,7 @@ export default new Vuex.Store({
     getConverted ({ commit }) {
       axios({
         method: 'GET',
-        url: 'https://coingecko.p.rapidapi.com/exchanges/%7Bid%7D',
+        url: 'https://coingecko.p.rapidapi.com/exchanges/binance',
         headers: {
           'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
           'x-rapidapi-host': 'coingecko.p.rapidapi.com'

@@ -56,6 +56,11 @@ export default {
   },
   computed: {
     ...mapState(['isLogin', 'userInfo', 'activePage'])
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.commit('ISLOGIN')
+    }
   }
 
 }
