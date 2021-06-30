@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     userInfo: {},
     isLogin: false,
-    activePage: '/'
+    activePage: '/',
+    market: {}
   },
   mutations: {
     LOGIN (state, payload) {
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     },
     ACTIVE_PAGE (state, payload) {
       state.activePage = payload
+    },
+    GET_MARKET (state, payload) {
+      state.market = payload
     }
   },
   actions: {
@@ -106,6 +110,12 @@ export default new Vuex.Store({
           })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    getMarket ({ commit }) {
+      api.get('/market')
+        .then(({ data }) => {
+          commit('GET_MARKET', data)
+        })
     }
   },
   modules: {

@@ -139,7 +139,7 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: 7777</figure>
+              <figure class="pricing-row">Low: {{ market.btc.high }}</figure>
               <figure class="pricing-row">High: 777</figure>
               <figure class="pricing-row">Last: 777</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
@@ -158,9 +158,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'Market'
-
+  name: 'Market',
+  methods: {
+    getMarket () {
+      this.$store.dispatch('getMarket')
+    }
+  },
+  created () {
+    this.getMarket()
+  },
+  computed: {
+    ...mapState(['userInfo', 'isLogin', 'activePage', 'market'])
+  }
 }
 </script>
 
