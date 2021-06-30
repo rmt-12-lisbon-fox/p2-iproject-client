@@ -9,6 +9,8 @@ import MyDesign from '../views/MyDesign.vue'
 import Bookmark from '../views/Bookmark.vue'
 import AddDesign from '../views/AddDesign.vue'
 import EditDesign from '../views/Edit.vue'
+import EmailForm from '../views/EmailForm.vue'
+import SmsForm from '../views/SmsForm.vue'
 
 Vue.use(VueRouter)
 
@@ -57,6 +59,16 @@ const routes = [
     path: '/edit-design/:id',
     name: 'EditDesign',
     component: EditDesign
+  },
+  {
+    path: '/email/:id',
+    name: 'EmailForm',
+    component: EmailForm
+  },
+  {
+    path: '/message/:id',
+    name: 'SmsForm',
+    component: SmsForm
   }
 ]
 

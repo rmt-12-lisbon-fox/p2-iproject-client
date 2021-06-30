@@ -16,9 +16,12 @@
                         <label class="text-gray-500 text-sm" for="count">design by {{ oneDesign.User.email }}</label>
                     </div>
                     <div class="flex items-center mt-6">
-                        <button v-if="isLoggedIn && isCustomer" class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium
-                        rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Chat Now</button>
-                        <button v-if="isLoggedIn && isCustomer" @click.prevent="addBookmark(oneDesign.id)" class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
+                        <button @click.prevent="toSmsForm" v-if="isLoggedIn && isCustomer && !isChat" class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium
+                        rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Send Me a Message</button>
+                        <span v-if="isLoggedIn && isCustomer && !isChat" class="ml-2 text-gray-500 text-sm"> or </span>
+                        <button @click.prevent="toEmailForm" v-if="isLoggedIn && isCustomer && !isChat" class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium
+                        rounded ml-2 hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Email Me</button>
+                        <button v-if="isLoggedIn && isCustomer && !isChat" @click.prevent="addBookmark(oneDesign.id)" class="mx-2 text-gray-600 border rounded-md p-2 hover:bg-gray-200 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                             </svg>
@@ -64,7 +67,15 @@ export default {
       this.$store.dispatch('deleteDesign', id)
     },
     toEdit (id) {
-      this.$router.push({ name: 'EditDesign', params: { id: id } })
+      this.$router.push({ name: 'EditDesign', params: { id: id } }).catch(() => {})
+    },
+    toEmailForm () {
+      const id = this.$route.params.id
+      this.$router.push({ name: 'EmailForm', params: { id: id } }).catch(() => {})
+    },
+    toSmsForm () {
+      const id = this.$route.params.id
+      this.$router.push({ name: 'SmsForm', params: { id: id } }).catch(() => {})
     }
   },
   created () {

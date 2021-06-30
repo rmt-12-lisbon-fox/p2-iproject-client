@@ -73,6 +73,7 @@ export default {
       this.$store.commit('NOTBOOKMARKPAGE')
       this.$store.commit('QUERY', url)
       this.$store.dispatch('getAllDesigns')
+      this.$store.commit('CLEARALL')
       this.$router.push({ name: 'Home' }).catch(() => {})
     },
     logout () {

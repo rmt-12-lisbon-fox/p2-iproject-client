@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import swal from 'sweetalert'
 
 Vue.use(Vuex)
 
@@ -40,6 +41,11 @@ export default new Vuex.Store({
       localStorage.setItem('access_token', data.access_token)
       localStorage.setItem('role', data.role)
       localStorage.setItem('username', data.username)
+      swal({
+        title: `Welcome back ${data.username}`,
+        icon: 'success',
+        button: 'Ok'
+      })
       state.isLoggedIn = true
       if (data.role === 'Customer') {
         state.isCustomer = true
@@ -49,6 +55,11 @@ export default new Vuex.Store({
       localStorage.clear()
       state.isLoggedIn = false
       state.isCustomer = false
+      swal({
+        title: 'Logout success',
+        icon: 'success',
+        button: 'Ok'
+      })
       router.push({ name: 'Home' }).catch(() => {})
     },
     ISLOGGEDIN (state) {
@@ -62,6 +73,10 @@ export default new Vuex.Store({
     },
     NOTBOOKMARKPAGE (state) {
       state.isBookmarkPage = false
+    },
+    CLEARALL (state) {
+      state.oneDesign = null
+      state.myDesigns = null
     }
   },
   actions: {
@@ -76,7 +91,7 @@ export default new Vuex.Store({
           context.commit('GETALLDESIGNS', result.data.rows)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     getOneDesign (context, id) {
@@ -88,7 +103,7 @@ export default new Vuex.Store({
           context.commit('GETONEDESIGN', result.data)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     login (context, input) {
@@ -105,7 +120,7 @@ export default new Vuex.Store({
           router.push({ name: 'Home' }).catch(() => {})
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     registerCust (context, input) {
@@ -118,7 +133,15 @@ export default new Vuex.Store({
           router.push({ name: 'Login' })
         })
         .catch((err) => {
-          console.log(err.response)
+          if (Array.isArray(err.response.data.message)) {
+            let errMsgs = ''
+            err.response.data.message.forEach((element) => {
+              errMsgs += element + '\n'
+            })
+            swal(errMsgs)
+          } else {
+            swal(err.response.data.message)
+          }
         })
     },
     registerDesigner (context, input) {
@@ -131,7 +154,15 @@ export default new Vuex.Store({
           router.push({ name: 'Login' })
         })
         .catch((err) => {
-          console.log(err.response)
+          if (Array.isArray(err.response.data.message)) {
+            let errMsgs = ''
+            err.response.data.message.forEach((element) => {
+              errMsgs += element + '\n'
+            })
+            swal(errMsgs)
+          } else {
+            swal(err.response.data.message)
+          }
         })
     },
     myDesign (context) {
@@ -147,7 +178,7 @@ export default new Vuex.Store({
           context.commit('MYDESIGN', result.data)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     addBookmark (context, id) {
@@ -162,10 +193,14 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          console.log('berhasil')
+          swal({
+            title: 'Added to your bookmark',
+            icon: 'success',
+            button: 'Ok'
+          })
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     getAllBookmark (context) {
@@ -180,7 +215,7 @@ export default new Vuex.Store({
           context.commit('GETALLBOOKMARK', result.data)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     getAllCategories (context) {
@@ -192,7 +227,7 @@ export default new Vuex.Store({
           context.commit('CATEGORIES', result.data)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     addDesign (context, input) {
@@ -220,13 +255,25 @@ export default new Vuex.Store({
         contentType: false,
         processData: false
       })
-        .then((result) => {
+        .then(() => {
           context.dispatch('getAllDesigns')
           router.push({ name: 'MyDesign' }).catch(() => {})
-          console.log(result.data)
+          swal({
+            title: 'Design Added',
+            icon: 'success',
+            button: 'Ok'
+          })
         })
         .catch((err) => {
-          console.log(err.response)
+          if (Array.isArray(err.response.data.message)) {
+            let errMsgs = ''
+            err.response.data.message.forEach((element) => {
+              errMsgs += element + '\n'
+            })
+            swal(errMsgs)
+          } else {
+            swal(err.response.data.message)
+          }
         })
     },
     editDesign (context, input) {
@@ -263,10 +310,10 @@ export default new Vuex.Store({
         .then((result) => {
           context.dispatch('getAllDesigns')
           router.push({ name: 'MyDesign' }).catch(() => {})
-          console.log(result.data)
+          swal(result.data.message)
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     deleteDesign (context, id) {
@@ -279,9 +326,14 @@ export default new Vuex.Store({
       })
         .then(() => {
           context.dispatch('myDesign')
+          swal({
+            title: 'Delete Success',
+            icon: 'success',
+            button: 'Ok'
+          })
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
         })
     },
     deleteBookmark (context, id) {
@@ -294,9 +346,46 @@ export default new Vuex.Store({
       })
         .then(() => {
           context.dispatch('getAllBookmark')
+          swal({
+            title: 'Delete Success',
+            icon: 'success',
+            button: 'Ok'
+          })
         })
         .catch((err) => {
-          console.log(err.response)
+          swal(err.response.data.message)
+        })
+    },
+    sendEmail (context, input) {
+      axios({
+        url: '/sendEmail',
+        method: 'post',
+        data: input,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((result) => {
+          swal(result.data.message)
+        })
+        .catch((err) => {
+          swal(err.response.data.message)
+        })
+    },
+    sendMessage (context, input) {
+      axios({
+        url: '/sendSms',
+        method: 'post',
+        data: input,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then((result) => {
+          swal(result.data.message)
+        })
+        .catch((err) => {
+          swal(err.response.data.message)
         })
     }
   },
