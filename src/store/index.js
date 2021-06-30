@@ -8,9 +8,21 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     communities: [],
-    news: []
+    news: [],
+    myCommunity: [],
+    messages: [],
+    join: ''
   },
   mutations: {
+    JOIN (state, payload) {
+      state.join = payload
+    },
+    PUSH_MESSAGES (state, payload) {
+      state.messages.push(payload)
+    },
+    ALL_MESSAGES (state, payload) {
+      state.messages = payload
+    },
     SET_LOGGED_IN (state, payload) {
       state.isLoggedIn = payload
     },
@@ -23,6 +35,9 @@ export default new Vuex.Store({
     },
     ALL_NEWS (state, payload) {
       state.news = payload
+    },
+    MY_COMMUNITY (state, payload) {
+      state.myCommunity = payload
     }
   },
   actions: {
@@ -37,6 +52,7 @@ export default new Vuex.Store({
             localStorage.setItem('access_token', data.access_token)
             localStorage.setItem('firstName', data.firstName)
             localStorage.setItem('lastName', data.lastName)
+            localStorage.setItem('id', data.id)
             context.commit('SET_LOGGED_IN', true)
             resolve(data)
           })
@@ -85,6 +101,36 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('ALL_NEWS', data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    addMyCommunity (context, payload) {
+      axios({
+        url: `/mycommunity/${payload}`,
+        method: 'post',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    allMyCommunity (context, payload) {
+      axios({
+        url: '/mycommunity',
+        methode: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('MY_COMMUNITY', data)
         })
         .catch(err => {
           console.log(err.response)

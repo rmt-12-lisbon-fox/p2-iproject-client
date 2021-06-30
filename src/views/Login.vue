@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'Login',
   data () {
@@ -54,9 +55,14 @@ export default {
       this.$store.dispatch('login', payload)
         .then(data => {
           this.$router.push('/')
+          this.$socket.emit('loginUser', localStorage.getItem('firstName'))
         })
         .catch(err => {
-          console.log(err.data, 'LOGINN')
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err.data.message}`
+          })
         })
     }
   }

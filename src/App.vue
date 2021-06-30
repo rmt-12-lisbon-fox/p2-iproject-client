@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div id="nav">
+      <Navbar v-if="isLoggedIn" />
+    </div>
     <router-view/>
     <div class="footer fixed-bottom">
       <HFooter />
@@ -9,10 +12,21 @@
 
 <script>
 import HFooter from 'vue-hacktiv8-footer'
+import Navbar from './components/Navbar.vue'
 export default {
   name: 'App',
   components: {
-    HFooter
+    HFooter, Navbar
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    }
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.commit('SET_LOGGED_IN', true)
+    }
   }
 }
 </script>

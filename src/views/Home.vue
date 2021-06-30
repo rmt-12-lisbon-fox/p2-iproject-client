@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-     <Navbar />
      <div class="">
        <Carousel :news="news"/>
      </div>
@@ -15,13 +14,12 @@
 
 <script>
 // @ is an alias to /src
-import Navbar from '../components/Navbar.vue'
 import Carousel from '../components/Carousel.vue'
 import Card from '../components/Card.vue'
 export default {
   name: 'Home',
   components: {
-    Navbar, Carousel, Card
+    Carousel, Card
   },
   computed: {
     communities () {
@@ -37,3 +35,9 @@ export default {
   }
 }
 </script>
+<style>
+  .row{
+    padding-bottom: 100px;
+    justify-content: center;
+  }
+</style>

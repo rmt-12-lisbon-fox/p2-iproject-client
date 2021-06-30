@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'Register',
   data () {
@@ -53,10 +54,20 @@ export default {
 
       this.$store.dispatch('register', payload)
         .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Yeayy!!!',
+            text: 'Success Create Account'
+          })
           this.$router.push('/login')
         })
         .catch(err => {
-          console.log(err.data)
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${err.data}`
+          })
         })
     }
   }

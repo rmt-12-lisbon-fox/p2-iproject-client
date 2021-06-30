@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import MyCommunity from '../views/MyCommunity.vue'
+import Chat from '../views/Chat.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,16 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/community',
+    name: 'MyCommunity',
+    component: MyCommunity
+  },
+  {
+    path: '/chat/:id',
+    name: 'Chat',
+    component: Chat
   }
 ]
 
