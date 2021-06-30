@@ -2,6 +2,8 @@
   <div class="home">
     <Nav></Nav>
     <Bar></Bar>
+    <Chart/>
+
     <div class="d-flex flex-column home-container" >
         
         <!--MDB Tables-->
@@ -62,19 +64,16 @@
             <hr class="my-4">
           
             <div class="text-center darken-grey-text mb-4">
-                <h3 class="font-bold mb-3">Here you can find more Tables:</h3>
-                <a class="btn btn-danger" href="https://mdbootstrap.com/content/tables/" target="_blank">Bootstrap Tables</a>
+                <h3 class="font-bold mb-3">Curious How Its Look Like?</h3>
+                <a class="btn btn-danger"
+                @click.prevent="getChart"
+                >Visualize</a>
             </div>
 
         </div>
         <!--MDB Tables-->
-      
+      <Chart/>
     </div>
-
-    <div>
-      <canvas id="myChart"></canvas>
-    </div>
-
 
   </div>
 </template>
@@ -83,59 +82,15 @@
 import Nav from '../components/Nav.vue'
 import Bar from '../components/Bar.vue'
 import Row from '../components/Row.vue'
+import Chart from '../components/Chart.vue'
 import SelectCard from '../components/SelectCard.vue'
 import { mapState } from 'vuex'
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable'
 
-const config = {
-  type: 'radar',
-  data: data,
-  options: {
-    elements: {
-      line: {
-        borderWidth: 3
-      }
-    }
-  },
-};
-
-const data = {
-  labels: [
-    'Eating',
-    'Drinking',
-    'Sleeping',
-    'Designing',
-    'Coding',
-    'Cycling',
-    'Running'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 90, 81, 56, 55, 40],
-    fill: true,
-    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    borderColor: 'rgb(255, 99, 132)',
-    pointBackgroundColor: 'rgb(255, 99, 132)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(255, 99, 132)'
-  }, {
-    label: 'My Second Dataset',
-    data: [28, 48, 40, 19, 96, 27, 100],
-    fill: true,
-    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-    borderColor: 'rgb(54, 162, 235)',
-    pointBackgroundColor: 'rgb(54, 162, 235)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(54, 162, 235)'
-  }]
-};
-
 export default {
   name: "Diet",
-  components : { Nav, Bar, SelectCard, Row },
+  components : { Nav, Bar, SelectCard, Row, Chart },
   data() {
     return  {
     }
@@ -143,20 +98,11 @@ export default {
   methods : {
     download() {
       const doc = new jsPDF();
-
       doc.autoTable({ html: '#my-table' })
-
-// Or use javascript directly:
-      // doc.autoTable({
-      //   head: [['Name', 'Email', 'Country']],
-      //   body: [
-      //     ['David', 'david@example.com', 'Sweden'],
-      //     ['Castille', 'castille@example.com', 'Spain'],
-      //     // ...
-      //   ],
-      // })
-
       doc.save('table.pdf')
+    },
+    getChart() {
+      this.$store.dispatch("getChart")
     }
   },
   computed: {
