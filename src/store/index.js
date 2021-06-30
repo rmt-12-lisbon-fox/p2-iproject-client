@@ -14,6 +14,7 @@ export default new Vuex.Store({
     user: {},
     films: {},
     reviews: [],
+    review: {},
     titleFilm: 'default'
   },
   mutations: {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     NOT_IS_MINE (state) {
       state.isMine = false;
+    },
+    ONE_REVIEW (state, data) {
+      state.review = data;
     }
   },
   actions: {
@@ -264,8 +268,76 @@ export default new Vuex.Store({
           }
         });
         commit('IS_MINE');
-        console.log(result.data)
         commit('LIST_OF_REVIEW', result.data);
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getListOfReviewByUser was failed',
+            text: stringError 
+         });
+      }
+    },
+    async getReview({ commit }, id) {
+      try {
+        let result = await backEndAPI({
+          url: `/reviews/${id}`,
+          method: 'GET',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        })
+        commit('ONE_REVIEW', result.data);
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getListOfReviewByUser was failed',
+            text: stringError 
+         });
+      }
+    },
+    async updateReview(context, payload) {
+      try {
+        let result = await backEndAPI({
+          url: `/reviews/${payload.id}`,
+          method: 'PUT',
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            title: payload.title,
+            comment: payload.comment
+          }
+        });
+        Vue.swal({
+          icon: 'success',
+          title: 'Update review is successfull'
+        });
+        router.push({ path: '/myComment' });
+      } catch (err) {
+        let stringError = err.response.data.message;
+        Vue.swal({
+            icon: 'error',
+            title: 'getListOfReviewByUser was failed',
+            text: stringError 
+         });
+      }
+    },
+    async deleteReview({ dispatch }, id) {
+      try {
+        let result = await backEndAPI({
+          url: `/reviews/${id}`,
+          method: 'DELETE',
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+        await dispatch('listOfReviewByUser')
+        Vue.swal({
+          icon: 'success',
+          title: 'Update review is successfull'
+        });
       } catch (err) {
         let stringError = err.response.data.message;
         Vue.swal({

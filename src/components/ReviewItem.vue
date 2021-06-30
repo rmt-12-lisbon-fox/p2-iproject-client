@@ -18,10 +18,20 @@
         </div>
         <div class="absolute bottom-0 right-0 mr-3 mb-3">
             <button v-if="isMine" @click="update(review.id)" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md  focus:outline-none">Edit</button>
-            <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md hover:bg-third hover:text-black focus:outline-none">Share</button>
+            <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md hover:bg-third hover:text-black focus:outline-none">
+                <ShareNetwork
+                    network="facebook"
+                    url="https://google.com"
+                    title="Nreview"
+                    description="Let's go to NReview and start yours"
+                    :quote="`${review.User.email} has been reviewed ${review.title}`"
+                    >
+                    Share
+                </ShareNetwork>
+            </button>
         </div>
         <div v-if="isMine" class="absolute bottom-0 right-0 mr-20 mb-3">
-            <button class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Delete</button>
+            <button @click="deleteReview(review.id)" class="w-full flex justify-center px-3 py-2 bg-third text-white rounded-md focus:outline-none">Delete</button>
         </div>
     </div>
 </template>
@@ -35,6 +45,9 @@ export default {
     methods: {
         update(id) {
             this.$router.push({ path: `/editReview/${id}`});
+        },
+        deleteReview(id) {
+            this.$store.dispatch('deleteReview', id);
         }
     },
     computed: mapState([
