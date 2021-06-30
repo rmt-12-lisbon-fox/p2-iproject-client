@@ -171,7 +171,7 @@ export default {
   },
   created () {
     this.getMarket()
-    // this.getConverted()
+    this.getConverted()
   },
   computed: {
     ...mapState(['userInfo', 'isLogin', 'activePage', 'market', 'converted']),
