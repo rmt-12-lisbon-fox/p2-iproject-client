@@ -55,7 +55,7 @@ export default new Vuex.Store({
     LOGOUT (state) {
       state.isLogin = false
       localStorage.clear()
-      this.$router.push('/').catch(() => {})
+      router.push('/').catch(() => {})
       state.activePage = '/'
     },
     ACTIVE_PAGE (state, payload) {
