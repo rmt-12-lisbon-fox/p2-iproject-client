@@ -42,15 +42,18 @@ export default {
   name: 'Navbar',
   methods: {
     toLogin () {
+      this.$store.commit('ACTIVE_PAGE', '/login')
       this.$router.push('/login').catch(() => {})
     },
     logout () {
       this.$store.commit('LOGOUT')
     },
     toHome () {
+      this.$store.commit('ACTIVE_PAGE', '/')
       this.$router.push('/').catch(() => {})
     },
     toMarket () {
+      this.$store.commit('ACTIVE_PAGE', '/market')
       this.$router.push('/market').catch(() => {})
     }
   },
@@ -62,7 +65,6 @@ export default {
       this.$store.commit('ISLOGIN')
     }
   }
-
 }
 </script>
 

@@ -67,7 +67,6 @@ export default new Vuex.Store({
     },
     GET_CONVERTED (state, payload) {
       state.converted = payload
-      console.log('aaaaaa', state.converted)
     },
     ISLOGIN (state) {
       state.isLogin = true
@@ -120,24 +119,54 @@ export default new Vuex.Store({
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
     getMarket ({ commit }) {
+      Vue.$toast.open({
+        message: 'please wait.. fetching data',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
       api.get('/market')
         .then(({ data }) => {
           commit('GET_MARKET', data)
         })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 177) })
     },
     getConverted ({ commit }) {
+      Vue.$toast.open({
+        message: 'please wait.. fetching data',
+        position: 'top-right',
+        type: 'success',
+        duration: 0
+      })
       axios({
         method: 'GET',
         url: 'https://coingecko.p.rapidapi.com/exchanges/binance',
         headers: {
-          'x-rapidapi-key': process.env.VUE_APP_KEY,
-          // 'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
+          // 'x-rapidapi-key': process.env.VUE_APP_KEY,
+          'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
           'x-rapidapi-host': 'coingecko.p.rapidapi.com'
         }
       })
         .then(({ data }) => {
           commit('GET_CONVERTED', data.tickers)
         })
+        .catch(({ response }) => {
+          Vue.$toast.open({
+            message: `ERROR.., ${response.data.message}`,
+            position: 'top-right',
+            type: 'error',
+            duration: 7777
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 177) })
     }
   },
   modules: {
