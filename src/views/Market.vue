@@ -38,7 +38,7 @@
                 <div class="pricing_row_title">BTC - IDR</div>
               </div>
               <figure class="pricing-row">Real-Time price</figure>
-              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row"><span>Conv: {{ convertbtc }} BTC</span></figure>
               <figure class="pricing-row">Low: {{ btclow }}</figure>
               <figure class="pricing-row">High: {{ btchigh }}</figure>
               <figure class="pricing-row">Last: {{ btclast }}</figure>
@@ -63,7 +63,7 @@
                 <div class="pricing_row_title">ETH - IDR</div>
               </div>
               <figure class="pricing-row">Real-Time price</figure>
-              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row"><span>Conv: {{ converteth }} BTC</span></figure>
               <figure class="pricing-row">Low: {{ ethlow }}</figure>
               <figure class="pricing-row">High: {{ ethhigh }}</figure>
               <figure class="pricing-row">Last: {{ ethlast }}</figure>
@@ -88,7 +88,7 @@
                 <div class="pricing_row_title">LTC - IDR</div>
               </div>
               <figure class="pricing-row">Real-Time price</figure>
-              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row"><span>Conv: {{ convertltc }} BTC</span></figure>
               <figure class="pricing-row">Low: {{ ltclow }}</figure>
               <figure class="pricing-row">High: {{ ltchigh }}</figure>
               <figure class="pricing-row">Last: {{ ltclast }}</figure>
@@ -112,8 +112,8 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">DOGE - IDR</div>
               </div>
-              <figure class="pricing-row">Real-Time price {{ converted.name }}</figure>
-              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row"><span>Conv: {{ convertdoge }} BTC</span></figure>
               <figure class="pricing-row">Low: {{ dogelow }}</figure>
               <figure class="pricing-row">High: {{ dogehigh }}</figure>
               <figure class="pricing-row">Last: {{ dogelast }}</figure>
@@ -138,7 +138,7 @@
                 <div class="pricing_row_title">XRP - IDR</div>
               </div>
               <figure class="pricing-row">Real-Time price</figure>
-              <figure class="pricing-row"><span>Real-Time transaction</span></figure>
+              <figure class="pricing-row"><span>Conv: {{ convertxrp }} BTC</span></figure>
               <figure class="pricing-row">Low: {{ xrplow }}</figure>
               <figure class="pricing-row">High: {{ xrphigh }}</figure>
               <figure class="pricing-row">Last: {{ xrplast }}</figure>
@@ -189,7 +189,12 @@ export default {
     ethlast () { return (+this.market.eth.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btclow () { return (+this.market.btc.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btchigh () { return (+this.market.btc.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
-    btclast () { return (+this.market.btc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) }
+    btclast () { return (+this.market.btc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    convertbtc () { return +this.converted[1].converted_last.btc },
+    converteth () { return +this.converted[3].converted_last.btc },
+    convertltc () { return +this.converted[25].converted_last.btc },
+    convertdoge () { return +this.converted[11].converted_last.btc },
+    convertxrp () { return +this.converted[9].converted_last.btc }
   }
 }
 </script>

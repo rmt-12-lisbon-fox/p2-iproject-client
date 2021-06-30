@@ -130,13 +130,13 @@ export default new Vuex.Store({
         method: 'GET',
         url: 'https://coingecko.p.rapidapi.com/exchanges/binance',
         headers: {
-          'x-rapidapi-key': process.env.VUE_APP_KEY,
-          // 'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
+          // 'x-rapidapi-key': process.env.VUE_APP_KEY,
+          'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
           'x-rapidapi-host': 'coingecko.p.rapidapi.com'
         }
       })
         .then(({ data }) => {
-          commit('GET_CONVERTED', data)
+          commit('GET_CONVERTED', data.tickers)
         })
     }
   },
