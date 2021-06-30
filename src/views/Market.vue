@@ -648,15 +648,15 @@ body
 .pricing-column
 {
   float: none;
-    display: inline-block;
-    text-align: left;
-    vertical-align: top;
-    margin-bottom: 42px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  margin-bottom: 42px;
   -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -ms-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .pricing-column-wrapper {
