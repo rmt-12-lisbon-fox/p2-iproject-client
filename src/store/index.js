@@ -35,6 +35,10 @@ export default new Vuex.Store({
     },
     GAMES_PAGE(state, payload) {
       state.user.fullName = payload;
+    },
+    SELECT_CHALLENGE(state, payload) {
+      state.challenge.data = payload.data;
+      state.challenge.access_token = payload.access_token;
     }
   },
   actions: {
@@ -115,6 +119,62 @@ export default new Vuex.Store({
     toGamesPage(context, payload) {
       context.commit("GAMES_PAGE", localStorage.name);
       router.push({ path: "/games" }).catch(() => {});
+    },
+    submitChallenge(context, payload) {
+      let wordInput = [];
+      if (context.state.challenge.data.length === 1) {
+        wordInput.push(payload.kata);
+      } else if (context.state.challenge.data.length === 2) {
+        wordInput.push(payload.kata1);
+        wordInput.push(payload.kata2);
+      } else if (context.state.challenge.data.length === 3) {
+        wordInput.push(payload.kata1);
+        wordInput.push(payload.kata2);
+        wordInput.push(payload.kata3);
+      }
+      axios({
+        url: "/games",
+        method: "post",
+        data: {
+          wordInput: wordInput,
+          ChallengeId: context.state.challenge.data.length,
+          wordBase: context.state.challenge.data
+        },
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          if (data.score === 0) {
+            Vue.swal({
+              icon: "info",
+              title: "You have to try again",
+              text: `Your score is ${data.score}`
+            });
+          } else if (data.score < 10) {
+            Vue.swal({
+              icon: "success",
+              title: "You're amazing",
+              text: `Your score is ${data.score}`
+            });
+          } else if (data.score >= 10) {
+            Vue.swal({
+              icon: "success",
+              title: "You are genius",
+              text: `Your score is ${data.score}`
+            });
+          }
+          context.commit("BACK_GAMES");
+          context.dispatch("toGamesPage");
+          // context.commit("SELECT_CHALLENGE", data);
+        })
+        .catch(error => {
+          Vue.swal({
+            icon: "error",
+            title: "Failed to login",
+            text: error.response.data.message
+          });
+        });
     }
   },
   modules: {}
