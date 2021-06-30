@@ -15,10 +15,10 @@
 
             <form v-if="show" class="mt-3">
                 <label>Please choose the intentisy :</label><br>
-              <select class="custom-select">
-                <option value="1">Low (Today)</option>
-                <option value="2">Moderate (Mon,Wed,Fri)</option>
-                <option value="3">High (Mon - Fri)</option>
+              <select @change.prevent="onChange($event)" class="custom-select">
+                <option value="low">Low (Today)</option>
+                <option value="moderate">Moderate (Mon,Wed,Fri)</option>
+                <option value="high">High (Mon - Fri)</option>
               </select>
               <button type="submit" class="btn btn primary">Confirm</button>
           </form>
@@ -53,6 +53,9 @@ export default {
       },
       showIntensity() {
         this.show = true
+      },
+      onChange(event) {
+        console.log(event.target.value)
       }
     },
     created () {
