@@ -224,6 +224,29 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err, "ini error di index");
         });
+    },
+    selectChallenge(context, id) {
+      axios({
+        url: "/challenges/" + id,
+        method: "get",
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit("SELECT_CHALLENGE", {
+            data,
+            access_token: localStorage.access_token
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          Vue.swal({
+            icon: "error",
+            title: "Failed to access",
+            text: error.response.data.message
+          });
+        });
     }
   },
   modules: {}
