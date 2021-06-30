@@ -47,6 +47,10 @@ const routes = [
         next({ name: 'Home' })
       }
     }
+  },
+  {
+    path: '/guide',
+    beforeEnter () { location.href = 'http://spiff.rit.edu/classes/phys373/lectures/radec/radec.html#altaz' }
   }
 ]
 
