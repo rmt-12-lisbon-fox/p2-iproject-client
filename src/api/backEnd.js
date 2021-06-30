@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const backEndAPI = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://nreview.herokuapp.com/'
 });
 
 export default backEndAPI

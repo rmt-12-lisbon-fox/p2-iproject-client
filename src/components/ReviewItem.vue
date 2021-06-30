@@ -18,7 +18,7 @@
         </div>
         <div class="absolute bottom-0 right-0 mr-3 mb-3">
             <button v-if="isMine" @click="update(review.id)" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md  focus:outline-none">Edit</button>
-            <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md hover:bg-third hover:text-black focus:outline-none">
+            <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md focus:outline-none">
                 <ShareNetwork
                     network="facebook"
                     url="https://google.com"

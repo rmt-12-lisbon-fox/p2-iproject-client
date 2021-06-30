@@ -1,5 +1,7 @@
 # p2-iproject-client
 
+link deploy: https://nreview-d16d9.web.app/
+
 ## Project setup
 ```
 npm install
