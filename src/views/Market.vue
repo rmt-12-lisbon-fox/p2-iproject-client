@@ -775,100 +775,100 @@ body
 
 .gem-button
 {
-    cursor: pointer;
+  cursor: pointer;
   border-width: 2px;
-    line-height: 36px;
-    border-style: solid;
-    background: transparent;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 17px;
-    font-size: 14px;
-    margin: 25px;
-    position: relative;
-    display: inline-block;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: nowrap;
-    vertical-align: middle;
+  line-height: 36px;
+  border-style: solid;
+  background: transparent;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 17px;
+  font-size: 14px;
+  margin: 25px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 .gem-green
 {
   border-radius: 0px;
-    border-color: rgb(0, 188, 212);
-    color: rgb(0, 188, 212) !important;
+  border-color: rgb(0, 188, 212);
+  color: rgb(0, 188, 212) !important;
 }
 .gem-green:hover
 {
-     background-color: rgb(0, 188, 212);
-    color: rgb(255, 255, 255) !important;
+  background-color: rgb(0, 188, 212);
+  color: rgb(255, 255, 255) !important;
 }
 
 .gem-purpel
 {
   border-radius: 0px;
-    border-color: rgb(166, 55, 236);
-    color: rgb(166, 55, 236) !important;
+  border-color: rgb(166, 55, 236);
+  color: rgb(166, 55, 236) !important;
 }
 
 .gem-purpel:hover
 {
-     background-color: #a637ec;
-    color: rgb(255, 255, 255) !important;
+  background-color: #a637ec;
+  color: rgb(255, 255, 255) !important;
 }
 
 .gem-orange
 {
   border-radius: 0px;
-    border-color: #ee417c;
-    color: #ee417c !important;
+  border-color: #ee417c;
+  color: #ee417c !important;
 }
 
 .gem-orange:hover
 {
-     background-color: #ee417c;
-    color: rgb(255, 255, 255) !important;
+  background-color: #ee417c;
+  color: rgb(255, 255, 255) !important;
 }
 
 .gem-yellow
 {
   border-radius: 0px;
-    border-color: #ff994e;
-    color: #ff994e !important;
+  border-color: #ff994e;
+  color: #ff994e !important;
 }
 .gem-yellow:hover
 {
-     background-color: #ff994e;
-    color: rgb(255, 255, 255) !important;
+  background-color: #ff994e;
+  color: rgb(255, 255, 255) !important;
 }
 /* ! BUTTON tombol */
 .gem-cyan
 {
   border-radius: 0px;
-    border-color: #78DEC7;
-    color: #78DEC7 !important;
+  border-color: #78DEC7;
+  color: #78DEC7 !important;
 }
 .gem-cyan:hover
 {
-     background-color: #78DEC7;
-    color: rgb(255, 255, 255) !important;
+  background-color: #78DEC7;
+  color: rgb(255, 255, 255) !important;
 }
 
 .gem-button-position-center {
-    text-align: center;
-    display: block;
-      background-color: rgba(0, 0, 0, 0.16862745098039217);
-    border-radius: 0px 0px 10px 10px;
+  text-align: center;
+  display: block;
+  background-color: rgba(0, 0, 0, 0.16862745098039217);
+  border-radius: 0px 0px 10px 10px;
 }
-
+/* ! CAHAYA BOX lighting lightiiiiiiiiiiiiiiiiiiiiiiiing */
 .pricing-column:hover .pricing-price-wrapper
 {
-      box-shadow: 0px 35px 80px rgba(4, 255, 236, 0.25), 0px 0px 0px rgba(10, 197, 173, 0.33);
+  box-shadow: 0px 35px 80px rgba(4, 255, 236, 0.25), 0px 0px 0px rgba(10, 197, 173, 0.33);
   -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -ms-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .pricing-column:hover
@@ -878,31 +878,41 @@ body
 
 .pricing-column-wrapper + .pricing-column-wrapper .pricing-column:hover .pricing-price-wrapper
 {
-      box-shadow: 0px 35px 80px rgba(230, 2, 241, 0.34), 0px 0px 0px rgba(21, 21, 20, 0.79);
+  box-shadow: 0px 35px 80px rgba(230, 2, 241, 0.34), 0px 0px 0px rgba(21, 21, 20, 0.79);
   -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -ms-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper .pricing-column:hover .pricing-price-wrapper
 {
-       box-shadow: 0px 35px 80px rgba(255, 4, 166, 0.25), 0px 0px 0px rgba(222, 6, 84, 0.33);
+  box-shadow: 0px 35px 80px rgba(255, 4, 166, 0.25), 0px 0px 0px rgba(222, 6, 84, 0.33);
   -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -ms-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper .pricing-column:hover .pricing-price-wrapper
 {
-      box-shadow: 0px 35px 80px rgba(241, 139, 2, 0.34), 0px 0px 0px rgba(21, 21, 20, 0.79);
+  box-shadow: 0px 35px 80px rgba(241, 139, 2, 0.34), 0px 0px 0px rgba(21, 21, 20, 0.79);
   -webkit-transition: all 0.3s ease-in-out 0s;
-    -moz-transition: all 0.3s ease-in-out 0s;
-    -ms-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper + .pricing-column-wrapper .pricing-column:hover .pricing-price-wrapper
+{
+  box-shadow: 0px 35px 80px rgba(4, 255, 236, 0.25), 0px 0px 0px rgba(10, 197, 173, 0.33);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 </style>
