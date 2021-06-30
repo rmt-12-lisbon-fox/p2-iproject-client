@@ -8,7 +8,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userInfo: {}
+    userInfo: {},
+    isLogin: false,
+    activePage: '/'
   },
   mutations: {
     LOGIN (state, payload) {
@@ -16,6 +18,7 @@ export default new Vuex.Store({
       localStorage.access_token = payload.access_token
       state.isLogin = true
       router.push({ path: '/' })
+      state.activePage = '/'
     },
     GOOGLE_LOGIN (state, idToken) {
       Vue.$toast.open({
@@ -30,6 +33,7 @@ export default new Vuex.Store({
           localStorage.access_token = data.access_token
           state.isLogin = true
           router.push('/')
+          state.activePage = '/'
           Vue.$toast.open({
             message: 'WELCOME.. ',
             position: 'top-right',
@@ -46,6 +50,15 @@ export default new Vuex.Store({
           })
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
+    },
+    LOGOUT (state) {
+      state.isLogin = false
+      localStorage.clear()
+      this.$router.push('/').catch(() => {})
+      state.activePage = '/'
+    },
+    ACTIVE_PAGE (state, payload) {
+      state.activePage = payload
     }
   },
   actions: {
@@ -82,6 +95,7 @@ export default new Vuex.Store({
             duration: 0
           })
           router.push({ path: '/login' })
+          commit('ACTIVE_PAGE', '/login')
         })
         .catch(({ response }) => {
           Vue.$toast.open({
