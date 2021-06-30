@@ -6,8 +6,10 @@
         </router-link>
       </div>
       <div class="flex space-x-3">
-        <!-- <router-link  to="/bookmark" class="text-xl text-white hover:text-fourth">Bookmark</router-link> -->
-        <button @click="logout" class="text-xl text-white hover:text-secondary">Logout</button>
+        <router-link  to="/myComment" class="text-xl text-white hover:text-primary">My Comment</router-link>
+        <router-link  to="/profile" class="text-xl text-white hover:text-primary">Profile</router-link>
+        <router-link  to="/film" class="text-xl text-white hover:text-primary">Films</router-link>
+        <button @click="logout" class="text-xl text-white hover:text-primary">Logout</button>
       </div>
     </div>
 </template>
