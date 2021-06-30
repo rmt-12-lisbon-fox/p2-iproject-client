@@ -181,6 +181,49 @@ export default new Vuex.Store({
     },
     backGames(context, payload) {
       context.commit("BACK_GAMES");
+    },
+    translateText(context, payload) {
+      let data = {};
+      if (payload.typeTranslate % 2 === 0) {
+        data.from = "id";
+        data.to = "en";
+        data.text = payload.textInd;
+      } else if (payload.typeTranslate % 2 !== 0) {
+        data.from = "en";
+        data.to = "id";
+        data.text = payload.textEng;
+      }
+      microsoftTranslator({
+        url: "/translate",
+        params: {
+          "api-version": "3.0",
+          to: data.to,
+          from: data.from,
+          textType: "plain",
+          profanityAction: "NoAction"
+        },
+        method: "post",
+        data: [
+          {
+            Text: data.text
+          }
+        ]
+      })
+        .then(({ data }) => {
+          let result = {};
+          if (payload.typeTranslate % 2 === 0) {
+            result.textInd = data[0].translations[0].text;
+          } else if (payload.typeTranslate % 2 !== 0) {
+            result.textEng = data[0].translations[0].text;
+          }
+          context.commit("TRANSLATE_TEXT", {
+            resultTextInd: result.textInd,
+            resultTextEng: result.textEng
+          });
+        })
+        .catch(err => {
+          console.log(err, "ini error di index");
+        });
     }
   },
   modules: {}
