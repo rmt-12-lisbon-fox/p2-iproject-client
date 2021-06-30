@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '../api'
 import router from '../router'
-// import axios from 'axios'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -11,7 +11,8 @@ export default new Vuex.Store({
     userInfo: {},
     isLogin: false,
     activePage: '/',
-    market: {}
+    market: {},
+    converted: {}
   },
   mutations: {
     LOGIN (state, payload) {
@@ -63,6 +64,10 @@ export default new Vuex.Store({
     },
     GET_MARKET (state, payload) {
       state.market = payload
+    },
+    GET_CONVERTED (state, payload) {
+      state.converted = payload
+      console.log('aaaaaa', state.converted)
     }
   },
   actions: {
@@ -115,6 +120,19 @@ export default new Vuex.Store({
       api.get('/market')
         .then(({ data }) => {
           commit('GET_MARKET', data)
+        })
+    },
+    getConverted ({ commit }) {
+      axios({
+        method: 'GET',
+        url: 'https://coingecko.p.rapidapi.com/exchanges/%7Bid%7D',
+        headers: {
+          'x-rapidapi-key': '5bb30cd650msh316e5d63598dcc2p153a72jsn925a7dc1dda7',
+          'x-rapidapi-host': 'coingecko.p.rapidapi.com'
+        }
+      })
+        .then(({ data }) => {
+          commit('GET_CONVERTED', data)
         })
     }
   },

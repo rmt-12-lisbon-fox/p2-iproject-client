@@ -39,9 +39,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.btc.low }}</figure>
-              <figure class="pricing-row">High: {{ market.btc.high }}</figure>
-              <figure class="pricing-row">Last: {{ market.btc.last }}</figure>
+              <figure class="pricing-row">Low: {{ btclow }}</figure>
+              <figure class="pricing-row">High: {{ btchigh }}</figure>
+              <figure class="pricing-row">Last: {{ btclast }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a href="https://www.google.com" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
@@ -64,9 +64,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.eth.low }}</figure>
-              <figure class="pricing-row">High: {{ market.eth.high }}</figure>
-              <figure class="pricing-row">Last: {{ market.eth.last }}</figure>
+              <figure class="pricing-row">Low: {{ ethlow }}</figure>
+              <figure class="pricing-row">High: {{ ethhigh }}</figure>
+              <figure class="pricing-row">Last: {{ ethlast }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-purpel">Watch Signal</a></div>
@@ -89,9 +89,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.ltc.low }}</figure>
-              <figure class="pricing-row">High: {{ market.ltc.high }}</figure>
-              <figure class="pricing-row">Last: {{ market.ltc.last }}</figure>
+              <figure class="pricing-row">Low: {{ ltclow }}</figure>
+              <figure class="pricing-row">High: {{ ltchigh }}</figure>
+              <figure class="pricing-row">Last: {{ ltclast }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"> <a class="gem-button gem-orange">Watch Signal</a></div>
@@ -112,11 +112,11 @@
               <div class="pricing-row-title">
                 <div class="pricing_row_title">DOGE - IDR</div>
               </div>
-              <figure class="pricing-row">Real-Time price</figure>
+              <figure class="pricing-row">Real-Time price {{ converted.name }}</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.doge.low }}</figure>
-              <figure class="pricing-row">High: {{ market.doge.high }}</figure>
-              <figure class="pricing-row">Last: {{ market.doge.last }}</figure>
+              <figure class="pricing-row">Low: {{ dogelow }}</figure>
+              <figure class="pricing-row">High: {{ dogehigh }}</figure>
+              <figure class="pricing-row">Last: {{ dogelast }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-yellow">Watch Signal</a></div>
@@ -139,9 +139,9 @@
               </div>
               <figure class="pricing-row">Real-Time price</figure>
               <figure class="pricing-row"><span>Real-Time transaction</span></figure>
-              <figure class="pricing-row">Low: {{ market.xrp.low }}</figure>
-              <figure class="pricing-row">High: {{ market.xrp.high }}</figure>
-              <figure class="pricing-row">Last: {{ market.xrp.last }}</figure>
+              <figure class="pricing-row">Low: {{ xrplow }}</figure>
+              <figure class="pricing-row">High: {{ xrphigh }}</figure>
+              <figure class="pricing-row">Last: {{ xrplast }}</figure>
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a class="gem-button gem-cyan">Watch Signal</a></div>
@@ -164,13 +164,32 @@ export default {
   methods: {
     getMarket () {
       this.$store.dispatch('getMarket')
+    },
+    getConverted () {
+      this.$store.dispatch('getConverted')
     }
   },
   created () {
     this.getMarket()
+    // this.getConverted()
   },
   computed: {
-    ...mapState(['userInfo', 'isLogin', 'activePage', 'market'])
+    ...mapState(['userInfo', 'isLogin', 'activePage', 'market', 'converted']),
+    xrplow () { return (+this.market.xrp.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    xrphigh () { return (+this.market.xrp.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    xrplast () { return (+this.market.xrp.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    dogelow () { return (+this.market.doge.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    dogehigh () { return (+this.market.doge.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    dogelast () { return (+this.market.doge.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ltclow () { return (+this.market.ltc.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ltchigh () { return (+this.market.ltc.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ltclast () { return (+this.market.ltc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ethlow () { return (+this.market.eth.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ethhigh () { return (+this.market.eth.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    ethlast () { return (+this.market.eth.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    btclow () { return (+this.market.btc.low).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    btchigh () { return (+this.market.btc.high).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    btclast () { return (+this.market.btc.last).toLocaleString('id', { style: 'currency', currency: 'IDR' }) }
   }
 }
 </script>
