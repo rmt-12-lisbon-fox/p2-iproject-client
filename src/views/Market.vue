@@ -29,7 +29,7 @@
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
                   <div class="pricing-price">
-                    <div class="pricing-cost">525 mil</div>
+                    <div class="pricing-cost">{{ btc }}</div>
                     <div class="time">BTC-IDR</div>
                   </div>
                 </div>
@@ -54,7 +54,7 @@
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
                   <div class="pricing-price">
-                    <div class="pricing-cost">32 mil</div>
+                    <div class="pricing-cost">{{ eth }}</div>
                     <div class="time">ETH - IDR</div>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
                   <div class="pricing-price">
-                    <div class="pricing-cost">2.2 mil</div>
+                    <div class="pricing-cost">{{ ltc }}</div>
                     <div class="time">LTC - IDR</div>
                   </div>
                 </div>
@@ -104,7 +104,7 @@
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
                   <div class="pricing-price">
-                    <div style=" " class="pricing-cost">3.7 th</div>
+                    <div style=" " class="pricing-cost">{{ doge }}</div>
                     <div class="time" style="display:inline-block;">DOGE - IDR</div>
                   </div>
                 </div>
@@ -129,7 +129,7 @@
               <div class="pricing-price-row">
                 <div class="pricing-price-wrapper">
                   <div class="pricing-price">
-                    <div style=" " class="pricing-cost">10.5 th</div>
+                    <div style=" " class="pricing-cost">{{ xrp }}</div>
                     <div class="time" style="display:inline-block;">XRP - IDR</div>
                   </div>
                 </div>
@@ -192,7 +192,12 @@ export default {
     ethlast1 () { return (this.ethlast).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btclow1 () { return (this.btclow).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     btchigh1 () { return (this.btchigh).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
-    btclast1 () { return (this.btclast).toLocaleString('id', { style: 'currency', currency: 'IDR' }) }
+    btclast1 () { return (this.btclast).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
+    btc () { return `${(this.btclast + '').substring(0, 3)} jt` },
+    eth () { return `${(this.ethlast + '').substring(0, 2)} jt` },
+    ltc () { return `${(this.ltclast + '').substring(0, 1)}.${(this.ltclast + '').substring(1, 2)} jt` },
+    doge () { return `${(this.dogelast + '').substring(0, 1)}.${(this.dogelast + '').substring(1, 2)} rb` },
+    xrp () { return this.xrplast >= 10000 ? `${(this.xrplast + '').substring(0, 2)}.${(this.xrplast + '').substring(2, 3)} rb` : `${(this.xrplast + '').substring(0, 1)}.${(this.xrplast + '').substring(1, 2)} rb` }
   }
 }
 </script>
