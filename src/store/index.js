@@ -92,10 +92,6 @@ export default new Vuex.Store({
         context.commit('SEARCH_ANIME_ONE', data)
 
       })
-      // .then(_ => {
-      //   // console.log(title);
-      //   context.dispatch('searchAnimeVideos', title)
-      // })
       .catch(err => {
         swal.fire("We dont have this anime right now")
       })
@@ -207,15 +203,16 @@ export default new Vuex.Store({
     },
 
     findBookmark(context, payload) {
+      let filter = payload || 'All'
       axios({
         method: "get",
-        url: '/user/bookmark',
+        url: `/user/bookmark?status=${filter}`,
         headers: {
           access_token: localStorage.access_token
         }
       })
       .then(({data}) => {
-        context.commit('BOOKMARK_ALL', data)
+        context.commit('BOOKMARK_ALL', data
       })
       .catch(err => {
         console.log(err.response);

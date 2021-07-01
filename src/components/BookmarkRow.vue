@@ -9,8 +9,8 @@
     </td>
     <td>
       <select class="form-select text-white bg-transparent" v-model="status" @change="changeStatus">
-        <option value="Plan to Watch" >Plan to Watch</option>
-        <option value="Watched">Watched</option>
+        <option class="text-dark" value="Plan to Watch" >Plan to Watch</option>
+        <option class="text-dark" value="Watched">Watched</option>
       </select>
     </td>
     <td>
