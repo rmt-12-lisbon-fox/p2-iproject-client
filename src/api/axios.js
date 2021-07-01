@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://vuetify-wind-123.herokuapp.com',
   headers: {
     access_token: localStorage.access_token,
     requestor: 'customer-client'
