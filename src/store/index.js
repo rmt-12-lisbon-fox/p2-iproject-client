@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import swal from 'sweetalert'
+// const rootUrl = 'http://localhost:3000'
 const rootUrl = 'https://rate-your-investor.herokuapp.com'
 
 Vue.use(Vuex)
@@ -127,6 +128,7 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
+          let founder = data.data.user
           localStorage.setItem('accessToken', data.data.accessToken)
           localStorage.setItem('id', founder.id)
           localStorage.setItem('first_name', founder.first_name)
@@ -137,7 +139,7 @@ export default new Vuex.Store({
           localStorage.setItem('active_status', founder.active_status)
           localStorage.setItem('profilePic', founder.profilePic)
           commit('POSTLOGINDETAILS')
-          commit('ISLOGGEDIN')
+          commit('ISLOGGEDIN', true)
           commit('TOGGLELOADER', false)
 
           router.push({ path: '/' })
@@ -299,7 +301,7 @@ export default new Vuex.Store({
           Vue.$toast.error(err.response.data.message)
         })
     },
-    register (context, payload) {
+    register ({commit}, payload) {
       const first_name = payload.first_name
       const last_name = payload.last_name
       const username = payload.username
@@ -341,6 +343,7 @@ export default new Vuex.Store({
         processData: false
       })
         .then(data => {
+          console.log(data)
           localStorage.setItem('name', data.data.first_name)
           localStorage.setItem('admin_status', data.data.admin_status)
           localStorage.setItem('active_status', data.data.active_status)
@@ -350,12 +353,13 @@ export default new Vuex.Store({
         })
         .catch(err => {
           commit('TOGGLELOADER', false)
-          console.log('Error:', err)
           if (Array.isArray(err.response.data.message)) {
+            // console.log('ARRRAAAY')
             for (let i = 0; i < err.response.data.message.length; i++) {
               Vue.$toast.error(err.response.data.message[i])
             }
           } else {
+            // console.log('NOT ARRAY')
             Vue.$toast.error(err.response.data.message)
           }
         })
