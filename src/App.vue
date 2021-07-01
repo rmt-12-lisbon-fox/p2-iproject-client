@@ -27,8 +27,10 @@ export default {
     if (localStorage.accessToken) {
       this.$store.commit('ISLOGGEDIN', true)
       this.$store.commit('POSTLOGINDETAILS')
+      router.push({ path: `/`}).catch(() => {})
     } else {
       this.$store.commit('ISLOGGEDIN', false)
+      router.push({ path: `/login`})
     }
     this.$store.dispatch('fetchInvestors')
   },

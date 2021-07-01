@@ -1,9 +1,15 @@
 <template>
      <!-- LOGIN -->
-    <section id="login">
-        <div>
-            <div class="container">
-                <div class="containerBox">
+    <section id="login" style='height:100vh; overflow-y:hidden'>
+        <div class='d-flex'>
+            <div style='width: 50%'>
+                <img src='../assets/buildings.jpg' style='height:100vh; width: 100%; object-fit: cover;'>
+            </div>
+            <div class="container" style='width: 40%; padding-left: 20px; padding-right:20px; padding-top: 1%; margin:auto'>
+                <div style='text-align:center; margin-bottom: 20px'>
+                    <img src='../assets/Rate your investor.png' style='height:30%; width: 40%; object-fit: cover;margin-left:auto; margin-right:auto'>
+                </div>
+                <div class="containerBoxLogin">
                     <form @submit.prevent="login" id="loginForm">
                         <h1>Sign In</h1>
                         <p>Log in to your account</p>
@@ -16,10 +22,11 @@
                         <input type="password" id='loginPassword' placeholder="Enter Password" name="psw" v-model="password" required>
 
                         <p>Don't have an account yet? Sign up <a href="#" id="registerButton" style="color:dodgerblue" @click.prevent="toRegisterPage">here</a>.</p>
-
+                        <p><a href="/" style="color:dodgerblue" @click.prevent="toHome">Continue </a>without logging-in</p>
+        
                         <button type="submit">Log In</button>
                     </form>
-                    <button v-google-signin-button="clientId" class="google-signin-button"> Register/Sign-In with Google</button>
+                    <button v-google-signin-button="clientId" class="google-signin-button"> Sign-In with Google</button>
                 </div>
             </div>
         </div>
@@ -38,6 +45,9 @@ export default {
     }
   },
   methods: {
+    toHome() {
+      router.push({ path: `/`})
+    },
     toRegisterPage() {
       router.push({ path: `/register`})
     },
@@ -71,5 +81,7 @@ export default {
 </script>
 
 <style>
-
+.google-signin-button {
+  background-color:#795548;
+}
 </style>

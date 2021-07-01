@@ -58,8 +58,8 @@
                     <p style="color:black">My Account</p>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">My Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
+                  <!-- <li><a class="dropdown-item" href="#">My Profile</a></li> -->
+                  <!-- <li><hr class="dropdown-divider"></li> -->
                   <li><a class="dropdown-item" href="#" @click.prevent='logout'>Sign Out</a></li>
                 </ul>
               </li>
@@ -76,7 +76,9 @@
         <div class='description text-center align-middle' style="padding: 20px; width: 45%; align-items:center">
             <h1 style='color:white; text-shadow: 2px 2px 4px #000000'>Read, Write, Assess</h1><br><br>
             <h5 style='color:white; text-shadow: 2px 2px 2px #000000'>Get Insights. Share Insights. The Richest Investor Review Platform in Asia</h5><br>
+            <router-link to='/register'>
             <button style='width:70%; border-radius: 30px'>Register Now</button>
+            </router-link>
         </div>
     </div>
 
@@ -150,6 +152,9 @@ export default {
     isAdmin() {
       return this.$store.state.isAdmin
     },
+    user() {
+      return this.$store.state.user
+    }
   },
   methods: {
     toLogin() {
@@ -163,12 +168,15 @@ export default {
     },
     addReview() {
       if (this.isLoggedIn) {
+        if (this.user.active_status == 'false') {
+          Vue.$toast.warning('Please verify your email before writing a new review')
+        }
         router.push({ path: `/add-review#add-review`})
         this.$store.commit('SLIDERTOGGLE', true)
       } else {
         this.$store.commit('TOLOGINPAGE')
         Vue.$toast.error('Register / login to write a new review')
-        router.push({ path: `/login`})
+        router.push({ path: `/login`}).catch(() => {})
       }
     }
   },

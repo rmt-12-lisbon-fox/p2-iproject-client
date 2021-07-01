@@ -212,6 +212,10 @@
     .errorLogin {
         color:red
     }
+
+    #login {
+      background-image: url(".assets/login.jpg")
+    }
     
     .errorAddMovie {
         color:red
@@ -230,6 +234,17 @@
         border-style: outset;
         position: relative;
     }
+
+    .containerBoxLogin {
+      background-color:#f5f8fc;
+      padding-left:5%;
+      padding-right: 5%;
+      padding-top: 3%;
+      padding-bottom:3%;
+      border-style: outset;
+      position: relative;
+  }
+  
     
     /* Clear floats */
     .clearfix::after {
