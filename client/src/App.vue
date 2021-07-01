@@ -1,17 +1,25 @@
 <template>
   <div id="app">
     <NavBar></NavBar>
-    <router-view />    
+    <router-view />
+    <HFooter></HFooter>
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar.vue"
+import NavBar from "./components/NavBar.vue";
+import HFooter from "vue-hacktiv8-footer";
 
 export default {
   name: "App",
-  components: {NavBar}
-}
+  components: { NavBar, HFooter },
+  methods: {
+    onEnd({ lastSentence, transcription }) {
+      // `lastSentence` is the last sentence before the pause
+      // `transcription` is the full array of sentences
+    },
+  },
+};
 </script>
 
 <style>
