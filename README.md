@@ -1,2 +1,26 @@
-# iProject-client
-Individual Portfolio
+# p2-iproject-client
+
+link deploy: https://nreview-d16d9.web.app/
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
