@@ -64,7 +64,7 @@
                 <label style='color:darkblue'><b>Translate Review</b></label>
                 <form class='d-flex' @submit.prevent='translate'>
                     <select name='trans_lang' v-model="trans_lang">
-                        <option value='' disable selected hidden>---Select Language---</option>                                                                               
+                        <option value='' disable selected hidden>---Select Language---</option>
                         <option value='en'>English</option>
                         <option value='id'>Indonesia</option>
                         <option value='it'>Italian</option>
@@ -85,226 +85,225 @@
 </template>
 
 <script>
-import { Disqus } from 'vue-disqus' 
+import { Disqus } from 'vue-disqus'
 import router from '../router'
 export default {
-    name: 'ReviewDetails',
-    components: { Disqus },
-    data() {
-        return {
-            tempIcon: 'far fa-thumbs-up',
-            badgeClass: 'bg-secondary',
-            overflow: true,
-            expand: 'Expand',
-            lang: 'en',
-            baseURI: document.baseURI,
-            discuss: false,
-            expandButton: true,
-            btn: 'btn-primary',
-            trans_lang: '',
-            reviewContent: '',
-            reviewItem: {                
-                reviewer: '',
-                Founder: {
-                    region: '',
-                    company_industry: ''
-                },
-                Investor: {
-                    status: '',
-                    name: ''
-                },
-                investor_role: '',
-                investment_stage: '',
-                likes: '',
-                likes_id: [],
-                title: '',
-                rating_overall: '',
-                rating_professionalism: '',
-                rating_speed: '',
-                rating_post_inv_support: '',
-                rating_dd_complexity: '',
-                rating_founder_friendly: ''
-            }
+  name: 'ReviewDetails',
+  components: { Disqus },
+  data () {
+    return {
+      tempIcon: 'far fa-thumbs-up',
+      badgeClass: 'bg-secondary',
+      overflow: true,
+      expand: 'Expand',
+      lang: 'en',
+      baseURI: document.baseURI,
+      discuss: false,
+      expandButton: true,
+      btn: 'btn-primary',
+      trans_lang: '',
+      reviewContent: '',
+      reviewItem: {
+        reviewer: '',
+        Founder: {
+          region: '',
+          company_industry: ''
+        },
+        Investor: {
+          status: '',
+          name: ''
+        },
+        investor_role: '',
+        investment_stage: '',
+        likes: '',
+        likes_id: [],
+        title: '',
+        rating_overall: '',
+        rating_professionalism: '',
+        rating_speed: '',
+        rating_post_inv_support: '',
+        rating_dd_complexity: '',
+        rating_founder_friendly: ''
+      }
+    }
+  },
+  methods: {
+    translate () {
+      // console.log('MASUK TRANSLATE')
+      const reviewId = this.$route.params.id
+      const lang = this.trans_lang
+
+      const data = {
+        reviewId,
+        lang
+      }
+      this.$store.dispatch('translate', data)
+    },
+    refreshTranslation () {
+      // console.log('REFRESH TRANSLATE')
+      if (this.translation != '') {
+        this.reviewContent = this.translation
+      }
+    },
+    addLike () {
+      const reviewId = this.$route.params.id
+      // console.log(reviewId)
+      this.$store.dispatch('addLike', reviewId)
+      router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
+    },
+    getReviewById () {
+      // console.log('CALL METHODDDD')
+      const reviewId = this.$route.params.id
+      // console.log(reviewId)
+      this.$store.dispatch('getReviewDetail', reviewId)
+      this.reviewContent = this.$store.state.review.review
+    },
+    discussSetup () {
+      this.discuss = true
+      $disqus.reset()
+    },
+    newComment (e) {
+      console.log(e)
+    },
+    expandToggle () {
+      if (this.overflow == true) {
+        this.overflow = false
+      } else {
+        this.overflow = true
+      }
+
+      if (this.expand == 'Expand') {
+        this.expand = 'Collapse'
+        this.btn = 'btn-secondary'
+      } else {
+        this.expand = 'Expand'
+        this.btn = 'btn-primary'
+      }
+    },
+    changeBadge () {
+      if (this.reviewItem.Investor.status == 'Verified') {
+        this.badgeClass = 'bg-success'
+      } else {
+        this.badgeClass = 'bg-secondary'
+      }
+    },
+    toStarRemark (rating) {
+      let star = ''
+
+      if (rating == 0) {
+        return 'N/A'
+      }
+
+      for (let i = 0; i < rating; i++) {
+        [
+          star += '★'
+        ]
+      }
+
+      if (rating == 5) {
+        star += ' - Excellent'
+      } else if (rating == 4) {
+        star += ' - Very Good'
+      } else if (rating == 3) {
+        star += ' - Good'
+      } else if (rating == 2) {
+        star += ' - Poor'
+      } else if (rating == 1) {
+        star += ' - Very Poor'
+      }
+
+      return star
+    },
+    toStar (rating) {
+      let star = ''
+
+      if (rating == 0) {
+        return 'N/A'
+      }
+
+      for (let i = 0; i < rating; i++) {
+        [
+          star += '★'
+        ]
+      }
+
+      if (rating == 5) {
+        star += ' (5)'
+      } else if (rating == 4) {
+        star += ' (4)'
+      } else if (rating == 3) {
+        star += ' (3)'
+      } else if (rating == 2) {
+        star += ' (2)'
+      } else if (rating == 1) {
+        star += ' (1)'
+      }
+
+      return star
+    },
+    starColor (star) {
+      if (star > 3) {
+        return 'green-star'
+      } else if (star == 3) {
+        return 'yellow-star'
+      } else {
+        return 'red-star'
+      }
+    }
+  },
+  watch: {
+    review: function (val) {
+      this.reviewContent = val.review
+      this.reviewItem = val
+      if (this.reviewContent.length <= 171) {
+        this.expandButton = false
+      }
+    },
+    translation: function (val) {
+      this.reviewContent = val
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    },
+    translation () {
+      return this.$store.state.translation
+    },
+    likeIcon () {
+      let icon = this.tempIcon
+
+      for (let i = 0; i < this.reviewItem.likes_id.length; i++) {
+        if (localStorage.id == this.reviewItem.likes_id[i]) {
+          icon = 'fas fa-thumbs-up'
         }
+      }
+
+      if (!this.isLoggedIn) {
+        icon = 'far fa-thumbs-up'
+      }
+
+      return icon
     },
-    methods: {
-        translate() {
-            // console.log('MASUK TRANSLATE')
-            let reviewId = this.$route.params.id
-            let lang = this.trans_lang
+    pageConfig () {
+      const config = {}
+      const identifier = `${this.$route.params.id}`
 
-            let data = {
-                reviewId,
-                lang
-            }
-            this.$store.dispatch('translate', data)
-        },
-        refreshTranslation() {
-            // console.log('REFRESH TRANSLATE')
-            if (this.translation != '') {
-                this.reviewContent = this.translation
-            }
-        },
-        addLike() {
-            let reviewId = this.$route.params.id
-            // console.log(reviewId)
-            this.$store.dispatch('addLike', reviewId)
-            router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
-        },
-        getReviewById() {
-            // console.log('CALL METHODDDD')
-            let reviewId = this.$route.params.id
-            // console.log(reviewId)
-            this.$store.dispatch('getReviewDetail', reviewId)
-            this.reviewContent = this.$store.state.review.review
-        },
-        discussSetup() {
-            this.discuss = true
-            $disqus.reset()
-        },
-        newComment (e) {
-          console.log(e)
-        },
-        expandToggle() {
-            if (this.overflow == true) {
-                this.overflow = false
-            } else {
-                this.overflow = true
-            }
-
-            if (this.expand == 'Expand') {
-                this.expand = "Collapse"
-                this.btn = 'btn-secondary'
-            } else {
-                this.expand = 'Expand'
-                this.btn = 'btn-primary'
-            }
-        },
-        changeBadge() {
-            if(this.reviewItem.Investor.status == 'Verified') {
-                this.badgeClass = 'bg-success'
-            } else {
-                this.badgeClass = 'bg-secondary'
-            }
-        },
-        toStarRemark (rating) {
-            let star = ''
-
-            if (rating == 0) {
-                return 'N/A'
-            }
-
-            for (let i = 0; i < rating; i++) {
-                [
-                star += '★'
-                ]
-            }
-
-            if (rating == 5) {
-                star += ' - Excellent'
-            } else if (rating == 4) {
-                star += ' - Very Good'
-            } else if (rating == 3) {
-                star += ' - Good'
-            } else if (rating == 2) {
-                star += ' - Poor'
-            } else if (rating == 1) {
-                star += ' - Very Poor'
-            }
-
-            return star
-        },
-        toStar (rating) {
-            let star = ''
-
-            if (rating == 0) {
-                return 'N/A'
-            }
-
-            for (let i = 0; i < rating; i++) {
-                [
-                star += '★'
-                ]
-            }
-
-            if (rating == 5) {
-                star += ' (5)'
-            } else if (rating == 4) {
-                star += ' (4)'
-            } else if (rating == 3) {
-                star += ' (3)'
-            } else if (rating == 2) {
-                star += ' (2)'
-            } else if (rating == 1) {
-                star += ' (1)'
-            }
-
-            return star
-        },
-        starColor (star) {
-            if (star > 3) {
-                return 'green-star'
-            } else if (star == 3) {
-                return 'yellow-star'
-            } else {
-                return 'red-star'
-            }
-        }
+      return { identifier }
     },
-    watch: {
-        review: function (val) {
-            this.reviewContent = val.review
-            this.reviewItem = val
-            if (this.reviewContent.length <= 171) {
-                this.expandButton = false
-            }
-        },
-        translation: function (val) {
-            this.reviewContent = val
-        }
-    },
-    computed: {
-        isLoggedIn() {
-            return this.$store.state.isLoggedIn
-        },
-        translation() {
-            return this.$store.state.translation
-        },
-        likeIcon () {
-            let icon = this.tempIcon
-
-            for (let i = 0; i < this.reviewItem.likes_id.length; i++) {
-
-                if (localStorage.id == this.reviewItem.likes_id[i]) {
-                icon = 'fas fa-thumbs-up'
-                }
-            }
-
-            if (!this.isLoggedIn) {
-                icon = 'far fa-thumbs-up'
-            }
-
-            return icon
-        },
-        pageConfig() {
-            let config = {}
-            let identifier = `${this.$route.params.id}`
-
-            return {identifier}
-        },
-        review() {
-            return this.$store.state.review
-        }
-    },
-    created() {
-        this.getReviewById()
-        this.changeBadge()
-        this.$store.commit('LOGINPAGEOFF')
-        router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
-    },
-    beforeUpdate() {
-        this.changeBadge()
-    },
+    review () {
+      return this.$store.state.review
+    }
+  },
+  created () {
+    this.getReviewById()
+    this.changeBadge()
+    this.$store.commit('LOGINPAGEOFF')
+    router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
+  },
+  beforeUpdate () {
+    this.changeBadge()
+  }
 }
 </script>
 

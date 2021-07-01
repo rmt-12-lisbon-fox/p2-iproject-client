@@ -25,41 +25,42 @@ import ReviewCard from '@/components/ReviewCard.vue'
 
 export default {
   name: 'Home',
-  data() {
-      return {
-          totalReview: 0,
-          totalFounder: 0
-      }
+  data () {
+    return {
+      totalReview: 0,
+      totalFounder: 0
+    }
   },
   components: {
-      ReviewCard
+    ReviewCard
   },
   methods: {
-      totalReviewCount() {
-          this.totalReview = this.reviews.length
-      },
-      totalFounderCount() {
-          let ids = []
-          for (let i = 0; i < this.reviews.length; i++) {
-              if (ids.includes(this.reviews[i].Founder.id) == false) {
-                    ids.push(this.reviews[i].Founder.id)
-              }
-          }
-          this.totalFounder = ids.length
+    totalReviewCount () {
+      this.totalReview = this.reviews.length
+    },
+    totalFounderCount () {
+      const ids = []
+      for (let i = 0; i < this.reviews.length; i++) {
+        if (ids.includes(this.reviews[i].Founder.id) == false) {
+          ids.push(this.reviews[i].Founder.id)
+        }
       }
+      this.totalFounder = ids.length
+    }
   },
   computed: {
-      reviews() {
-          return this.$store.state.reviews
-      }
+    reviews () {
+      return this.$store.state.reviews
+    }
   },
-  created() {
-      this.$store.dispatch('getReviews')
-      this.$store.commit('SLIDERTOGGLE', true)
+  created () {
+    this.$store.dispatch('getReviews')
+    this.$store.commit('SLIDERTOGGLE', true)
+    this.$store.commit('LOGINPAGEOFF')
   },
-  updated() {
-      this.totalReviewCount()
-      this.totalFounderCount()
+  updated () {
+    this.totalReviewCount()
+    this.totalFounderCount()
   }
 
 }

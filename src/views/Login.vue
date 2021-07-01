@@ -23,7 +23,7 @@
 
                         <p>Don't have an account yet? Sign up <a href="#" id="registerButton" style="color:dodgerblue" @click.prevent="toRegisterPage">here</a>.</p>
                         <p><a href="/" style="color:dodgerblue" @click.prevent="toHome">Continue </a>without logging-in</p>
-        
+
                         <button type="submit">Log In</button>
                     </form>
                     <button v-google-signin-button="clientId" class="google-signin-button"> Sign-In with Google</button>
@@ -36,8 +36,8 @@
 <script>
 import router from '../router'
 export default {
-    name: 'Login',
-    data () {
+  name: 'Login',
+  data () {
     return {
       email: '',
       password: '',
@@ -45,11 +45,11 @@ export default {
     }
   },
   methods: {
-    toHome() {
-      router.push({ path: `/`})
+    toHome () {
+      router.push({ path: '/' })
     },
-    toRegisterPage() {
-      router.push({ path: `/register`})
+    toRegisterPage () {
+      router.push({ path: '/register' })
     },
     login () {
       const loginData = {
@@ -59,21 +59,21 @@ export default {
       this.$store.dispatch('login', loginData)
     },
     OnGoogleAuthSuccess (id_token) {
-        this.$store.dispatch('googlelogin', id_token)
-      },
+      this.$store.dispatch('googlelogin', id_token)
+    },
     OnGoogleAuthFail (error) {
       if (error.error == 'popup_closed_by_user') {
-          swal('Warning', 'Please clear your browser cache', 'error')
+        swal('Warning', 'Please clear your browser cache', 'error')
       }
       // console.log(error, 'error')
-    },
+    }
   },
   computed: {
     loading () {
       return this.$store.state.loading
     }
   },
-  created() {
+  created () {
     this.$store.commit('TOLOGINPAGE')
   }
 

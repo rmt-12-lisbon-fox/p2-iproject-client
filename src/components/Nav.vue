@@ -3,7 +3,8 @@
   <div id="navbar" class='subBody'>
     <nav id="navbar-bar" class="navbar navbar-expand-lg navbar-light bg-transparent">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Rate Your Investor</a>
+          <img src='../assets/Rate your investor.png'>
+          <!-- <a class="navbar-brand" href="#">Rate Your Investor</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -104,7 +105,7 @@
               </div>
           <div>
             </div>
-          </div> 
+          </div>
       </SliderItem>
     </Slider>
 
@@ -114,83 +115,83 @@
 </template>
 
 <script>
-import { Slider, SliderItem } from "vue-easy-slider";
+import { Slider, SliderItem } from 'vue-easy-slider'
 import Vue from 'vue'
-import VueToast from 'vue-toast-notification';
+import VueToast from 'vue-toast-notification'
+import router from '../router'
 Vue.use(VueToast, {
   position: 'top'
 })
-import router from '../router'
 export default {
   name: 'Navbar',
   components: {
     Slider,
     SliderItem
   },
-    data() {
+  data () {
     return {
       list: [],
-      sliderValue: 2,
+      sliderValue: 2
     }
   },
   computed: {
-    slider() {
+    slider () {
       return this.$store.state.slider
     },
-    home() {
+    home () {
       return this.$store.state.home
     },
-    news() {
+    news () {
       return this.$store.state.news
     },
-    login() {
+    login () {
       return this.$store.state.login
     },
     isLoggedIn () {
       return this.$store.state.isLoggedIn
     },
-    isAdmin() {
+    isAdmin () {
       return this.$store.state.isAdmin
     },
-    user() {
+    user () {
       return this.$store.state.user
     }
   },
   methods: {
-    toLogin() {
-      router.push({ path: `/login`})
+    toLogin () {
+      router.push({ path: '/login' })
     },
-    logout() {
+    logout () {
       this.$store.commit('LOGOUT')
     },
-    changeIndex(index) {
-      this.sliderValue = index;
+    changeIndex (index) {
+      this.sliderValue = index
     },
-    addReview() {
+    addReview () {
       if (this.isLoggedIn) {
         if (this.user.active_status == 'false') {
           Vue.$toast.warning('Please verify your email before writing a new review')
         }
-        router.push({ path: `/add-review#add-review`})
+        router.push({ path: '/add-review#add-review' })
         this.$store.commit('SLIDERTOGGLE', true)
       } else {
         this.$store.commit('TOLOGINPAGE')
         Vue.$toast.error('Register / login to write a new review')
-        router.push({ path: `/login`}).catch(() => {})
+        router.push({ path: '/login' }).catch(() => {})
       }
     }
   },
-  created() {
+  created () {
     this.$store.dispatch('getnews')
     this.list = this.news
     this.$store.commit('POSTLOGINDETAILS')
   },
-  mounted() {
+  mounted () {
     setTimeout(
       () =>
         (this.list = this.news),
       1000
-    );
+    )
   }
 }
 </script>
@@ -202,11 +203,11 @@ export default {
   background-size: cover;
   position: relative;
   border-radius: 30px;
-  height: 400px; 
+  height: 400px;
   padding-left: 30px;
   padding-right:30px;
-  display:flex; 
-  justify-content:space-between; 
+  display:flex;
+  justify-content:space-between;
   align-items:center
 }
 
@@ -216,12 +217,12 @@ export default {
   background-size: cover;
   position: relative;
   border-radius: 30px;
-  height: 400px; 
-  background-image: url('../assets/investor3.png'); 
+  height: 400px;
+  background-image: url('../assets/investor3.png');
   padding-left: 30px;
   padding-right:30px;
-  display:flex; 
-  justify-content:space-between; 
+  display:flex;
+  justify-content:space-between;
   align-items:center
 }
 

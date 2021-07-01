@@ -16,25 +16,25 @@ export default {
     Navbar
   },
   computed: {
-    isLoggedIn() {
+    isLoggedIn () {
       return this.$store.state.isLoggedIn
     },
-    login() {
+    login () {
       return this.$store.state.login
     }
   },
-  created() {
+  created () {
     if (localStorage.accessToken) {
       this.$store.commit('ISLOGGEDIN', true)
       this.$store.commit('POSTLOGINDETAILS')
-      router.push({ path: `/`}).catch(() => {})
+      router.push({ path: '/' }).catch(() => {})
     } else {
       this.$store.commit('ISLOGGEDIN', false)
-      router.push({ path: `/login`})
+      router.push({ path: '/login' })
     }
     this.$store.dispatch('fetchInvestors')
-  },
-  
+  }
+
 }
 </script>
 

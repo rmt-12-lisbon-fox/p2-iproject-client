@@ -63,8 +63,8 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
-  },
-  
+  }
+
 ]
 
 const router = new VueRouter({
@@ -77,7 +77,7 @@ const router = new VueRouter({
         selector: to.hash
       }
     }
-  },
+  }
 })
 
 export default router

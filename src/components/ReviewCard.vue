@@ -30,120 +30,120 @@
 
 <script>
 export default {
-    name: 'ReviewCard',
-    props: ['review', 'index'],
-    data() {
-        return {
-            badgeClass: 'bg-secondary',
-            overflow: true,
-            expand: 'Read More',
-        }
-    },
-    methods: {
-        expandToggle() {
-            if (this.overflow == true) {
-                this.overflow = false
-            } else {
-                this.overflow = true
-            }
-
-            if (this.expand == 'Read More') {
-                this.expand = "Read Less"
-            } else {
-                this.expand = 'Read More'
-            }
-        },
-        changeBadge() {
-            if(this.review.Investor.status == 'Verified') {
-                this.badgeClass = 'bg-success'
-            } else {
-                this.badgeClass = 'bg-secondary'
-            }
-        },
-        toStarRemark (rating) {
-            let star = ''
-
-            if (rating == 0) {
-                return 'N/A'
-            }
-
-            for (let i = 0; i < rating; i++) {
-                [
-                star += '★'
-                ]
-            }
-
-            if (rating == 5) {
-                star += ' - Excellent'
-            } else if (rating == 4) {
-                star += ' - Very Good'
-            } else if (rating == 3) {
-                star += ' - Good'
-            } else if (rating == 2) {
-                star += ' - Poor'
-            } else if (rating == 1) {
-                star += ' - Very Poor'
-            }
-
-            return star
-        },
-        toStar (rating) {
-            let star = ''
-
-            if (rating == 0) {
-                return 'N/A'
-            }
-
-            for (let i = 0; i < rating; i++) {
-                [
-                star += '★'
-                ]
-            }
-
-            if (rating == 5) {
-                star += ' (5)'
-            } else if (rating == 4) {
-                star += ' (4)'
-            } else if (rating == 3) {
-                star += ' (3)'
-            } else if (rating == 2) {
-                star += ' (2)'
-            } else if (rating == 1) {
-                star += ' (1)'
-            }
-
-            return star
-        },
-        starColor (star) {
-            if (star > 3) {
-                return 'green-star'
-            } else if (star == 3) {
-                return 'yellow-star'
-            } else {
-                return 'red-star'
-            }
-        },
-    },
-    computed: {
-        likeIcon () {
-            let icon = this.tempIcon
-
-            for (let i = 0; i < this.review.likes_id.length; i++) {
-                if (localStorage.id == this.review.likes_id[i]) {
-                icon = 'fas fa-bookmark'
-                }
-            }
-
-            if (!this.isLoggedIn) {
-                icon = 'far fa-thumbs-up'
-            }
-            return icon
-        }
-    },
-    created() {
-        this.changeBadge()
-        this.$store.commit('LOGINPAGEOFF')
+  name: 'ReviewCard',
+  props: ['review', 'index'],
+  data () {
+    return {
+      badgeClass: 'bg-secondary',
+      overflow: true,
+      expand: 'Read More'
     }
+  },
+  methods: {
+    expandToggle () {
+      if (this.overflow == true) {
+        this.overflow = false
+      } else {
+        this.overflow = true
+      }
+
+      if (this.expand == 'Read More') {
+        this.expand = 'Read Less'
+      } else {
+        this.expand = 'Read More'
+      }
+    },
+    changeBadge () {
+      if (this.review.Investor.status == 'Verified') {
+        this.badgeClass = 'bg-success'
+      } else {
+        this.badgeClass = 'bg-secondary'
+      }
+    },
+    toStarRemark (rating) {
+      let star = ''
+
+      if (rating == 0) {
+        return 'N/A'
+      }
+
+      for (let i = 0; i < rating; i++) {
+        [
+          star += '★'
+        ]
+      }
+
+      if (rating == 5) {
+        star += ' - Excellent'
+      } else if (rating == 4) {
+        star += ' - Very Good'
+      } else if (rating == 3) {
+        star += ' - Good'
+      } else if (rating == 2) {
+        star += ' - Poor'
+      } else if (rating == 1) {
+        star += ' - Very Poor'
+      }
+
+      return star
+    },
+    toStar (rating) {
+      let star = ''
+
+      if (rating == 0) {
+        return 'N/A'
+      }
+
+      for (let i = 0; i < rating; i++) {
+        [
+          star += '★'
+        ]
+      }
+
+      if (rating == 5) {
+        star += ' (5)'
+      } else if (rating == 4) {
+        star += ' (4)'
+      } else if (rating == 3) {
+        star += ' (3)'
+      } else if (rating == 2) {
+        star += ' (2)'
+      } else if (rating == 1) {
+        star += ' (1)'
+      }
+
+      return star
+    },
+    starColor (star) {
+      if (star > 3) {
+        return 'green-star'
+      } else if (star == 3) {
+        return 'yellow-star'
+      } else {
+        return 'red-star'
+      }
+    }
+  },
+  computed: {
+    likeIcon () {
+      let icon = this.tempIcon
+
+      for (let i = 0; i < this.review.likes_id.length; i++) {
+        if (localStorage.id == this.review.likes_id[i]) {
+          icon = 'fas fa-bookmark'
+        }
+      }
+
+      if (!this.isLoggedIn) {
+        icon = 'far fa-thumbs-up'
+      }
+      return icon
+    }
+  },
+  created () {
+    this.changeBadge()
+    this.$store.commit('LOGINPAGEOFF')
+  }
 }
 </script>
 

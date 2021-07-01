@@ -102,13 +102,13 @@
                     <label><b>Linkedin URL</b></label>
                     <input type="text" style='width:100%' id='registerName' placeholder="Your Linkedin Profile" name="linkedin_url" v-model="newUser.linkedin_url">
                     </div>
-    
+
                    <div style='width:45%'>
                     <label><b>Company Website</b></label>
                     <input type="text" id='registerName' placeholder="Include https:// (e.g https://www.rate-your-investor.com)" name="company_website" v-model="newUser.company_website">
                     </div>
                 </div>
-    
+
                 <label>Upload Profile Picture</label><br>
                 <img style="object-fit:scale-down;object-position:left" :style="[imagePreviewStyle]" :src="imagePreviewSrc" class="imageLink"/><br><br>
                 <input type="file" id="addMovie-image" name="profilePic" @change="generateImgUrl"><br><br>
@@ -124,10 +124,10 @@
                         <option value='101-500'>101-500</option>
                         <option value='501-1000'>501-1000</option>
                         <option value='>1000'>1000</option>
-                    </select>    
+                    </select>
                 </div><br>
                 </div>
-                
+
                 <div class="clearfix" style='margin-top:20px'>
                     <button type="submit" class="confirmbtn">Sign Up</button>
                     <button type="button" id="loginButton" class="redbtn" @click.prevent="toStep1">Back</button>
@@ -142,79 +142,79 @@
 <script>
 import router from '../router'
 import Vue from 'vue'
-import VueToast from 'vue-toast-notification';
+import VueToast from 'vue-toast-notification'
 Vue.use(VueToast, {
   position: 'top'
 })
 export default {
-    name: 'Register',
-    data() {
-        return {
-            step1: true,
-            step2: false,
-            newUser: {
-                first_name: '',
-                last_name: '',
-                username: '',
-                email: '',
-                password: '',
-                phoneNumber: '',
-                company_name: '',
-                company_website: '',
-                role: '',
-                region: '',
-                linkedin_url: '',
-                company_industry: '',
-                team_size: '',
-                profilePic: ''
-            },
-            imagePreviewStyle: {
-                width: '',
-                height: ''
-            },
-            imagePreviewSrc: '',
-        }
+  name: 'Register',
+  data () {
+    return {
+      step1: true,
+      step2: false,
+      newUser: {
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        password: '',
+        phoneNumber: '',
+        company_name: '',
+        company_website: '',
+        role: '',
+        region: '',
+        linkedin_url: '',
+        company_industry: '',
+        team_size: '',
+        profilePic: ''
+      },
+      imagePreviewStyle: {
+        width: '',
+        height: ''
+      },
+      imagePreviewSrc: ''
+    }
+  },
+  methods: {
+    generateImgUrl (event) {
+      // console.log(event.target.files)
+
+      this.newUser.profilePic = event.target.files[0]
+
+      var reader = new FileReader()
+      reader.onload = () => {
+        this.imagePreviewStyle.width = '300px'
+        this.imagePreviewStyle.height = '180px'
+        this.imagePreviewSrc = reader.result
+      }
+
+      reader.readAsDataURL(event.target.files[0])
     },
-    methods: {
-        generateImgUrl(event) {
-            // console.log(event.target.files)
-
-            this.newUser.profilePic = event.target.files[0]
-
-            var reader = new FileReader();
-            reader.onload = () => {
-                this.imagePreviewStyle.width = '300px'
-                this.imagePreviewStyle.height = '180px'
-                this.imagePreviewSrc = reader.result
-            };
-
-            reader.readAsDataURL(event.target.files[0])
-        },
-        register() {
-            let newUserData = this.newUser
-            this.$store.dispatch('register', newUserData)
-        },
-        toStep2() {
-            if (this.newUser.username =='' || this.newUser.email == '' || this.newUser.password =='' || this.newUser.phoneNumber =='') {
-                Vue.$toast.error('Please fill in the required fields')
-            } else {
-                this.step1 = false
-                this.step2 = true
-            }
-        },
-        toStep1() {
-            this.step1 = true
-            this.step2 = false
-        },
-        toLoginPage() {
-          router.push({ path: `/login`})
-        }
+    register () {
+      const newUserData = this.newUser
+      this.$store.dispatch('register', newUserData)
     },
-    created() {
-      this.$store.commit('TOLOGINPAGE')
+    toStep2 () {
+      if (this.newUser.username == '' || this.newUser.email == '' || this.newUser.password == '' || this.newUser.phoneNumber == '') {
+        Vue.$toast.error('Please fill in the required fields')
+      } else {
+        this.step1 = false
+        this.step2 = true
+      }
+    },
+    toStep1 () {
       this.step1 = true
       this.step2 = false
+    },
+    toLoginPage () {
+      router.push({ path: '/login' })
     }
+  },
+  created () {
+    this.$store.commit('TOLOGINPAGE')
+    this.step1 = true
+    this.step2 = false
+  }
 }
 </script>
 

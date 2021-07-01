@@ -8,7 +8,7 @@
 
         <h3 style='text-align:center'>Who Are You Reviewing?</h3><br>
         <div style="text-align:center">
-        <select style='width:50%; margin:auto' name='InvestorId' v-model="newReview.InvestorId">            
+        <select style='width:50%; margin:auto' name='InvestorId' v-model="newReview.InvestorId">
             <option value='' disable hidden selected>---SELECT---</option>
             <option v-for="(investor, index) in investors"
           :key="investor.id" :index='index' :investor='investor' :value='investor.id'>{{investor.name}}</option>
@@ -52,7 +52,7 @@
                                 <option value='Pre Series-B'>Pre Series-B</option>
                                 <option value='Series-B'>Series-B</option>
                                 <option value='Series-C'>Series-C</option>
-                                <option value='Series-D and Above'>Series-D and Above</option>                                
+                                <option value='Series-D and Above'>Series-D and Above</option>
                             </select><br><br>
                         </div>
                     </div>
@@ -188,46 +188,46 @@
 
 <script>
 export default {
-    name: 'ReviewForm',
-    data() {
-        return {
-            newReview: {
-                title: '',
-                reviewer: '',
-                InvestorId: '',
-                investor_role: 'Lead Investor',
-                investment_stage: 'Seed',
-                review: '',
-                rating_overall: '0',
-                rating_professionalism: '0',
-                rating_speed: '0',
-                rating_dd_complexity: '0',
-                rating_post_inv_support: '0',
-                rating_founder_friendly: '0',
-            }
-        }
-    },
-    methods: {
-        addReview() {
-            let review = this.newReview
-            // console.log(review)
-            this.$store.dispatch('addReview', review)
-        }
-    },
-    computed: {
-        users() {
-        return this.$store.state.user
-        },
-        reviewer() {
-            return this.$store.state.user.fullname
-        },
-        investors() {
-            return this.$store.state.investors
-        }
-    },
-    created() {
-        this.$store.dispatch('fetchInvestors')
+  name: 'ReviewForm',
+  data () {
+    return {
+      newReview: {
+        title: '',
+        reviewer: '',
+        InvestorId: '',
+        investor_role: 'Lead Investor',
+        investment_stage: 'Seed',
+        review: '',
+        rating_overall: '0',
+        rating_professionalism: '0',
+        rating_speed: '0',
+        rating_dd_complexity: '0',
+        rating_post_inv_support: '0',
+        rating_founder_friendly: '0'
+      }
     }
+  },
+  methods: {
+    addReview () {
+      const review = this.newReview
+      // console.log(review)
+      this.$store.dispatch('addReview', review)
+    }
+  },
+  computed: {
+    users () {
+      return this.$store.state.user
+    },
+    reviewer () {
+      return this.$store.state.user.fullname
+    },
+    investors () {
+      return this.$store.state.investors
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchInvestors')
+  }
 }
 </script>
 

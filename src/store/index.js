@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import swal from 'sweetalert'
-let rootUrl = 'https://rate-your-investor.herokuapp.com'
+const rootUrl = 'https://rate-your-investor.herokuapp.com'
 
 Vue.use(Vuex)
 
@@ -48,13 +48,13 @@ export default new Vuex.Store({
         state.isAdmin = false
       }
     },
-    SLIDERTOGGLE(state, payload) {
+    SLIDERTOGGLE (state, payload) {
       state.slider = payload
     },
-    ISLOGGEDIN(state, payload) {
+    ISLOGGEDIN (state, payload) {
       state.isLoggedIn = payload
     },
-    LOGOUT(state) {
+    LOGOUT (state) {
       localStorage.clear()
       state.isLoggedIn = false
       state.isAdmin = false
@@ -62,9 +62,9 @@ export default new Vuex.Store({
         type: 'success',
         dismissible: true
       })
-      router.push({path:'/login'})
+      router.push({ path: '/login' })
     },
-    HIDEHOME(state) {
+    HIDEHOME (state) {
       state.home = false
     },
     TOGGLELOADER (state, payload) {
@@ -73,36 +73,36 @@ export default new Vuex.Store({
     ADMINTOGGLE (state, payload) {
       state.admin = payload
     },
-    GETNEWS(state, payload) {
+    GETNEWS (state, payload) {
       state.news = payload
     },
-    GETREVIEWS(state, payload) {
+    GETREVIEWS (state, payload) {
       state.reviews = payload
     },
-    FETCHREVIEW(state, payload) {
+    FETCHREVIEW (state, payload) {
       state.review = payload
       // console.log('DONE FETCH')
     },
-    TOLOGINPAGE(state) {
+    TOLOGINPAGE (state) {
       state.login = true
     },
-    LOGINPAGEOFF(state) {
+    LOGINPAGEOFF (state) {
       state.login = false
     },
-    SAVETRANSLATION(state, payload) {
+    SAVETRANSLATION (state, payload) {
       state.translation = payload
     },
-    SAVEINVESTORS(state, payload) {
+    SAVEINVESTORS (state, payload) {
       state.investors = payload
     },
-    SAVEALLINVESTORS(state, payload) {
+    SAVEALLINVESTORS (state, payload) {
       state.allinvestors = payload
     },
-    ACTIVATEACCOUNT(state, payload) {
+    ACTIVATEACCOUNT (state, payload) {
       // console.log('MASUKKKKKKKKKKKKKKKKK', payload)
       state.activationMessage = payload
     },
-    UPDATELIKES(state, payload) {
+    UPDATELIKES (state, payload) {
       state.review.likes = payload.likes
       state.review.likes_id = payload.likes_id
     }
@@ -140,11 +140,11 @@ export default new Vuex.Store({
           // swal('Error', err.response.data.message, 'error')
           if (Array.isArray(err.response.data.message)) {
             for (let i = 0; i < err.response.data.message.length; i++) {
-              Vue.$toast.error(err.response.data.message[i])            
+              Vue.$toast.error(err.response.data.message[i])
             }
           } else {
             Vue.$toast.error(err.response.data.message)
-          }  
+          }
         })
     },
     login ({ commit }, payload) {
@@ -163,7 +163,7 @@ export default new Vuex.Store({
       })
         .then(data => {
           // console.log(data.data, 'LOGIN DATA')
-          let founder = data.data.user
+          const founder = data.data.user
           localStorage.setItem('accessToken', data.data.accessToken)
           localStorage.setItem('id', founder.id)
           localStorage.setItem('first_name', founder.first_name)
@@ -189,17 +189,17 @@ export default new Vuex.Store({
           // swal('Error', err.response.data.message, 'error')
           if (Array.isArray(err.response.data.message)) {
             for (let i = 0; i < err.response.data.message.length; i++) {
-              Vue.$toast.error(err.response.data.message[i])            
+              Vue.$toast.error(err.response.data.message[i])
             }
           } else {
             Vue.$toast.error(err.response.data.message)
-          }  
+          }
         })
     },
-    getnews ({commit}) {
+    getnews ({ commit }) {
       axios({
         url: `${rootUrl}/news`,
-        method: 'get',
+        method: 'get'
       })
         .then(articles => {
           commit('GETNEWS', articles.data)
@@ -209,37 +209,37 @@ export default new Vuex.Store({
           Vue.$toast.error(err.response.data.message)
         })
     },
-    getReviews ({commit}) {
+    getReviews ({ commit }) {
       axios({
         url: `${rootUrl}/reviews`,
-        method: 'get',
+        method: 'get'
       })
-      .then(reviews => {
-        commit('GETREVIEWS', reviews.data)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        Vue.$toast.error(err.response.data.message)
-      })
+        .then(reviews => {
+          commit('GETREVIEWS', reviews.data)
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    getReviewDetail({commit}, payload) {
-      let reviewId = +payload
+    getReviewDetail ({ commit }, payload) {
+      const reviewId = +payload
       // console.log(reviewId)
       axios({
         url: `${rootUrl}/reviews/${reviewId}`,
-        method: 'get',
+        method: 'get'
       })
-      .then(review => {
+        .then(review => {
         // console.log('DONE PULL')
-        commit('FETCHREVIEW', review.data)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        Vue.$toast.error(err.response.data.message)
-      })
+          commit('FETCHREVIEW', review.data)
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    addLike({commit}, payload) {
-      let reviewId = +payload
+    addLike ({ commit }, payload) {
+      const reviewId = +payload
       // console.log(reviewId)
 
       axios({
@@ -249,58 +249,58 @@ export default new Vuex.Store({
           accessToken: localStorage.accessToken
         }
       })
-      .then(review => {
+        .then(review => {
         // console.log('DONE ADDING LIKE', review.data)
-        commit('UPDATELIKES', review.data)
-        router.push({ path: `/review/${reviewId}`}).catch(() => {})
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        // Vue.$toast.error('Please login to like a review')
-        Vue.$toast.error(err.response.data.message)
-      })
+          commit('UPDATELIKES', review.data)
+          router.push({ path: `/review/${reviewId}` }).catch(() => {})
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          // Vue.$toast.error('Please login to like a review')
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    translate({commit}, payload) {
-      let language = payload.lang
-      let data = {
+    translate ({ commit }, payload) {
+      const language = payload.lang
+      const data = {
         language: language
       }
       // console.log(language)
       // console.log(language, '<<<<<<<<<')
-      let reviewId = payload.reviewId
+      const reviewId = payload.reviewId
 
       axios({
         url: `${rootUrl}/reviews/translate/${reviewId}`,
         method: 'post',
         data: data
       })
-      .then(text => {
-        commit('SAVETRANSLATION', text.data)
+        .then(text => {
+          commit('SAVETRANSLATION', text.data)
         // console.log(text.data)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        // Vue.$toast.error('Please login to like a review')
-        Vue.$toast.error(err.response.data.message)
-      })
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          // Vue.$toast.error('Please login to like a review')
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    register(context, payload) {
-      let first_name = payload.first_name
-      let last_name = payload.last_name
-      let username = payload.username
-      let email = payload.email
-      let password = payload.password
-      let phoneNumber = payload.phoneNumber
-      let company_name = payload.company_name
-      let company_website = payload.company_website
-      let role = payload.role
-      let region = payload.region
-      let linkedin_url = payload.linkedin_url
-      let company_industry = payload.company_industry
-      let team_size = payload.team_size
-      let profilePic = payload.profilePic
+    register (context, payload) {
+      const first_name = payload.first_name
+      const last_name = payload.last_name
+      const username = payload.username
+      const email = payload.email
+      const password = payload.password
+      const phoneNumber = payload.phoneNumber
+      const company_name = payload.company_name
+      const company_website = payload.company_website
+      const role = payload.role
+      const region = payload.region
+      const linkedin_url = payload.linkedin_url
+      const company_industry = payload.company_industry
+      const team_size = payload.team_size
+      const profilePic = payload.profilePic
 
-      let user = new FormData()
+      const user = new FormData()
       user.append('first_name', first_name)
       user.append('last_name', last_name)
       user.append('username', username)
@@ -323,38 +323,38 @@ export default new Vuex.Store({
         contentType: false,
         processData: false
       })
-      .then(data => {
-        localStorage.setItem('name', data.data.first_name)
-        localStorage.setItem('admin_status', data.data.admin_status)
-        localStorage.setItem('active_status', data.data.active_status)
-        router.push({ path: '/login' })
-        swal('Success', `Verify your email: We have sent you an email verification. Please click on the link provided`, 'success')
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        if (Array.isArray(err.response.data.message)) {
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            Vue.$toast.error(err.response.data.message[i])            
+        .then(data => {
+          localStorage.setItem('name', data.data.first_name)
+          localStorage.setItem('admin_status', data.data.admin_status)
+          localStorage.setItem('active_status', data.data.active_status)
+          router.push({ path: '/login' })
+          swal('Success', 'Verify your email: We have sent you an email verification. Please click on the link provided', 'success')
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          if (Array.isArray(err.response.data.message)) {
+            for (let i = 0; i < err.response.data.message.length; i++) {
+              Vue.$toast.error(err.response.data.message[i])
+            }
+          } else {
+            Vue.$toast.error(err.response.data.message)
           }
-        } else {
-          Vue.$toast.error(err.response.data.message)
-        }
-      })
+        })
     },
-    fetchInvestors({commit}) {
+    fetchInvestors ({ commit }) {
       axios({
         url: `${rootUrl}/investors`,
         method: 'get'
       })
-      .then(data => {
-        commit('SAVEINVESTORS', data.data)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        Vue.$toast.error(err.response.data.message)
-      })
+        .then(data => {
+          commit('SAVEINVESTORS', data.data)
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    fetchAllInvestors({commit}) {
+    fetchAllInvestors ({ commit }) {
       axios({
         url: `${rootUrl}/investors/all`,
         method: 'get',
@@ -362,16 +362,16 @@ export default new Vuex.Store({
           accessToken: localStorage.accessToken
         }
       })
-      .then(data => {
-        commit('SAVEALLINVESTORS', data.data)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        Vue.$toast.error(err.response.data.message)
-      })
+        .then(data => {
+          commit('SAVEALLINVESTORS', data.data)
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          Vue.$toast.error(err.response.data.message)
+        })
     },
-    addReview({commit}, payload) {
-      let review = payload
+    addReview ({ commit }, payload) {
+      const review = payload
       axios({
         url: `${rootUrl}/reviews`,
         method: 'post',
@@ -380,46 +380,46 @@ export default new Vuex.Store({
           accessToken: localStorage.accessToken
         }
       })
-      .then(data => {
+        .then(data => {
         // console.log(data.data)
-        swal('Success', 'You have added a new review', 'success')
-        router.push({path:'/'})
-      })
-      .catch(err => {
-        console.log('Error:', err.response.data.message)
-        if (Array.isArray(err.response.data.message)) {
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            Vue.$toast.error(err.response.data.message[i])            
+          swal('Success', 'You have added a new review', 'success')
+          router.push({ path: '/' })
+        })
+        .catch(err => {
+          console.log('Error:', err.response.data.message)
+          if (Array.isArray(err.response.data.message)) {
+            for (let i = 0; i < err.response.data.message.length; i++) {
+              Vue.$toast.error(err.response.data.message[i])
+            }
+          } else {
+            Vue.$toast.error(err.response.data.message)
           }
-        } else {
-          Vue.$toast.error(err.response.data.message)
-        }
-      })
+        })
     },
-    verifyFounder({commit}, payload) {
-      let founderId = +payload
+    verifyFounder ({ commit }, payload) {
+      const founderId = +payload
       axios({
         url: `${rootUrl}/founders/verify/${founderId}`,
-        method: 'patch',
+        method: 'patch'
       })
-      .then(data => {
+        .then(data => {
         // console.log(data.data)
-        commit('ACTIVATEACCOUNT', data.data.message)
-        Vue.$toast.success('You have verified your account')
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        if (Array.isArray(err.response.data.message)) {
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            Vue.$toast.error(err.response.data.message[i])            
+          commit('ACTIVATEACCOUNT', data.data.message)
+          Vue.$toast.success('You have verified your account')
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          if (Array.isArray(err.response.data.message)) {
+            for (let i = 0; i < err.response.data.message.length; i++) {
+              Vue.$toast.error(err.response.data.message[i])
+            }
+          } else {
+            Vue.$toast.error(err.response.data.message)
           }
-        } else {
-          Vue.$toast.error(err.response.data.message)
-        }
-      })
+        })
     },
-    registerInvestor({commit}, payload) {
-      let newInvestor = payload
+    registerInvestor ({ commit }, payload) {
+      const newInvestor = payload
       axios({
         url: `${rootUrl}/investors`,
         method: 'post',
@@ -428,24 +428,24 @@ export default new Vuex.Store({
           accessToken: localStorage.accessToken
         }
       })
-      .then(data => {
+        .then(data => {
         // console.log(data.data)
-        Vue.$toast.success('Thank you! You will be notified via Whatsapp when the investor has been verified.')
-        router.push({ path: `/`})
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        if (Array.isArray(err.response.data.message)) {
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            Vue.$toast.error(err.response.data.message[i])            
+          Vue.$toast.success('Thank you! You will be notified via Whatsapp when the investor has been verified.')
+          router.push({ path: '/' })
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          if (Array.isArray(err.response.data.message)) {
+            for (let i = 0; i < err.response.data.message.length; i++) {
+              Vue.$toast.error(err.response.data.message[i])
+            }
+          } else {
+            Vue.$toast.error(err.response.data.message)
           }
-        } else {
-          Vue.$toast.error(err.response.data.message)
-        }
-      })
+        })
     },
-    verifyInvestor({dispatch}, payload) {
-      let investorId = +payload
+    verifyInvestor ({ dispatch }, payload) {
+      const investorId = +payload
       axios({
         url: `${rootUrl}/investors/verify/${investorId}`,
         method: 'patch',
@@ -453,22 +453,22 @@ export default new Vuex.Store({
           accessToken: localStorage.accessToken
         }
       })
-      .then(data => {
+        .then(data => {
         // console.log(data.data)
-        Vue.$toast.success(data.data.message)
-        dispatch('fetchAllInvestors')
-        router.push({ path: `/dashboard`}).catch(()=>{})
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        if (Array.isArray(err.response.data.message)) {
-          for (let i = 0; i < err.response.data.message.length; i++) {
-            Vue.$toast.error(err.response.data.message[i])            
+          Vue.$toast.success(data.data.message)
+          dispatch('fetchAllInvestors')
+          router.push({ path: '/dashboard' }).catch(() => {})
+        })
+        .catch(err => {
+          console.log('Error:', err)
+          if (Array.isArray(err.response.data.message)) {
+            for (let i = 0; i < err.response.data.message.length; i++) {
+              Vue.$toast.error(err.response.data.message[i])
+            }
+          } else {
+            Vue.$toast.error(err.response.data.message)
           }
-        } else {
-          Vue.$toast.error(err.response.data.message)
-        }
-      })
+        })
     }
   },
   modules: {

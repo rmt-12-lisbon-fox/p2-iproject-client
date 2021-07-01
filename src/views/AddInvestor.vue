@@ -50,12 +50,12 @@
                             <label><b>Linkedin URL</b></label>
                             <input type="text" style='width:100%' id='registerName' placeholder="Your Linkedin Profile" name="linkedin_url" v-model="newInvestor.linkedin_url">
                             </div>
-            
+
                            <div style='width:45%'>
                             <label><b>Website URL</b></label>
                             <input type="text" placeholder="Include https:// (e.g https://www.rate-your-investor.com)" name="website_url" v-model="newInvestor.website_url">
                         </div>
-        
+
                     </div>
 
                     <label style='margin-top:20px'>Investor_type*</label><br>
@@ -86,29 +86,29 @@
 <script>
 import router from '../router'
 export default {
-    name: 'AddInvestor',
-    data() {
-        return {
-            newInvestor: {
-                name: '',
-                company_name: '',
-                region: '',
-                industry: '',
-                website_url: '',
-                linkedin_url: '',
-                investor_type: '',
-            }
-        }
-    },
-    methods: {
-        toAddReview() {
-            router.push({ path: `/add-review#add-review`})
-        },
-        registerInvestor() {
-            let investor = this.newInvestor
-            this.$store.dispatch('registerInvestor', investor)
-        }
+  name: 'AddInvestor',
+  data () {
+    return {
+      newInvestor: {
+        name: '',
+        company_name: '',
+        region: '',
+        industry: '',
+        website_url: '',
+        linkedin_url: '',
+        investor_type: ''
+      }
     }
+  },
+  methods: {
+    toAddReview () {
+      router.push({ path: '/add-review#add-review' })
+    },
+    registerInvestor () {
+      const investor = this.newInvestor
+      this.$store.dispatch('registerInvestor', investor)
+    }
+  }
 }
 </script>
 
