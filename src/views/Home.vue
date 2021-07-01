@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="d-flex justify-content-center">
-      <div class="card mb-3 mt-5 mb-3 w-75 card shadow p-3 mb-5 bg-body rounde">
+      <div class="card mb-3 mt-5 mb-3 w-50 card shadow p-3 mb-5 bg-body rounde">
         <img
           src="https://ministry-to-children.com/wp-content/uploads/2015/11/paper-chain.jpg"
           class="card-img-top"
@@ -16,28 +16,28 @@
             v-if="typeTranslate % 2 === 0"
           >
             <label for="input-kata" class="sr-only"></label>
-            <input
+            <textarea
               type="text"
               v-model="textInd"
               @keyup="translateText"
               name="textInd"
               id="textInd"
               class="form-control d-inline-block rounded"
-              style="width: 470px"
+              style="width: 285px"
               placeholder="Masukkan teks bahasa indonesia"
             />
             <button
               class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
-              style="height: 38px; width: 38px;"
+              style="height: 38px; width: 38px;position:absolute; margin: 13px 0px 0px 28px;"
               @click.prevent="buttonChange"
             ></button>
             <label for="textTranslateResultInd" class="sr-only"></label>
-            <input
+            <textarea
               type="text"
               v-model="translate.resultTextInd"
               name="textTranslateResultInd"
               id="textResultInd"
-              style="width: 470px"
+              style="width: 285px;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
               placeholder="Hasil teks bahasa inggris"
             />
@@ -48,28 +48,28 @@
             v-if="typeTranslate % 2 !== 0"
           >
             <label for="input-kata" class="sr-only"></label>
-            <input
+            <textarea
               type="text"
               v-model="textEng"
               @keyup="translateText"
               name="textEng"
               id="textEng"
               class="form-control d-inline-block"
-              style="width: 470px"
+              style="width: 285px"
               placeholder="Masukkan teks bahasa inggris"
             />
             <button
               class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
-              style="height: 38px; width: 38px;"
+              style="height: 38px; width: 38px;position:absolute; margin: 13px 0px 0px 28px;"
               @click.prevent="buttonChange"
             ></button>
             <label for="textTranslateResultInd" class="sr-only"></label>
-            <input
+            <textarea
               type="text"
               v-model="translate.resultTextEng"
               name="textTranslateResultInd"
               id="textResultEng"
-              style="width: 470px"
+              style="width: 285px;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
               placeholder="Hasil teks bahasa indonesia"
             />
