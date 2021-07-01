@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <div class="d-flex justify-content-end">
-        <a class="nav-link active pointer" >Watchlist</a>
+        <!-- <a class="nav-link active pointer" >Watchlist</a> -->
         </div>
         <div class="d-flex justify-content-end">
         <a @click="logout" v-if="isLogin" class="nav-link active pointer" >Sign Out</a>

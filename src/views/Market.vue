@@ -45,7 +45,7 @@
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a @click="signalBtc" target="_blank" class="gem-button gem-green">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a @click="signalBtc" target="_blank" class="gem-button gem-green">Add watchlist</a></div>
+                <!-- <div class="gem-button-container gem-button-position-center"><a @click="signalBtc" target="_blank" class="gem-button gem-green">Add watchlist</a></div> -->
               </div>
             </div>
     </div>
@@ -70,7 +70,7 @@
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a @click="signalEth" class="gem-button gem-purpel">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a @click="signalEth" class="gem-button gem-purpel">Add watchlist</a></div>
+                <!-- <div class="gem-button-container gem-button-position-center"><a @click="signalEth" class="gem-button gem-purpel">Add watchlist</a></div> -->
               </div>
             </div>
     </div>
@@ -95,7 +95,7 @@
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"> <a @click="signalLtc" class="gem-button gem-orange">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"> <a @click="signalLtc" class="gem-button gem-orange">Add Watchlist</a></div>
+                <!-- <div class="gem-button-container gem-button-position-center"> <a @click="signalLtc" class="gem-button gem-orange">Add Watchlist</a></div> -->
               </div>
             </div>
     </div>
@@ -120,7 +120,7 @@
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a @click="signalDoge" class="gem-button gem-yellow">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a @click="signalDoge" class="gem-button gem-yellow">Add Watchlist</a></div>
+                <!-- <div class="gem-button-container gem-button-position-center"><a @click="signalDoge" class="gem-button gem-yellow">Add Watchlist</a></div> -->
               </div>
             </div>
     </div>
@@ -145,7 +145,7 @@
               <!-- <figure class="pricing-row strike">Lorem ipsum dolor</figure> -->
               <div class="pricing-footer">
                 <div class="gem-button-container gem-button-position-center"><a @click="signalXrp" class="gem-button gem-cyan">Watch Signal</a></div>
-                <div class="gem-button-container gem-button-position-center"><a @click="signalXrp" class="gem-button gem-cyan">Add Watchlist</a></div>
+                <!-- <div class="gem-button-container gem-button-position-center"><a @click="signalXrp" class="gem-button gem-cyan">Add Watchlist</a></div> -->
               </div>
             </div>
     </div>
