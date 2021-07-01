@@ -15,21 +15,15 @@
         <div class="container">
             <!-- filter by category -->
             <div class="relative">
-                <input type="checkbox" id="sortbox" class="hidden absolute">
-                <label for="sortbox" class="flex items-center space-x-1 cursor-pointer">
-                <span class="text-gray-700 text-2xl font-medium">Category</span>
-                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </label>
-                    <div id="sortboxmenu" class="absolute  top-full min-w-max shadow rounded opacity-0 bg-gray-300 border border-gray-400 transition delay-75 ease-in-out z-10">
-                    <ul class="block text-right text-gray-900">
-                        <li><a href="#" class="block text-gray-700 px-3 py-2 hover:bg-gray-200">Featured</a></li>
-                        <li><a href="#" class="block text-gray-700 px-3 py-2 hover:bg-gray-200">Newest</a></li>
-                        <li><a href="#" class="block text-gray-700 px-3 py-2 hover:bg-gray-200">Price: Low to High</a></li>
-                        <li><a href="#" class="block text-gray-700 px-3 py-2 hover:bg-gray-200">Price: High to Low</a></li>
-                    </ul>
-                </div>
+              <select @change="filter" v-model="CategoriesId" class="text-gray-700 bg-gray-100 text-2xl font-medium" name="category" id="category">
+                <option value="" disabled>Category</option>
+                <option value="1">Living Room</option>
+                <option value="2">Bed Room</option>
+                <option value="3">Dining Room</option>
+                <option value="4">Kitchen Set</option>
+                <option value="5">Garage</option>
+                <option value="6">Apartment</option>
+              </select>
             </div>
             <!-- Card -->
             <Card></Card>
@@ -52,11 +46,23 @@ export default {
   name: 'Home',
   data () {
     return {
-      page: 1
+      page: 1,
+      CategoriesId: ''
     }
   },
   components: { Card },
   methods: {
+    filter () {
+      const CategoriesId = this.CategoriesId
+      let filterQuery = ''
+
+      if (CategoriesId) {
+        filterQuery = `CategoriesId=${CategoriesId}`
+      }
+
+      this.$store.commit('FILTERQUERY', filterQuery)
+      this.$store.dispatch('getAllDesigns')
+    },
     toRegisterDesign () {
       this.$router.push({ name: 'RegisterDesigner' }).catch(() => {})
     },

@@ -16,7 +16,8 @@ export default new Vuex.Store({
     bookmarks: null,
     categories: null,
     isBookmarkPage: false,
-    query: ''
+    query: '',
+    filterQuery: ''
   },
   mutations: {
     GETALLDESIGNS (state, data) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     QUERY (state, url) {
       state.query = url
+    },
+    FILTERQUERY (state, url) {
+      state.filterQuery = url
     },
     LOGIN (state, data) {
       localStorage.setItem('access_token', data.access_token)
@@ -81,7 +85,13 @@ export default new Vuex.Store({
   },
   actions: {
     getAllDesigns (context) {
-      const query = context.state.query
+      let query = context.state.query
+
+      if (context.state.filterQuery) {
+        query += '&' + context.state.filterQuery
+      }
+
+      console.log(query)
 
       axios({
         url: `/?${query}`,
