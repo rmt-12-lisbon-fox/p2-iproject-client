@@ -1,6 +1,14 @@
 <template>
   <div class="d-flex justify-content-center">
     <div class="card mt-5 mb-3 w-50 card shadow p-3 mb-5 bg-body rounde">
+      <a
+        href=""
+        @click.prevent="backGames"
+        v-if="challenge.data.length"
+        class="fas mb-3 fa-arrow-circle-left fa-lg text-decoration-none"
+        style="width : 40px; color: black;"
+      >
+      </a>
       <img
         src="https://images.prismic.io/etswebsiteprod/1ece52b2c9683b045136669c4f3ec12e40551446_alphabet-close-up-communication-256417.jpg?auto=compress,format"
         class="card-img-top"
@@ -177,13 +185,7 @@
               Send
             </button>
             <!--  style="background-color: #fd7e14" -->
-            <a
-              href=""
-              @click.prevent="backGames"
-              class="fas fa-arrow-circle-left fa-lg text-decoration-none"
-              style="width : 40px; color: black;"
-            >
-            </a>
+
             <!-- <button class="btn btn-dark" >
               Back
             </button> -->
