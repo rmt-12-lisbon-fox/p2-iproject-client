@@ -1,10 +1,14 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-info p-3">
-    <a class="navbar-brand text-white" href="#">Safe Travel</a>
+    <a @click.prevent="toHome" class="navbar-brand text-white text-left" href="#"
+      >
+      <img src="./navbar.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+      Safe Travel</a
+    >
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item" v-if="isLoggedIn === false">
           <a
             class="nav-link text-white"
             href="#"
@@ -13,7 +17,16 @@
             >Login</a
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="isLoggedIn === true">
+          <a
+            class="nav-link text-white"
+            href="#"
+            aria-disabled="true"
+            @click="toSavedPlacesPage"            
+            >Saved places</a
+          >
+        </li>
+        <li class="nav-item" v-if="isLoggedIn === true">
           <a
             @click="logout"
             class="nav-link text-white"
@@ -39,7 +52,20 @@ export default {
       this.$store.commit("LOGOUT");
       this.$router.push("/login");
     },
+    toHome() {
+      this.$router.push("/");
+    },
+    toSavedPlacesPage(){
+      this.$router.push("/savedplaces");
+    }
   },
+  computed: {
+    isLoggedIn(){
+      return this.$store.state.isLoggedIn
+    }
+  }
+    
+  
 };
 </script>
 
