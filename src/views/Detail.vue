@@ -1,12 +1,12 @@
 <template>
-    <div class="mt-1 container p-2" style="width: 60%; " >
+    <div class="mt-1 container p-2" style="width: 60%;" >
         <div class="d-flex justify-content-between px-5">
             <router-link :to="{path: '/'}" class="text-decoration-none text-white"> 
                 <span class="material-icons display-6">
                 arrow_back
                 </span>
             </router-link>
-            <div class="text-end d-flex align-items-center" v-if="isLoggedIn">
+            <div class="text-end d-flex align-items-center" v-if="isLoggedIn && animeOne">
               <!-- <p>
                 Remove from Bookmark
               </p>  -->
@@ -15,7 +15,7 @@
               >
                 bookmark_border
               </span>
-              <span class="material-icons display-4" v-if="bookmark"
+              <span class="material-icons display-4" v-else
                  @click.prevent="deleteBookmark(animeOne.mal_id)"
               >
                 bookmark
@@ -66,79 +66,15 @@
 
         </div>
 
-        <div class="pb-5 container" v-if="animeOne.title" >
-         <h5 class="mt-5 mb-0">Share this to your Social Media</h5>
-          <div class="nav d-flex justify-content-center">
-            <ShareNetwork
-                network="facebook"
-                :url="shareLink"
-                title="Aniplay"
-                desciption="Check this anime on Aniplay"
-                :quote="animeOne.title"
-                hashtags="aniplay"
-              >
-                <a href="#" class="fa fa-facebook"></a>
-            </ShareNetwork>
+       <SocialMedia :animeOne="animeOne"/>
 
-            <ShareNetwork
-                network="twitter"
-                :url="shareLink"
-                title="Aniplay"
-                desciption="Check this anime on Aniplay"
-                :quote="animeOne.title"
-                hashtags="aniplay"
-            >
-              <a href="#" class="fa fa-twitter"></a>
-          </ShareNetwork>
-
-          <ShareNetwork
-                network="telegram"
-                :url="shareLink"
-                title="Aniplay"
-                desciption="Check this anime on Aniplay"
-                :quote="animeOne.title"
-                hashtags="aniplay"
-            >
-              <a href="#" class="fa fa-telegram"></a>
-          </ShareNetwork>
-
-          <ShareNetwork
-                network="whatsapp"
-                :url="shareLink"
-                title="Aniplay"
-                desciption="Check this anime on Aniplay"
-                :quote="animeOne.title"
-                hashtags="aniplay"
-            >
-              <a href="#" class="fa fa-whatsapp"></a>
-          </ShareNetwork>
-          </div>
-
-        </div>
-
-
-        <div v-if="animeEpisodes[0]" class="mt-5" style="padding-bottom: 8%;">
-          <hr size="8">
-          <h4>
-            List Episode
-          </h4>
-          <table class="table text-white mt-3">
-            <thead>
-              <tr>
-                <th scope="col-1">#</th>
-                <th scope="col">Episode</th>
-                <th scope="col">Updated</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <EpisodeRow 
-                v-for="(el,i) in animeEpisodes" :key="el.id" :el="el" :i="i"
-              />
-            </tbody>
-          </table>
-        </div>
-
+      <div class="episode-list py-2">
+        <button class="btn btn-outline-light btn-lg ms-2"
+          @click.prevent="changePage()"
+       >See Episode List</button>
+      </div>
+      
+       <router-view/>
     </div>
 
 </template>
@@ -146,17 +82,17 @@
 <script>
 // import swal from 'sweetalert2'
 import {mapState} from 'vuex'
-import EpisodeRow from '../components/EpisodeRow.vue'
+import SocialMedia from '../components/SocialMedia.vue'
 export default {
   name: 'Detail',
+  components: {SocialMedia},
   data() {
     return {
       bookmark: false
     }
   },
-  components: {EpisodeRow},
   computed: {
-    ...mapState(['animeOne', 'animeEpisodes', 'bookmarkOne', 'isLoggedIn']),
+    ...mapState(['animeOne', 'bookmarkOne', 'isLoggedIn']),
     genres() {
       let genres = []
       if (this.animeOne.genres) {
@@ -170,16 +106,11 @@ export default {
     bookmarked() {
       if (this.bookmarkOne) {
         if (this.bookmarkOne.mal_id == this.animeOne.mal_id) {
-          this.bookmark = true
+         this.bookmark = true
           return true
         } 
       }
-      return false
-    },
-    shareLink(){
-      let link = 'https://aniplay-client.web.app' + this.$route.path
-      return link
-      // return window.location.href
+     return false
     }
 
   },
@@ -194,6 +125,9 @@ export default {
       deleteBookmark(value) {
         this.bookmark = false
         this.$store.dispatch('deleteBookmark' , value)
+      },
+      changePage() {
+        this.$router.push({name: 'Videos', params: {id: this.$route.params.id}}).catch(() => {})
       }
   },
   created() {
@@ -202,29 +136,14 @@ export default {
     }
     this.$store.dispatch('infoAnime', payload)
     this.$store.dispatch('findOneBookmark', this.$route.params.id)
-
   }
 }
 </script>
 
 <style>
-.detail-page {
+.episode-list {
   padding-bottom: 8% !important;
 }
 
-.fa {
-  padding: 0 1em;
-  font-size: 30px;
-  margin: 0%;
-  width: 30px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 50%;
-}
-
-.fa:hover {
-  transform: scale(1.2);
-  transition: all .3s ease-in-out;
-}
 
 </style>
