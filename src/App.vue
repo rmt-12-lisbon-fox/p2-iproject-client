@@ -3,9 +3,6 @@
     <nav-bar/>
     <router-view/>
 
-
-    
-
     <HFooter id="footer"/>
   </div>
 </template>
