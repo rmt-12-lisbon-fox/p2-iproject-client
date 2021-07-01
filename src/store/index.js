@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import swal from 'sweetalert'
-let rootUrl = 'http://localhost:3000'
+let rootUrl = 'https://rate-your-investor.herokuapp.com'
 
 Vue.use(Vuex)
 
