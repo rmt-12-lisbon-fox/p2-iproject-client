@@ -8,7 +8,7 @@
         <div class="container">
           <div class="card-title">
             <div class="container pt-4">
-              <h2 class="text-center">Result</h2>
+              <h2 class="text-center" id="result-heading">Result</h2>
               <hr>
               <div class="row">
                 <div class="col-4">

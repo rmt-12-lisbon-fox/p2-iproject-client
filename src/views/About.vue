@@ -7,8 +7,8 @@
       <div class="mb-5" id="about-card">
         <div class="card-title">
           <div class="container p-3">
-            <h5 class="text-center">About Background</h5>
-            <h6>{{ background.title }}</h6>
+            <h4 class="text-center" id="about-heading">About Background</h4>
+            <h5>{{ background.title }}</h5>
             <p
               v-if="background.explanation.length > 550"
               id="explanation"
@@ -16,6 +16,9 @@
             <a class="link" data-bs-toggle="modal" data-bs-target="#background-modal">
               view more
             </a>
+            </p>
+            <p class="card-text text-end" id="source">
+              <small class=" fst-italic">Source: NASA</small>
             </p>
             <div class="modal fade" id="background-modal" tabindex="-1">
               <div class="modal-dialog modal-lg">
