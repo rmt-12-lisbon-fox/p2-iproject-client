@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 import BookmarkRow from '../components/BookmarkRow.vue'
 export default {
   components: { BookmarkRow },
@@ -33,8 +33,11 @@ export default {
     computed: {
         ...mapState(['bookmarkAll'])
     },
+    methods: {
+        ...mapActions(['findBookmark'])
+    },
     created() {
-        this.$store.dispatch('findBookmark')
+        this.findBookmark()
     }
 }
 </script>

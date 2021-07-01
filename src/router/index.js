@@ -48,4 +48,11 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.name == 'Bookmark' && !localStorage.access_token) {
+    next('/')
+  }
+  next()
+})
+
 export default router

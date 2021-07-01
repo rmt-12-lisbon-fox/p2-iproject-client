@@ -97,7 +97,7 @@ export default new Vuex.Store({
         context.dispatch('searchAnimeVideos', title)
       })
       .catch(err => {
-        swal.fire("error", '', 'error')
+        swal.fire("We dont have this anime right now")
       })
     },
 
@@ -114,7 +114,7 @@ export default new Vuex.Store({
         context.dispatch('getAnimeEpisodes', vid_id)
       })
       .catch(err => {
-        swal.fire("error", '', 'error')
+        swal.fire("We dont have this anime right now")
       })
     },
 
@@ -250,7 +250,7 @@ export default new Vuex.Store({
       })
       .then(({data}) => {
         swal.fire('success delete anime from bookmark', '', 'success')
-        
+        context.dispatch('findBookmark')
       })
       .catch(err => {
         console.log(err.response);
@@ -258,15 +258,17 @@ export default new Vuex.Store({
     },
 
     statusBookmark(context, payload) {
+      let {mal_id, status} = payload
       axios({
-        url: `/user/bookmark/${payload}`,
+        url: `/user/bookmark/${mal_id}`,
         method: "patch",
+        data: {status},
         headers: {
           access_token: localStorage.access_token
         }
       })
       .then(({data}) => {
-        console.log(data);
+        swal.fire('success update status anime from bookmark', '', 'success')
         
       })
       .catch(err => {
