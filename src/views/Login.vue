@@ -75,6 +75,9 @@ export default {
   },
   created () {
     this.$store.commit('TOLOGINPAGE')
+    if (localStorage.accessToken) {
+      router.push({ path: '/' }).catch(() => {})
+    }
   }
 
 }

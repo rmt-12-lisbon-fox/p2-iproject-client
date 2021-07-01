@@ -21,6 +21,7 @@ export default {
   methods: {
     toHome () {
       this.$store.commit('LOGINPAGEOFF')
+      this.$store.commit('VERIFYTOGGLE', false)
       router.push({ path: '/' })
     }
   },
@@ -36,7 +37,9 @@ export default {
     }
   },
   created () {
+    // console.log('MASUKKKKKKKK VERIFY')
     this.$store.commit('TOLOGINPAGE')
+    this.$store.commit('VERIFYTOGGLE', true)
     const id = this.$route.params.id
     this.$store.dispatch('verifyFounder', id)
   }

@@ -42,12 +42,12 @@
 
                 <div class='d-flex justify-content-between' style='align-items:center'>
                 <div style='width:45%'>
-                <label><b>First Name</b></label>
+                <label><b>First Name*</b></label>
                 <input type="text" id='registerName' placeholder="First Name" name="first_name" v-model="newUser.first_name">
                 </div>
 
                 <div style='width:45%'>
-                <label><b>Last Name</b></label>
+                <label><b>Last Name*</b></label>
                 <input type="text" id='registerName' placeholder="Last Name" name="last_name" v-model="newUser.last_name">
                 </div>
                 </div>

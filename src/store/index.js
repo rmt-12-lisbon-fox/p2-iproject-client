@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading: false,
     isLoggedIn: false,
     slider: true,
     isAdmin: false,
@@ -31,9 +32,13 @@ export default new Vuex.Store({
     translation: '',
     investors: [],
     allinvestors: [],
-    activationMessage: ''
+    activationMessage: '',
+    verify: false
   },
   mutations: {
+    TOGGLELOADER (state, payload) {
+      state.loading = payload
+    },
     POSTLOGINDETAILS (state) {
       state.user.name = localStorage.first_name
       state.user.fullname = `${localStorage.first_name} ${localStorage.last_name}`
@@ -105,6 +110,9 @@ export default new Vuex.Store({
     UPDATELIKES (state, payload) {
       state.review.likes = payload.likes
       state.review.likes_id = payload.likes_id
+    },
+    VERIFYTOGGLE(state, payload) {
+      state.verify = true
     }
   },
   actions: {
@@ -210,19 +218,23 @@ export default new Vuex.Store({
         })
     },
     getReviews ({ commit }) {
+      commit('TOGGLELOADER', true)
       axios({
         url: `${rootUrl}/reviews`,
         method: 'get'
       })
         .then(reviews => {
+          commit('TOGGLELOADER', false)
           commit('GETREVIEWS', reviews.data)
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err)
           Vue.$toast.error(err.response.data.message)
         })
     },
     getReviewDetail ({ commit }, payload) {
+      commit('TOGGLELOADER', true)
       const reviewId = +payload
       // console.log(reviewId)
       axios({
@@ -230,10 +242,12 @@ export default new Vuex.Store({
         method: 'get'
       })
         .then(review => {
+          commit('TOGGLELOADER', false)
         // console.log('DONE PULL')
           commit('FETCHREVIEW', review.data)
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err)
           Vue.$toast.error(err.response.data.message)
         })
@@ -261,12 +275,11 @@ export default new Vuex.Store({
         })
     },
     translate ({ commit }, payload) {
+      commit('TOGGLELOADER', true)
       const language = payload.lang
       const data = {
         language: language
       }
-      // console.log(language)
-      // console.log(language, '<<<<<<<<<')
       const reviewId = payload.reviewId
 
       axios({
@@ -275,10 +288,12 @@ export default new Vuex.Store({
         data: data
       })
         .then(text => {
+          commit('TOGGLELOADER', false)
           commit('SAVETRANSLATION', text.data)
         // console.log(text.data)
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err)
           // Vue.$toast.error('Please login to like a review')
           Vue.$toast.error(err.response.data.message)
@@ -316,6 +331,8 @@ export default new Vuex.Store({
       user.append('team_size', team_size)
       user.append('profilePic', profilePic)
 
+      commit('TOGGLELOADER', true)
+
       axios({
         url: `${rootUrl}/register`,
         method: 'post',
@@ -328,9 +345,11 @@ export default new Vuex.Store({
           localStorage.setItem('admin_status', data.data.admin_status)
           localStorage.setItem('active_status', data.data.active_status)
           router.push({ path: '/login' })
+          commit('TOGGLELOADER', false)
           swal('Success', 'Verify your email: We have sent you an email verification. Please click on the link provided', 'success')
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err)
           if (Array.isArray(err.response.data.message)) {
             for (let i = 0; i < err.response.data.message.length; i++) {
@@ -371,6 +390,7 @@ export default new Vuex.Store({
         })
     },
     addReview ({ commit }, payload) {
+      commit('TOGGLELOADER', true)
       const review = payload
       axios({
         url: `${rootUrl}/reviews`,
@@ -381,11 +401,13 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
+          commit('TOGGLELOADER', false)
         // console.log(data.data)
           swal('Success', 'You have added a new review', 'success')
           router.push({ path: '/' })
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err.response.data.message)
           if (Array.isArray(err.response.data.message)) {
             for (let i = 0; i < err.response.data.message.length; i++) {
@@ -419,6 +441,7 @@ export default new Vuex.Store({
         })
     },
     registerInvestor ({ commit }, payload) {
+      commit('TOGGLELOADER', true)
       const newInvestor = payload
       axios({
         url: `${rootUrl}/investors`,
@@ -432,8 +455,10 @@ export default new Vuex.Store({
         // console.log(data.data)
           Vue.$toast.success('Thank you! You will be notified via Whatsapp when the investor has been verified.')
           router.push({ path: '/' })
+          commit('TOGGLELOADER', false)
         })
         .catch(err => {
+          commit('TOGGLELOADER', false)
           console.log('Error:', err)
           if (Array.isArray(err.response.data.message)) {
             for (let i = 0; i < err.response.data.message.length; i++) {

@@ -22,6 +22,7 @@
 
 <script>
 import ReviewCard from '@/components/ReviewCard.vue'
+import router from '../router'
 
 export default {
   name: 'Home',

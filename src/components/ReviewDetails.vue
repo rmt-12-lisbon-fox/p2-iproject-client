@@ -287,7 +287,7 @@ export default {
     },
     pageConfig () {
       const config = {}
-      const identifier = `${this.$route.params.id}`
+      const identifier = `prod-${this.$route.params.id}`
 
       return { identifier }
     },

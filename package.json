@@ -15,6 +15,7 @@
     "vue-disqus": "^4.0.1",
     "vue-easy-slider": "^5.3.4",
     "vue-google-signin-button-directive": "^1.0.3",
+    "vue-hacktiv8-footer": "0.0.9",
     "vue-router": "^3.2.0",
     "vue-toast-notification": "^0.6.2",
     "vuex": "^3.4.0"

@@ -3,7 +3,7 @@
   <div id="navbar" class='subBody'>
     <nav id="navbar-bar" class="navbar navbar-expand-lg navbar-light bg-transparent">
         <div class="container-fluid">
-          <img src='../assets/Rate your investor.png'>
+          <img src='../assets/Rate your investor.png' style='width:120px'>
           <!-- <a class="navbar-brand" href="#">Rate Your Investor</a> -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -101,7 +101,7 @@
               <div class='description text-center align-bottom' style="background-color: white; border-radius: 30px; opacity: 0.8; padding: 20px; width: 45%; align-items:center">
                   <h2 style='opacity:1; color:black; text-shadow: 1px 1px 2px #000000' class='news-overflow-ellipsis'>{{i.title}}</h2><br>
                   <h5 style='opacity:1; color:black' class ='news-overflow-ellipsis'>{{i.content}}</h5><br>
-              <button style='width:150px; height: 50px; border-radius: 30px;'><a :href="i.url">Read More</a></button>
+              <button style='width:150px; height: 50px; border-radius: 30px;'><a :href="i.url" style='text-decration:none; color:black'>Read More</a></button>
               </div>
           <div>
             </div>
