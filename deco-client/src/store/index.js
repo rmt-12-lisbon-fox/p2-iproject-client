@@ -47,7 +47,7 @@ export default new Vuex.Store({
           context.commit('CHANGE_LOGIN', true)
         })
         .catch(err => {
-          // console.log(err)
+          console.log(err)
           Swal.fire('Something went wrong!', 'Error login with google', 'error')
         })
     },
