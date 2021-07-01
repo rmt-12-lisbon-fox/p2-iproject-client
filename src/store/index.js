@@ -115,9 +115,9 @@ export default new Vuex.Store({
       let url = '/api?'
       if (payload.name) url = url + 'food=' + payload.name
       instance.get(url)
-        .then( data => {
+        .then( ({data}) => {
           console.log(data)
-          context.commit('SEARCH', data.data.foods)
+          context.commit('SEARCH', data.foods)
         })
         .catch( err => {
           console.log(err.response.status, `<<<`)
