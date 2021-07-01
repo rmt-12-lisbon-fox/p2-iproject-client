@@ -23,7 +23,7 @@
               name="textInd"
               id="textInd"
               class="form-control d-inline-block rounded"
-              style="width: 285px"
+              style="width: 280px"
               placeholder="Masukkan teks bahasa indonesia"
             />
             <button
@@ -37,7 +37,7 @@
               v-model="translate.resultTextInd"
               name="textTranslateResultInd"
               id="textResultInd"
-              style="width: 285px;  margin: 0px 0px 0px 73px;"
+              style="width: 280px;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
               placeholder="Hasil teks bahasa inggris"
             />
@@ -55,7 +55,7 @@
               name="textEng"
               id="textEng"
               class="form-control d-inline-block"
-              style="width: 285px"
+              style="width: 280px"
               placeholder="Masukkan teks bahasa inggris"
             />
             <button
@@ -69,7 +69,7 @@
               v-model="translate.resultTextEng"
               name="textTranslateResultInd"
               id="textResultEng"
-              style="width: 285px;  margin: 0px 0px 0px 73px;"
+              style="width: 280px;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
               placeholder="Hasil teks bahasa indonesia"
             />
