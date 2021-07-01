@@ -5,7 +5,7 @@ import store from './store'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
-import Toasted from 'vue-toasted';
+import Toasted from 'vue-toasted'
 
 // import Popper from 'popper.js'
 // Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false

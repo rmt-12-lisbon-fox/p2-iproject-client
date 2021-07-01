@@ -39,7 +39,7 @@
         </ul>
         <!-- <form class="d-flex" @submit.prevent="fetchAllCards"> -->
         <form class="d-flex" @submit.prevent="">
-          <input class="form-control me-2" type="search" placeholder="Search Wiki" aria-label="Search">
+          <input class="form-control me-2" type="search" placeholder="Search Wiki" aria-label="Search" v-model="name">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
@@ -57,6 +57,9 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('logout')
+    },
+    wikiSearch () {
+      this.$store.dispatch('fetchAllCards')
     }
   },
   computed: {
