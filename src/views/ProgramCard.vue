@@ -2,7 +2,7 @@
    <div class="card card-custom m-5" style="width: 20rem">
           <img
             :src="data.thumbnail"
-            class="card-img-top"
+            class="card-img-top mt-2"
             alt="..."
           />
           <div class="card-body">

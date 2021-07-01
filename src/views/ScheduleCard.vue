@@ -21,7 +21,7 @@ export default {
     methods : {
         toDetailPage(id) {
             this.$store.dispatch('detailProgram', id)
-        }
+        },
     }
 
 }

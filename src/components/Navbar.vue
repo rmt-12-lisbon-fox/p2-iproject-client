@@ -38,6 +38,13 @@
                 >My Programs</a
               >
             </li>
+            <li v-if="isLoggedIn" class="nav-item">
+              <i @click.prevent="test" class='far fa-comment-alt' style='font-size:36px'></i>
+            </li>
+
+            <div>
+              <h6></h6>
+            </div>
           </ul>
         </div>
       </div>
@@ -47,9 +54,16 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {return { username: localStorage.username }},
   computed : {
     isLoggedIn () {
       return this.$store.state.isLoggedIn
+    },
+    counter() {
+      return this.$store.state.counter
+    },
+    username() {
+      return this.$store.state.username
     }
   },
   methods : {
@@ -61,8 +75,13 @@ export default {
     },
     toMyPrograms() {
       this.$store.dispatch('fetchSchedule')
+    },
+    test() {
+      this.$store.dispatch('fetchReminder')
+      this.$store.commit('SET_COUNTER')
+      console.log(`test masuk`)
     }
-  }
+  },
 }
 </script>
 

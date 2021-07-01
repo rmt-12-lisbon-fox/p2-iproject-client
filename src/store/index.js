@@ -13,7 +13,10 @@ export default new Vuex.Store({
     username : '',
     UserId : '',
     age : '',
-    schedule : []
+    schedule : [],
+    scheduleId : [],
+    counter : 0,
+    reminders : []
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload) {
@@ -25,6 +28,7 @@ export default new Vuex.Store({
       state.UserId = payload.id
       state.age = payload.age
       localStorage.setItem('access_token', payload.access_token)
+      localStorage.setItem('username', payload.username)
     },
     AFTER_FETCH_PROGRAMS (state, payload) {
       state.programs = payload
@@ -33,13 +37,21 @@ export default new Vuex.Store({
       state.program = payload
     },
     AFTER_FETCH_SCHEDULE (state, payload) {
-      state.schedule = payload
+      state.scheduleId = payload
+      state.schedule = payload.Programs
+    },
+    SET_COUNTER(state) {
+      state.counter += 1
+      router.push('/').catch( () => {})
+    },
+    AFTER_FETCH_REMINDER(state, payload) {
+      state.reminders = payload
     }
   },
   actions: {
     login(context, payload) {
       axios({
-        url : `http://localhost:3000/login`,
+        url : `https://go-exercise-servers.herokuapp.com/login`,
         method : 'post',
         data : { email:payload.email, password:payload.password }
       })
@@ -56,23 +68,38 @@ export default new Vuex.Store({
       context.commit('SET_IS_LOGGED_IN', false)
       router.push('/login')
     },
-    fetchPrograms(context) {
-      axios({
-        url : `http://localhost:3000/programs`,
-        method : 'get',
-        headers : { access_token : localStorage.access_token }
-      })
-      .then( ({data}) => {
-        context.commit('AFTER_FETCH_PROGRAMS', data)
-        router.push('/').catch( () => {} )
-      })
-      .catch( err => {
-        console.log(err, `ini error dari fetch programs`)
-      })
+    fetchPrograms(context, filter) {
+      if (filter) {
+        axios({
+          url : `https://go-exercise-servers.herokuapp.com/programs${filter}`,
+          method : 'get',
+          headers : { access_token : localStorage.access_token }
+        })
+        .then( ({data}) => {
+          context.commit('AFTER_FETCH_PROGRAMS', data)
+          router.push('/').catch( () => {} )
+        })
+        .catch( err => {
+          console.log(err, `ini error dari fetch programs`)
+        })
+      } else {
+        axios({
+          url : `https://go-exercise-servers.herokuapp.com/programs`,
+          method : 'get',
+          headers : { access_token : localStorage.access_token }
+        })
+        .then( ({data}) => {
+          context.commit('AFTER_FETCH_PROGRAMS', data)
+          router.push('/').catch( () => {} )
+        })
+        .catch( err => {
+          console.log(err, `ini error dari fetch programs`)
+        })
+      }
     },
     detailProgram(context, id) {
       axios({
-        url : `http://localhost:3000/programs/${id}`,
+        url : `https://go-exercise-servers.herokuapp.com/programs/${id}`,
         method : 'get',
         headers : { access_token : localStorage.access_token }
       })
@@ -87,10 +114,10 @@ export default new Vuex.Store({
     },
     createSchedule(context, payload) {
       axios({
-        url : `http://localhost:3000/mySchedule/`,
+        url : `https://go-exercise-servers.herokuapp.com/mySchedule`,
         method : 'post',
         headers : { access_token : localStorage.access_token },
-        data : { ProgramId:payload.ProgramId, intensity:payload.intensity }
+        data : { ProgramId:payload.ProgramId, intensity:payload.intensity, programTitle: payload.programTitle }
       })
       .then( ({data}) => {
         router.push('/')
@@ -100,19 +127,47 @@ export default new Vuex.Store({
         console.log(err, `ini error create schedule`)
       })
     },
-    fetchSchedule(context) {
+    fetchSchedule(context, check) {
       axios({
-        url : `https://go-exercise-server.herokuapp.com/mySchedule/`,
+        url : `https://go-exercise-servers.herokuapp.com/mySchedule`,
         method : 'get',
         headers : { access_token : localStorage.access_token },
       })
       .then( ({data}) => {
         console.log(data, `ini fetch schedule`)
         context.commit('AFTER_FETCH_SCHEDULE', data)
-        router.push('/schedule').catch( () => {} )
+        if (!check) {
+          router.push('/schedule').catch( () => {} )
+        }
       })
       .catch( err => {
         console.log(err, `ini error fetch schedule`)
+      })
+    },
+    deleteSchedule(context, id) {
+      axios({
+        url : `https://go-exercise-servers.herokuapp.com/mySchedule`,
+        method : 'delete',
+        headers : { access_token : localStorage.access_token },
+        data : { id }
+      })
+      .then( ({data}) => {
+          context.dispatch('fetchSchedule')
+      })
+      .catch( err => console.log(err, `ini error dari delete schedule`))
+    },
+    fetchReminder(context) {
+      axios({
+        url : `https://go-exercise-servers.herokuapp.com/reminders`,
+        method : 'get',
+        headers : { access_token : localStorage.access_token },
+      })
+      .then( ({data}) => {
+        console.log(data, `ini data fetch reminders <<<<<<<`)
+        context.commit('AFTER_FETCH_REMINDER', data)
+      })
+      .catch(err => {
+        console.log(err, `ini eror fetch reminders`)
       })
     }
   },
