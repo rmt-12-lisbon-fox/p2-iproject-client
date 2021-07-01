@@ -34,7 +34,12 @@ export default new Vuex.Store({
     ethlast: '',
     btclow: '',
     btchigh: '',
-    btclast: ''
+    btclast: '',
+    signalBtc: '',
+    signalEth: '',
+    signalLtc: '',
+    signalDoge: '',
+    signalXrp: ''
   },
   mutations: {
     LOGIN (state, payload) {
@@ -112,6 +117,21 @@ export default new Vuex.Store({
     },
     ISLOGIN (state) {
       state.isLogin = true
+    },
+    SIGNAL_BTC (state, payload) {
+      state.signalBtc = payload
+    },
+    SIGNAL_ETH (state, payload) {
+      state.signalEth = payload
+    },
+    SIGNAL_LTC (state, payload) {
+      state.signalLtc = payload
+    },
+    SIGNAL_DOGE (state, payload) {
+      state.signalDoge = payload
+    },
+    SIGNAL_XRP (state, payload) {
+      state.signalXrp = payload
     }
   },
   actions: {
@@ -216,7 +236,13 @@ export default new Vuex.Store({
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
-    async signalBtc () {
+    getBtc (context) {
+      api.get('/bestbtc', { headers: { access_token: localStorage.access_token } })
+        .then(btc => {
+          context.commit('SIGNAL_BTC', btc.data.btc)
+        })
+    },
+    async signalBtc (context) {
       if (localStorage.access_token) {
         Vue.$toast.open({
           message: 'please wait.. fetching Signal',
@@ -229,6 +255,7 @@ export default new Vuex.Store({
             access_token: localStorage.access_token
           }
         })
+        // await context.commit('SIGNAL_BTC', btc.data.btc)
         // .then(({ btc }) => {
         if (await btc.data.btc === 'buy') {
           Swal.fire({

@@ -62,6 +62,9 @@
                                 {{ btc }}
                             </h2>
                         </div>
+                        <div class="col-4 text-right fs-3">
+                            <span>{{ signalBtc }}</span>
+                        </div>
                         <!-- <div class="col-4 text-right">
                             <span>12.5% <i class="fa fa-arrow-up"></i></span>
                         </div> -->
@@ -189,12 +192,20 @@ export default {
     ...mapState(['userInfo', 'isLogin', 'activePage', 'market', 'converted',
       'convertbtc', 'converteth', 'convertltc', 'convertdoge', 'convertxrp',
       'xrplow', 'xrphigh', 'xrplast', 'dogelow', 'dogehigh', 'dogelast', 'ltclow',
-      'ltchigh', 'ltclast', 'ethlow', 'ethhigh', 'ethlast', 'btclow', 'btchigh', 'btclast']),
+      'ltchigh', 'ltclast', 'ethlow', 'ethhigh', 'ethlast', 'btclow', 'btchigh', 'btclast',
+      'signalBtc']),
     btc () { return `${(this.btclast + '').substring(0, 3)} jt` },
     eth () { return `${(this.ethlast + '').substring(0, 2)} jt` },
     ltc () { return `${(this.ltclast + '').substring(0, 1)}.${(this.ltclast + '').substring(1, 2)} jt` },
     doge () { return `${(this.dogelast + '').substring(0, 1)}.${(this.dogelast + '').substring(1, 2)} rb` },
     xrp () { return this.xrplast >= 10000 ? `${(this.xrplast + '').substring(0, 2)}.${(this.xrplast + '').substring(2, 3)} rb` : `${(this.xrplast + '').substring(0, 1)}.${(this.xrplast + '').substring(1, 2)} rb` }
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$store.dispatch('getMarket')
+      this.$store.dispatch('getConverted')
+      this.$store.dispatch('getBtc')
+    }
   }
 
 }

@@ -45,6 +45,15 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.path === '/login' && localStorage.access_token) {
     next('/')
+  }
+  if (to.path === '/signal' && !localStorage.access_token) {
+    Vue.$toast.open({
+      message: 'please login first.., to access this signal',
+      position: 'top-right',
+      type: 'success',
+      duration: 0
+    })
+    next('/')
   } else next()
 })
 
