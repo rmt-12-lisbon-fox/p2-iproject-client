@@ -65,6 +65,8 @@ export default new Vuex.Store({
       })
     },
     fetchDiet({commit}, payload) {
+
+      console.log(localStorage.access_token)
       instance.get('/diet')
       .then( ({data}) => {
         console.log(data)

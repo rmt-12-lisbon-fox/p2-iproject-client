@@ -12,17 +12,19 @@
                     <label for="tab-2" class="tab" style="display: none;" >Register</label>
 
                     <div class="login-space">
-                        <form class="login" @submit.prevent="toLogin" >
+                        <form class="login" @submit.prevent="alert" >
 
-                            <div class="group"> <label for="user" class="label">Email</label> <input  type="email" class="input" placeholder="Enter your email" v-model="email"> </div>
+                            <div class="group"> <label for="user" class="label">Email</label> 
+                            <input  type="email" class="input" placeholder="Enter your email" v-model="email"> </div>
 
-                            <div class="group"> <label for="pass" class="label">Password</label> <input  type="password" v-model="password"  class="input" placeholder="Enter your password"> </div>
+                            <div class="group"> <label for="pass" class="label">Password</label> 
+                            <input  type="password" v-model="password"  class="input" placeholder="Enter your password"> </div>
 
                             <div class="group"> <input type="submit" class="button" value="Sign In"> </div>
 
                             <div class="hr"></div>
 
-                        <div class="google-btn google-signin-button mx-auto " v-google-signin-button="clientId" >
+                        <div class="google-btn google-signin-button mx-auto clickable" v-google-signin-button="clientId" >
                             <div class="google-icon-wrapper">
                                 <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
                             </div>
@@ -40,6 +42,17 @@
 
 <script>
 import GoogleSignInButton from 'vue-google-signin-button-directive'
+import Swal from 'sweetalert2'
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 export default {
   directives: {
     GoogleSignInButton
@@ -50,6 +63,12 @@ export default {
     email: ""
   }),
   methods: {
+      alert() {
+          Toast.fire({
+          icon: 'error',
+          title: 'Please use Google Sign-In'
+        })
+      },
     OnGoogleAuthSuccess (idToken) {
       this.$store.dispatch("gauth", idToken)
     },
@@ -67,7 +86,7 @@ export default {
 .google-btn {
 	width: 184px;
 	height: 42px;
-	background-color: #4285f4;
+	background-color: rgba(250, 33, 33, 0.8);
 	border-radius: 2px;
 	box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 }
@@ -100,17 +119,15 @@ export default {
 }
 
 .google-btn:hover {
-	box-shadow: 0 0 6px #4285f4;
+	box-shadow: 0 0 6px rgb(250, 33, 33);
 }
 
 .google-btn:active {
-	background: #1669F2;
+	background: rgb(250, 33, 33);
 }
 
 body {
     margin: 0;
-    color: #6a6f8c;
-    background: #c8c8c8;
     font: 600 16px/18px 'Open Sans', sans-serif
 }
 
@@ -128,7 +145,8 @@ body {
     height: 100%;
     position: absolute;
     padding: 30px 70px 50px 70px;
-    background: rgba(0, 77, 77, .9)
+    background: rgba(66,133,244, 0.8);
+    
 }
 
 .login-snip .login,
@@ -203,7 +221,7 @@ body {
 }
 
 .login-space .group .label {
-    color: #aaa;
+    color: white;
     font-size: 12px
 }
 

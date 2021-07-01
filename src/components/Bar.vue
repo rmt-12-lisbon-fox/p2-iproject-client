@@ -130,7 +130,7 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background: rgba(63, 81, 181, 1);
     color: #fff;
     transition: all 0.3s;
     z-index: 1;
@@ -200,10 +200,7 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
+
 
 a.article,
 a.article:hover {

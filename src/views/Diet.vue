@@ -71,8 +71,8 @@
 
         </div>
         <!--MDB Tables-->
-      <div id="page" >
-        <img class="w-100" :src="chartURL" alt="">
+      <div id="page" class="mb-5" >
+        <img class="w-100 mb-5 pb-5" :src="chartURL" alt="">
       </div>
     </div>
 
@@ -115,9 +115,6 @@ export default {
       //   output: './pdf/generate.pdf'
       // })
     },
-    getChart() {
-      this.$store.dispatch("getChart")
-    }
   },
   created() {
     this.$store.dispatch("getChart")
@@ -137,6 +134,10 @@ export default {
 </script>
 
 <style scoped>
+
+  div.card-body {
+    overflow-x: auto;
+  }
 
   #diet-input {
     border-radius: 20px;
