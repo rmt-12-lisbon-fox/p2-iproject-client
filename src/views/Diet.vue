@@ -2,9 +2,8 @@
   <div class="home">
     <Nav></Nav>
     <Bar></Bar>
-    <Chart/>
 
-    <div class="d-flex flex-column home-container" >
+    <div class="d-flex flex-column home-container"  >
         
         <!--MDB Tables-->
         <div class="container">
@@ -66,13 +65,16 @@
             <div class="text-center darken-grey-text mb-4">
                 <h3 class="font-bold mb-3">Curious How Its Look Like?</h3>
                 <a class="btn btn-danger"
-                @click.prevent="getChart"
+                
                 >Visualize</a>
             </div>
 
         </div>
         <!--MDB Tables-->
-      <Chart/>
+      <div id="page" >
+        <h2>halo</h2>
+        <img class="w-100" :src="chartURL" alt="">
+      </div>
     </div>
 
   </div>
@@ -86,7 +88,9 @@ import Chart from '../components/Chart.vue'
 import SelectCard from '../components/SelectCard.vue'
 import { mapState } from 'vuex'
 import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 import 'jspdf-autotable'
+import html2PDF from 'jspdf-html2canvas';
 
 export default {
   name: "Diet",
@@ -99,11 +103,22 @@ export default {
     download() {
       const doc = new jsPDF();
       doc.autoTable({ html: '#my-table' })
-      doc.save('table.pdf')
+      // doc.save('table.pdf')
+
+      html2PDF(document.getElementById('page'), {
+        jsPDF: {
+          format: 'a4',
+        },
+        imageType: 'image/jpeg',
+        output: './pdf/generate.pdf'
+      })
     },
     getChart() {
       this.$store.dispatch("getChart")
     }
+  },
+  created() {
+    this.$store.dispatch("getChart")
   },
   computed: {
   localComputed () { 
@@ -112,7 +127,8 @@ export default {
   // mix this into the outer object with the object spread operator
   ...mapState({
     // ...
-    dietLog : 'dietLog'
+    dietLog : 'dietLog',
+    chartURL : 'chartURL'
   })
 }
 }
