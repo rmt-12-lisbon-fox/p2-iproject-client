@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Market from '../views/Market.vue'
+import Signal from '../views/Signal.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/market',
     name: 'Market',
     component: Market
+  },
+  {
+    path: '/signal',
+    name: 'Signal',
+    component: Signal
   }
 ]
 
