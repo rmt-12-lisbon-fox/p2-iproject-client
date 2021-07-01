@@ -13,37 +13,39 @@
                 <div class="card mt-2 mx-auto p-4 bg-light">
                   <div class="card-body bg-light">
                     <div class="container">
-                        <form @submit.prevent="addPorto">
-                          <div class="mb3">
-                            <label for="ticker">Tickers</label>
-                            <select class="form-select" id="specificSizeSelect" v-model="porto.title">
-                              <option selected>Choose...</option>
-                              <option class="text-primary" value="BTCIDR">BTC-IDR</option>
-                              <option class="text-primary" value="ETHIDR">ETH-IDR</option>
-                              <option class="text-primary" value="LTCIDR">LTC-IDR</option>
-                              <option class="text-primary" value="LTCIDR">DOGE-IDR</option>
-                              <option class="text-primary" value="LTCIDR">XRP-IDR</option>
-                            </select>
-                          </div>
+                      <form @submit.prevent="addPorto">
+                        <div class="mb3">
+                          <label for="ticker">Tickers</label>
+                          <select class="form-select" id="specificSizeSelect" v-model="porto.title">
+                            <option selected>Choose...</option>
+                            <option class="text-primary" value="BTCIDR">BTC-IDR</option>
+                            <option class="text-primary" value="ETHIDR">ETH-IDR</option>
+                            <option class="text-primary" value="LTCIDR">LTC-IDR</option>
+                            <option class="text-primary" value="LTCIDR">DOGE-IDR</option>
+                            <option class="text-primary" value="LTCIDR">XRP-IDR</option>
+                          </select>
+                        </div>
 
-                          <div class="mb3">
-                            <label for="quantity">Quantity</label>
-                            <input type="text" id="quantity" class="form-control text-primary" v-model="porto.quantity" placeholder="jumlah uang dalam rupiah">
-                          </div>
-                          <div class="mb3">
-                            <label for="quantity">Price</label>
-                            <input type="text" id="quantity" class="form-control text-primary" v-model="porto.price" placeholder="harga saat transaksi">
-                          </div>
-                          <div class="mb3">
-                            <label for="ticker">Status</label>
-                            <select class="form-select" id="specificSizeSelect" v-model="porto.status">
-                              <option selected>Choose...</option>
-                              <option class="text-primary" value="buy">BUY</option>
-                              <option class="text-primary" value="sell">SELL</option>
-                            </select>
-                          </div> <br>
-                          <button type="submit" class="btn btn-primary">Add Porto</button>
-                        </form>
+                        <div class="mb3">
+                          <label for="quantity">Quantity</label>
+                          <input type="text" id="quantity" class="form-control text-primary" v-model="porto.quantity"
+                            placeholder="jumlah uang dalam rupiah">
+                        </div>
+                        <div class="mb3">
+                          <label for="quantity">Price</label>
+                          <input type="text" id="quantity" class="form-control text-primary" v-model="porto.price"
+                            placeholder="harga saat transaksi">
+                        </div>
+                        <div class="mb3">
+                          <label for="ticker">Status</label>
+                          <select class="form-select" id="specificSizeSelect" v-model="porto.status">
+                            <option selected>Choose...</option>
+                            <option class="text-primary" value="buy">BUY</option>
+                            <option class="text-primary" value="sell">SELL</option>
+                          </select>
+                        </div> <br>
+                        <button type="submit" class="btn btn-primary">Add Porto</button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -51,8 +53,41 @@
             </div>
           </div><br><br><br><br><br><br><br><br>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6"> <br><br><br><br><br>
+          <div class=" text-center mt-5 ">
+              <h1 class="text-dark">My Portofolio</h1>
+            </div><br>
           <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+          <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
         </div>
       </div>
     </div>
@@ -74,7 +109,9 @@ export default {
   },
   methods: {
     addPorto () {
-      const payload = { ...this.porto }
+      const payload = {
+        ...this.porto
+      }
       this.$store.dispatch('addPorto', payload)
     }
   }
@@ -83,6 +120,8 @@ export default {
 </script>
 
 <style scoped>
+
+/* aaaaaaaaaaaa */
   body {
     font-family: 'Lato', sans-serif
   }
