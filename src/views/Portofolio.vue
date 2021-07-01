@@ -13,7 +13,7 @@
                 <div class="card mt-2 mx-auto p-4 bg-light">
                   <div class="card-body bg-light">
                     <div class="container">
-                        <form @click.prevent="addPorto">
+                        <form @submit.prevent="addPorto">
                           <div class="mb3">
                             <label for="ticker">Tickers</label>
                             <select class="form-select" id="specificSizeSelect" v-model="porto.title">

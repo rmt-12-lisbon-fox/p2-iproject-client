@@ -136,7 +136,6 @@ export default new Vuex.Store({
     },
     ADD_PORTO (state, payload) {
       state.portofolio = payload
-      console.log('aaaaaaaa', state.portofolio)
     }
   },
   actions: {
