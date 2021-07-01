@@ -82,7 +82,7 @@ export default new Vuex.Store({
       
     },
     getRecipe({commit}) {
-      instance.get('http://localhost:3000/recipe')
+      instance.get('/recipe')
       .then( ({data}) => {
         console.log(data)
         commit("GETRECIPE", data)
