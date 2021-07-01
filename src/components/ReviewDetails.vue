@@ -129,7 +129,7 @@ export default {
     },
     methods: {
         translate() {
-            console.log('MASUK TRANSLATE')
+            // console.log('MASUK TRANSLATE')
             let reviewId = this.$route.params.id
             let lang = this.trans_lang
 
@@ -140,21 +140,21 @@ export default {
             this.$store.dispatch('translate', data)
         },
         refreshTranslation() {
-            console.log('REFRESH TRANSLATE')
+            // console.log('REFRESH TRANSLATE')
             if (this.translation != '') {
                 this.reviewContent = this.translation
             }
         },
         addLike() {
             let reviewId = this.$route.params.id
-            console.log(reviewId)
+            // console.log(reviewId)
             this.$store.dispatch('addLike', reviewId)
             router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
         },
         getReviewById() {
             // console.log('CALL METHODDDD')
             let reviewId = this.$route.params.id
-            console.log(reviewId)
+            // console.log(reviewId)
             this.$store.dispatch('getReviewDetail', reviewId)
             this.reviewContent = this.$store.state.review.review
         },

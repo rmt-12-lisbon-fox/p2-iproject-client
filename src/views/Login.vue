@@ -65,7 +65,7 @@ export default {
       if (error.error == 'popup_closed_by_user') {
           swal('Warning', 'Please clear your browser cache', 'error')
       }
-      console.log(error, 'error')
+      // console.log(error, 'error')
     },
   },
   computed: {

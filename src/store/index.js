@@ -81,7 +81,7 @@ export default new Vuex.Store({
     },
     FETCHREVIEW(state, payload) {
       state.review = payload
-      console.log('DONE FETCH')
+      // console.log('DONE FETCH')
     },
     TOLOGINPAGE(state) {
       state.login = true
@@ -99,7 +99,7 @@ export default new Vuex.Store({
       state.allinvestors = payload
     },
     ACTIVATEACCOUNT(state, payload) {
-      console.log('MASUKKKKKKKKKKKKKKKKK', payload)
+      // console.log('MASUKKKKKKKKKKKKKKKKK', payload)
       state.activationMessage = payload
     },
     UPDATELIKES(state, payload) {
@@ -135,7 +135,7 @@ export default new Vuex.Store({
           router.push({ path: '/' })
         })
         .catch(err => {
-          console.log('Error:', err)
+          // console.log('Error:', err)
           commit('TOGGLELOADER', false)
           // swal('Error', err.response.data.message, 'error')
           if (Array.isArray(err.response.data.message)) {
@@ -162,7 +162,7 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          console.log(data.data, 'LOGIN DATA')
+          // console.log(data.data, 'LOGIN DATA')
           let founder = data.data.user
           localStorage.setItem('accessToken', data.data.accessToken)
           localStorage.setItem('id', founder.id)
@@ -250,7 +250,7 @@ export default new Vuex.Store({
         }
       })
       .then(review => {
-        console.log('DONE ADDING LIKE', review.data)
+        // console.log('DONE ADDING LIKE', review.data)
         commit('UPDATELIKES', review.data)
         router.push({ path: `/review/${reviewId}`}).catch(() => {})
       })
@@ -265,7 +265,7 @@ export default new Vuex.Store({
       let data = {
         language: language
       }
-      console.log(language)
+      // console.log(language)
       // console.log(language, '<<<<<<<<<')
       let reviewId = payload.reviewId
 
@@ -276,7 +276,7 @@ export default new Vuex.Store({
       })
       .then(text => {
         commit('SAVETRANSLATION', text.data)
-        console.log(text.data)
+        // console.log(text.data)
       })
       .catch(err => {
         console.log('Error:', err)
@@ -381,7 +381,7 @@ export default new Vuex.Store({
         }
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         swal('Success', 'You have added a new review', 'success')
         router.push({path:'/'})
       })
@@ -403,7 +403,7 @@ export default new Vuex.Store({
         method: 'patch',
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         commit('ACTIVATEACCOUNT', data.data.message)
         Vue.$toast.success('You have verified your account')
       })
@@ -429,7 +429,7 @@ export default new Vuex.Store({
         }
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         Vue.$toast.success('Thank you! You will be notified via Whatsapp when the investor has been verified.')
         router.push({ path: `/`})
       })
@@ -454,7 +454,7 @@ export default new Vuex.Store({
         }
       })
       .then(data => {
-        console.log(data.data)
+        // console.log(data.data)
         Vue.$toast.success(data.data.message)
         dispatch('fetchAllInvestors')
         router.push({ path: `/dashboard`}).catch(()=>{})
