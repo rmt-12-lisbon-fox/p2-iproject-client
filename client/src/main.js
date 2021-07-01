@@ -8,7 +8,7 @@ import VueSocketIOExt from 'vue-socket.io-extended'
 import { io } from 'socket.io-client'
 
 Vue.config.productionTip = false
-const socket = io('http://localhost:3000')
+const socket = io('https://hangout-gamers.herokuapp.com/')
 
 Vue.use(VueSocketIOExt, socket, { store })
 new Vue({
