@@ -53,11 +53,10 @@ export default new Vuex.Store({
           data: { ...payload }
         });
         localStorage.setItem("access_token", result.data.access_token);
-        localStorage.setItem("name", result.data.name);
+        localStorage.setItem("name", result.data.fullName);
         context.commit("LOGIN", result.data.fullName);
         router.push({ path: "/" }).catch(() => {});
       } catch (error) {
-        console.log(error);
         Vue.swal({
           icon: "error",
           title: "Failed to login",
@@ -222,7 +221,11 @@ export default new Vuex.Store({
           });
         })
         .catch(err => {
-          console.log(err, "ini error di index");
+          Vue.swal({
+            icon: "error",
+            title: "Something went wrong",
+            text: err.response.data.message
+          });
         });
     },
     selectChallenge(context, id) {
@@ -240,7 +243,6 @@ export default new Vuex.Store({
           });
         })
         .catch(error => {
-          console.log(error);
           Vue.swal({
             icon: "error",
             title: "Failed to access",
