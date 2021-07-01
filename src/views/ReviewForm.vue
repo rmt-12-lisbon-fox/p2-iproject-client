@@ -210,7 +210,7 @@ export default {
     methods: {
         addReview() {
             let review = this.newReview
-            console.log(review)
+            // console.log(review)
             this.$store.dispatch('addReview', review)
         }
     },

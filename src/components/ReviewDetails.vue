@@ -59,8 +59,10 @@
                     </div>
                 </div>
                 <p class="card-text" :class="{'overflow-ellipsis-details': overflow}">{{reviewContent}}</p>
-                <a v-if='expandButton' href="#" style='margin-right: 15px' class="btn dropdown-toggle" :class="btn" @click.prevent='expandToggle'>{{expand}}</a>
-                <form @submit.prevent='translate'>
+                <a v-if='expandButton' href="#" style='margin-right: 15px' class="dropdown-toggle" @click.prevent='expandToggle'>{{expand}}</a>
+                <div style='margin-top:20px'>
+                <label style='color:darkblue'><b>Translate Review</b></label>
+                <form class='d-flex' @submit.prevent='translate'>
                     <select name='trans_lang' v-model="trans_lang">
                         <option value='' disable selected hidden>---Select Language---</option>                                                                               
                         <option value='en'>English</option>
@@ -72,8 +74,9 @@
                         <option value='ja'>Japanese</option>
                         <option value='de'>German</option>
                     </select><br><br>
-                    <button class="confirmbtn" style=width:50%; type="submit">Translate</button>
+                    <button class="confirmbtn" style=width:52% type="submit">Translate</button>
                 </form>
+            </div>
             </div>
         </div>
     </div>
@@ -89,6 +92,7 @@ export default {
     components: { Disqus },
     data() {
         return {
+            tempIcon: 'far fa-thumbs-up',
             badgeClass: 'bg-secondary',
             overflow: true,
             expand: 'Expand',
@@ -125,7 +129,7 @@ export default {
     },
     methods: {
         translate() {
-            console.log('MASUK TRANSLATE')
+            // console.log('MASUK TRANSLATE')
             let reviewId = this.$route.params.id
             let lang = this.trans_lang
 
@@ -136,21 +140,21 @@ export default {
             this.$store.dispatch('translate', data)
         },
         refreshTranslation() {
-            console.log('REFRESH TRANSLATE')
+            // console.log('REFRESH TRANSLATE')
             if (this.translation != '') {
                 this.reviewContent = this.translation
             }
         },
         addLike() {
             let reviewId = this.$route.params.id
-            console.log(reviewId)
+            // console.log(reviewId)
             this.$store.dispatch('addLike', reviewId)
             router.push({ path: `/review/${this.$route.params.id}` }).catch(() => {})
         },
         getReviewById() {
             // console.log('CALL METHODDDD')
             let reviewId = this.$route.params.id
-            console.log(reviewId)
+            // console.log(reviewId)
             this.$store.dispatch('getReviewDetail', reviewId)
             this.reviewContent = this.$store.state.review.review
         },
@@ -260,6 +264,9 @@ export default {
         }
     },
     computed: {
+        isLoggedIn() {
+            return this.$store.state.isLoggedIn
+        },
         translation() {
             return this.$store.state.translation
         },
@@ -267,8 +274,9 @@ export default {
             let icon = this.tempIcon
 
             for (let i = 0; i < this.reviewItem.likes_id.length; i++) {
+
                 if (localStorage.id == this.reviewItem.likes_id[i]) {
-                icon = 'fas fa-bookmark'
+                icon = 'fas fa-thumbs-up'
                 }
             }
 

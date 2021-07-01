@@ -1,8 +1,8 @@
 <template>
      <!-- REGISTER -->
-     <section id="register" style="height:100vh; overflow-y:auto">
+     <section id="register" style="height:100vh; padding-left:20%; padding-right:20%; padding-top: unset; padding-bottom: unset; overflow-y:auto">
         <div>
-        <form @submit.prevent="register" action="action_page.php" style="border:1px solid #ccc">
+        <form @submit.prevent="register" action="action_page.php">
             <div id='step1' class="containerRegister">
             <div class="containerBox" v-if='step1'>
 
@@ -125,10 +125,10 @@
                         <option value='501-1000'>501-1000</option>
                         <option value='>1000'>1000</option>
                     </select>    
-                </div>
+                </div><br>
                 </div>
                 
-                <div class="clearfix">
+                <div class="clearfix" style='margin-top:20px'>
                     <button type="submit" class="confirmbtn">Sign Up</button>
                     <button type="button" id="loginButton" class="redbtn" @click.prevent="toStep1">Back</button>
                 </div>
@@ -219,5 +219,7 @@ export default {
 </script>
 
 <style>
-
+#register {
+    background-image: url('../assets/laptops.jpg')
+}
 </style>

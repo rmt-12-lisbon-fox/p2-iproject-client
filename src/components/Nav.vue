@@ -40,7 +40,7 @@
               </li>
               <router-link to='/dashboard'>
               <li v-if='isLoggedIn && isAdmin' class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link active" aria-current="page" aria-expanded="false" href="#">
                     <span style="font-size: 1rem; color: grey;">
                         <i class='fas fa-user-cog fs-5 text-gray-600' data-bs-toggle="tooltip" data-bs-placement="bottom"
                         title="Edit My Profile"></i>
@@ -58,8 +58,8 @@
                     <p style="color:black">My Account</p>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">My Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
+                  <!-- <li><a class="dropdown-item" href="#">My Profile</a></li> -->
+                  <!-- <li><hr class="dropdown-divider"></li> -->
                   <li><a class="dropdown-item" href="#" @click.prevent='logout'>Sign Out</a></li>
                 </ul>
               </li>
@@ -76,12 +76,14 @@
         <div class='description text-center align-middle' style="padding: 20px; width: 45%; align-items:center">
             <h1 style='color:white; text-shadow: 2px 2px 4px #000000'>Read, Write, Assess</h1><br><br>
             <h5 style='color:white; text-shadow: 2px 2px 2px #000000'>Get Insights. Share Insights. The Richest Investor Review Platform in Asia</h5><br>
+            <router-link to='/register'>
             <button style='width:70%; border-radius: 30px'>Register Now</button>
+            </router-link>
         </div>
     </div>
 
     <!-- NEWS SLIDER -->
-    <Slider v-if='isLoggedIn'
+    <Slider v-if='isLoggedIn && slider'
       animation="fade"
       v-model="sliderValue"
       :duration="5000"
@@ -132,6 +134,9 @@ export default {
     }
   },
   computed: {
+    slider() {
+      return this.$store.state.slider
+    },
     home() {
       return this.$store.state.home
     },
@@ -143,6 +148,12 @@ export default {
     },
     isLoggedIn () {
       return this.$store.state.isLoggedIn
+    },
+    isAdmin() {
+      return this.$store.state.isAdmin
+    },
+    user() {
+      return this.$store.state.user
     }
   },
   methods: {
@@ -157,17 +168,22 @@ export default {
     },
     addReview() {
       if (this.isLoggedIn) {
+        if (this.user.active_status == 'false') {
+          Vue.$toast.warning('Please verify your email before writing a new review')
+        }
         router.push({ path: `/add-review#add-review`})
+        this.$store.commit('SLIDERTOGGLE', true)
       } else {
         this.$store.commit('TOLOGINPAGE')
         Vue.$toast.error('Register / login to write a new review')
-        router.push({ path: `/login`})
+        router.push({ path: `/login`}).catch(() => {})
       }
     }
   },
   created() {
     this.$store.dispatch('getnews')
     this.list = this.news
+    this.$store.commit('POSTLOGINDETAILS')
   },
   mounted() {
     setTimeout(

@@ -26,7 +26,7 @@ export default {
     },
     watch: {
         activationMessage: function (val) {
-            console.log(val, 'VALLL')
+            // console.log(val, 'VALLL')
             this.message = val
         }
     },
