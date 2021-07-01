@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-center">
             <div class="brand_logo_container">
               <img
-                src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png"
+                src="https://ik.imagekit.io/farel14/kodok_sarjana_logo_8MUYOLNXx.png"
                 class="brand_logo"
                 alt="Logo"
               />
@@ -44,7 +44,7 @@
                   v-model="password"
                 />
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <div class="custom-control custom-checkbox">
                   <input
                     type="checkbox"
@@ -55,7 +55,7 @@
                     >Remember me</label
                   >
                 </div>
-              </div>
+              </div> -->
               <div class="d-flex justify-content-center mt-3 login_container">
                 <button type="submit" name="button" class="btn login_btn">
                   Login
@@ -66,11 +66,12 @@
 
           <div class="mt-4">
             <div class="d-flex justify-content-center links">
-              Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+              Don't have an account?
             </div>
-            <div class="d-flex justify-content-center links">
+            <div><a href="#" class="ml-2" style="text-decoration: none; color: dodgerblue;">Sign Up</a></div>
+            <!-- <div class="d-flex justify-content-center links">
               <a href="#">Forgot your password?</a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -96,15 +97,15 @@ export default {
 </script>
 
 <style scoped>
-body,
 html {
+  /* color:dodgerblue; */
   margin: 0;
   padding: 0;
   height: 100%;
   background: #60a3bc !important;
 }
 .user_card {
-  height: 400px;
+  /* height: 400px; */
   width: 350px;
   margin-top: auto;
   margin-bottom: auto;
@@ -122,10 +123,10 @@ html {
   border-radius: 5px;
 }
 .brand_logo_container {
-  position: absolute;
+  /* position: absolute;
   height: 170px;
   width: 170px;
-  top: -75px;
+  top: -75px; */
   border-radius: 50%;
   background: #60a3bc;
   padding: 10px;
@@ -138,7 +139,7 @@ html {
   border: 2px solid white;
 }
 .form_container {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .login_btn {
   width: 100%;

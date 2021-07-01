@@ -1,7 +1,7 @@
 <template>
-  <div id="wiki">
+  <div id="wiki-search">
     <!-- {{ Object.keys(card) }} -->
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="card">
       <h2 class="m-3">{{ card.name }}</h2>
       <div class="row justify-content-center">
         <div class="col-4">
@@ -57,6 +57,9 @@
           </table>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <h1>404 Sorry, Page Not Found..</h1>
     </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <template>
-  <div id="login">
+  <div id="register">
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="user_card">
           <div class="d-flex justify-content-center">
             <div class="brand_logo_container">
               <img
-                src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png"
+                src="https://ik.imagekit.io/farel14/kodok_sarjana_logo_8MUYOLNXx.png"
                 class="brand_logo"
                 alt="Logo"
               />
@@ -62,18 +62,6 @@
                   v-model="password"
                 />
               </div>
-              <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    class="custom-control-input"
-                    id="customControlInline"
-                  />
-                  <label class="custom-control-label" for="customControlInline"
-                    >Remember me</label
-                  >
-                </div>
-              </div>
               <div class="d-flex justify-content-center mt-3 login_container">
                 <button type="submit" name="button" class="btn login_btn">
                   Register
@@ -83,11 +71,11 @@
           </div>
 
           <div class="mt-4">
-            <div class="d-flex justify-content-center links">
-              Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+            <div class="d-flex justify-content-center links" >
+              Already have an account? 
             </div>
-            <div class="d-flex justify-content-center links">
-              <a href="#">Forgot your password?</a>
+            <div>
+              <a href="#" class="ml-2" style="text-decoration: none; color: dodgerblue;">Sign In</a>
             </div>
           </div>
         </div>
@@ -125,7 +113,6 @@ html {
   background: #60a3bc !important;
 }
 .user_card {
-  height: 400px;
   width: 350px;
   margin-top: auto;
   margin-bottom: auto;
@@ -143,10 +130,6 @@ html {
   border-radius: 5px;
 }
 .brand_logo_container {
-  position: absolute;
-  height: 170px;
-  width: 170px;
-  top: -75px;
   border-radius: 50%;
   background: #60a3bc;
   padding: 10px;
@@ -159,7 +142,7 @@ html {
   border: 2px solid white;
 }
 .form_container {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .login_btn {
   width: 100%;

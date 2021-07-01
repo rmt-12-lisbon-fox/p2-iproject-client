@@ -15,11 +15,21 @@
 import CardLibrary from '../components/CardLibrary.vue'
 import DeckList from '../components/DeckList.vue'
 export default {
+  name: 'DeckBuilder',
   components: { CardLibrary, DeckList },
-  data () {
-    return {
-      decklist: []
-    }
+  // data () {
+  //   return {
+  //     decklist: []
+  //   }
+  // },
+  // computed: {
+  //   allCards () {
+  //     return this.$store.state.allCards
+  //   }
+  // },
+  created () {
+    this.$store.dispatch('fetchAllCards')
+    this.$store.dispatch('fetchStarter')
   }
 }
 </script>

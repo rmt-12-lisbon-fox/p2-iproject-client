@@ -2,6 +2,7 @@
 node_modules
 /dist
 sandbox.html
+sandbox.js
 
 
 # local env files

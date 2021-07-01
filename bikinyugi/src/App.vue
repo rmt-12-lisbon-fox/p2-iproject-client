@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <Navbar/>
-    <!-- <DeckList/> -->
     <router-view/>
+    <HFooter />
   </div>
 </template>
 
 <script>
+import HFooter from 'vue-hacktiv8-footer'
 import Navbar from './components/Navbar.vue'
 // import DeckList from './components/DeckList.vue'
+
 export default {
-  components: { Navbar },
+  components: { Navbar, HFooter },
   created () {
     this.$store.commit('LOGINCHECK')
   }

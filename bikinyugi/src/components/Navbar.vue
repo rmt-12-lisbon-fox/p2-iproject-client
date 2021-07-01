@@ -1,7 +1,7 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="">Navbar</a>
+      <!-- <a class="navbar-brand" href="" @click.prevent=""><img src="https://ik.imagekit.io/farel14/white_ENrjil5mN.png" id="nav-logo"></a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,6 +17,8 @@
             <router-link class="nav-link" to="/wiki">Wiki</router-link>
           </li>
         </ul>
+              <router-link class="navbar-brand m-0 px-0" to="/"><img  id="nav-logo" src="https://see.fontimg.com/api/renderfont4/rXOB/eyJyIjoiZnMiLCJoIjoxNzcsInciOjE1MDAsImZzIjoxMTgsImZnYyI6IiNGRkZERkQiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/a29kb2sgc2FyamFuYQ/blackberry-jam-personal-use.png"></router-link>
+
         <ul class="navbar-nav me-0 mb-2 mb-lg-0 ms-0">
           <li class="nav-item" v-if="!isLogin">
             <router-link class="nav-link" to="/login">Log In</router-link>
@@ -35,7 +37,8 @@
           </ul>
         </li>
         </ul>
-        <form class="d-flex">
+        <!-- <form class="d-flex" @submit.prevent="fetchAllCards"> -->
+        <form class="d-flex" @submit.prevent="">
           <input class="form-control me-2" type="search" placeholder="Search Wiki" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
@@ -46,6 +49,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      name: ''
+    }
+  },
   methods: {
     logout () {
       this.$store.dispatch('logout')
@@ -64,5 +72,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.navbar-dark{
+  background-color: #000;
+}
+#nav-logo{
+  max-width: 50%;
+}
+.navbar-brand{
+  width: 30%;
+  height: 100%;
+}
+
 </style>
