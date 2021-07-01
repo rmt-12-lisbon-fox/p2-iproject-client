@@ -6,16 +6,16 @@
                 arrow_back
                 </span>
             </router-link>
-            <div class="text-end d-flex align-items-center">
+            <div class="text-end d-flex align-items-center" v-if="isLoggedIn">
               <!-- <p>
                 Remove from Bookmark
               </p>  -->
-              <span class="material-icons display-4" v-if="!bookmark && !bookmarked"
+              <span class="material-icons display-4" v-if="!bookmark"
                 @click.prevent="addBookmark(animeOne.mal_id, animeOne.image_url, animeOne.title)"
               >
                 bookmark_border
               </span>
-              <span class="material-icons display-4" v-if="bookmark || bookmarked"
+              <span class="material-icons display-4" v-if="bookmark"
                  @click.prevent="deleteBookmark(animeOne.mal_id)"
               >
                 bookmark
@@ -106,7 +106,7 @@ export default {
   },
   components: {EpisodeRow},
   computed: {
-    ...mapState(['animeOne', 'animeEpisodes', 'bookmarkOne']),
+    ...mapState(['animeOne', 'animeEpisodes', 'bookmarkOne', 'isLoggedIn']),
     genres() {
       let genres = []
       if (this.animeOne.genres) {
@@ -120,6 +120,7 @@ export default {
     bookmarked() {
       if (this.bookmarkOne) {
         if (this.bookmarkOne.mal_id == this.animeOne.mal_id) {
+          this.bookmark = true
           return true
         } 
       }
@@ -146,6 +147,7 @@ export default {
     }
     this.$store.dispatch('infoAnime', payload)
     this.$store.dispatch('findOneBookmark', this.$route.params.id)
+
   }
 }
 </script>
