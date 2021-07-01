@@ -242,6 +242,18 @@ export default new Vuex.Store({
           context.commit('SIGNAL_BTC', btc.data.btc)
         })
     },
+    getEth (context) {
+      api.get('/besteth', { headers: { access_token: localStorage.access_token } })
+        .then(eth => {
+          context.commit('SIGNAL_ETH', eth.data.eth)
+        })
+    },
+    getLtc (context) {
+      api.get('/bestltc', { headers: { access_token: localStorage.access_token } })
+        .then(ltc => {
+          context.commit('SIGNAL_LTC', ltc.data.ltc)
+        })
+    },
     async signalBtc (context) {
       if (localStorage.access_token) {
         Vue.$toast.open({

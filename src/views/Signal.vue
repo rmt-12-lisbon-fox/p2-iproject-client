@@ -88,6 +88,9 @@
                                 {{ eth }}
                             </h2>
                         </div>
+                        <div class="col-4 text-right fs-3">
+                            <span>{{ signalEth }}</span>
+                        </div>
                         <!-- <div class="col-4 text-right">
                             <span>9.23% <i class="fa fa-arrow-up"></i></span>
                         </div> -->
@@ -111,6 +114,9 @@
                             <h2 class="d-flex align-items-center mb-0">
                                 {{ ltc }}
                             </h2>
+                        </div>
+                        <div class="col-4 text-right fs-3">
+                            <span>{{ signalLtc }}</span>
                         </div>
                         <!-- <div class="col-4 text-right">
                             <span>10% <i class="fa fa-arrow-up"></i></span>
@@ -193,7 +199,7 @@ export default {
       'convertbtc', 'converteth', 'convertltc', 'convertdoge', 'convertxrp',
       'xrplow', 'xrphigh', 'xrplast', 'dogelow', 'dogehigh', 'dogelast', 'ltclow',
       'ltchigh', 'ltclast', 'ethlow', 'ethhigh', 'ethlast', 'btclow', 'btchigh', 'btclast',
-      'signalBtc']),
+      'signalBtc', 'signalEth', 'signalLtc']),
     btc () { return `${(this.btclast + '').substring(0, 3)} jt` },
     eth () { return `${(this.ethlast + '').substring(0, 2)} jt` },
     ltc () { return `${(this.ltclast + '').substring(0, 1)}.${(this.ltclast + '').substring(1, 2)} jt` },
@@ -205,6 +211,8 @@ export default {
       this.$store.dispatch('getMarket')
       this.$store.dispatch('getConverted')
       this.$store.dispatch('getBtc')
+      this.$store.dispatch('getEth')
+      this.$store.dispatch('getLtc')
     }
   }
 
