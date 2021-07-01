@@ -21,7 +21,7 @@
             <button v-if="!isMine" class="w-full flex justify-center px-3 py-2 bg-secondary text-white rounded-md focus:outline-none">
                 <ShareNetwork
                     network="facebook"
-                    url="https://google.com"
+                    url="https://nreview-d16d9.web.app/"
                     title="Nreview"
                     description="Let's go to NReview and start yours"
                     :quote="`${review.User.email} has been reviewed ${review.title}`"

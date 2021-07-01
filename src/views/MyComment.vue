@@ -12,7 +12,7 @@ import { mapState } from 'vuex';
 export default {
     name: 'MyComment',
     components: {
-        ReviewList
+        ReviewList,
     },
     methods: {
         listOfReviewByUser() {

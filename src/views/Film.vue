@@ -1,10 +1,10 @@
 <template>
-    <div class="h-screen w-screen ">
+    <div class="h-4/5 w-screen ">
         <film-list
         :films="films.data"></film-list>
         <div class="h-1/6 w-full px-4 py-3 flex items-center justify-between sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                <nav class="relative inline-flex rounded-md shadow-sm -space-x-px">
                     <a v-if="page !== 1" @click.prevent="minCounter" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-third text-sm font-medium text-gray-500 hover:bg-gray-50">
                         <span class="sr-only">Previous</span>
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -21,15 +21,15 @@
                         </svg>
                     </a>
                 </nav>
-        </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import FilmList from '../components/FIlmList.vue'
 import { mapState } from 'vuex'
+
 export default {
     name: 'Films',
     data() {
