@@ -47,7 +47,7 @@ export default new Vuex.Store({
           context.commit('CHANGE_LOGIN', true)
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
           Swal.fire('Something went wrong!', 'Error login with google', 'error')
         })
     },
@@ -85,7 +85,7 @@ export default new Vuex.Store({
       Swal.fire('You have successfully logout', '', 'success')
     },
     sendChatLog (context, payload) {
-      console.log(payload, 'payloaddd')
+      // console.log(payload, 'payloaddd')
       axios
         .post('/sendLog', payload, {
           headers: {
@@ -96,7 +96,7 @@ export default new Vuex.Store({
           Swal.fire('The chat log has been successfully sent to your email', '', 'success')
         })
         .catch(err => {
-          console.log(err)
+          // console.log(err)
           Swal.fire(err.response.data.message, '', 'error')
         })
     }

@@ -24,7 +24,7 @@ export default {
       // Receive the idToken and make your magic with the backend
     },
     OnGoogleAuthFail (error) {
-      console.log(error)
+      this.$store.dispatch('googleAuthFail', error)
     }
   }
 }

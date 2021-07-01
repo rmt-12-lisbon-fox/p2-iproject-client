@@ -66,7 +66,7 @@ export default {
       }
     },
     sendChatLog () {
-      console.log('di send log')
+      // console.log('di send log')
       const payload = {
         messages: this.messages,
         email: this.userEmail
