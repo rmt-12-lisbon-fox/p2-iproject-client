@@ -39,7 +39,8 @@ export default new Vuex.Store({
     signalEth: '',
     signalLtc: '',
     signalDoge: '',
-    signalXrp: ''
+    signalXrp: '',
+    portofolio: ''
   },
   mutations: {
     LOGIN (state, payload) {
@@ -132,9 +133,23 @@ export default new Vuex.Store({
     },
     SIGNAL_XRP (state, payload) {
       state.signalXrp = payload
+    },
+    ADD_PORTO (state, payload) {
+      state.portofolio = payload
+      console.log('aaaaaaaa', state.portofolio)
     }
   },
   actions: {
+    addPorto (context, payload) {
+      api.post('/portofolio', payload, {
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('ADD_PORTO', data)
+        })
+    },
     login ({ commit }, payload) {
       const data = { ...payload }
       api.post('/login', data)
