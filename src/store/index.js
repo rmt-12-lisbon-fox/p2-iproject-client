@@ -254,6 +254,18 @@ export default new Vuex.Store({
           context.commit('SIGNAL_LTC', ltc.data.ltc)
         })
     },
+    getDoge (context) {
+      api.get('/bestdoge', { headers: { access_token: localStorage.access_token } })
+        .then(doge => {
+          context.commit('SIGNAL_DOGE', doge.data.doge)
+        })
+    },
+    getXrp (context) {
+      api.get('/bestxrp', { headers: { access_token: localStorage.access_token } })
+        .then(xrp => {
+          context.commit('SIGNAL_XRP', xrp.data.xrp)
+        })
+    },
     async signalBtc (context) {
       if (localStorage.access_token) {
         Vue.$toast.open({
