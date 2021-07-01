@@ -17,15 +17,15 @@ export default {
     isLoggedIn () {
       this.$store.commit('ISLOGGEDIN')
     },
-    isCustomer () {
-      this.$store.commit('ISCUSTOMER')
+    notCustomer () {
+      this.$store.commit('NOTCUSTOMER')
     }
   },
   created () {
     if (localStorage.access_token) {
       this.isLoggedIn()
-      if (localStorage.role === 'Customer') {
-        this.isCustomer()
+      if (localStorage.role !== 'Customer') {
+        this.notCustomer()
       }
     }
   }

@@ -11,7 +11,7 @@ export default new Vuex.Store({
     designs: null,
     oneDesign: null,
     isLoggedIn: false,
-    isCustomer: false,
+    isCustomer: true,
     myDesigns: null,
     bookmarks: null,
     categories: null,
@@ -47,14 +47,14 @@ export default new Vuex.Store({
         button: 'Ok'
       })
       state.isLoggedIn = true
-      if (data.role === 'Customer') {
-        state.isCustomer = true
+      if (data.role !== 'Customer') {
+        state.isCustomer = false
       }
     },
     LOGOUT (state) {
       localStorage.clear()
       state.isLoggedIn = false
-      state.isCustomer = false
+      state.isCustomer = true
       swal({
         title: 'Logout success',
         icon: 'success',
@@ -65,8 +65,8 @@ export default new Vuex.Store({
     ISLOGGEDIN (state) {
       state.isLoggedIn = true
     },
-    ISCUSTOMER (state) {
-      state.isCustomer = true
+    NOTCUSTOMER (state) {
+      state.isCustomer = false
     },
     ISBOOKMARKPAGE (state) {
       state.isBookmarkPage = true

@@ -43,32 +43,74 @@ const routes = [
   {
     path: '/designer/myDesign',
     name: 'MyDesign',
-    component: MyDesign
+    component: MyDesign,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'MyDesign' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/bookmark',
     name: 'Bookmark',
-    component: Bookmark
+    component: Bookmark,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'Bookmark' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/add-design',
     name: 'AddDesign',
-    component: AddDesign
+    component: AddDesign,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'AddDesign' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/edit-design/:id',
     name: 'EditDesign',
-    component: EditDesign
+    component: EditDesign,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'EditDesign' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/email/:id',
     name: 'EmailForm',
-    component: EmailForm
+    component: EmailForm,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'EmailForm' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/message/:id',
     name: 'SmsForm',
-    component: SmsForm
+    component: SmsForm,
+    beforeEnter: (to, from, next) => {
+      if (to.name === 'SmsForm' && !localStorage.access_token) {
+        next({ name: 'Login' })
+      } else {
+        next()
+      }
+    }
   }
 ]
 
