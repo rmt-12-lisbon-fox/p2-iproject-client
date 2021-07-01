@@ -89,13 +89,13 @@ export default new Vuex.Store({
       .then(({data}) => {
         // console.log(data);
         title = data.title
-        return context.commit('SEARCH_ANIME_ONE', data)
+        context.commit('SEARCH_ANIME_ONE', data)
 
       })
-      .then(_ => {
-        // console.log(title);
-        context.dispatch('searchAnimeVideos', title)
-      })
+      // .then(_ => {
+      //   // console.log(title);
+      //   context.dispatch('searchAnimeVideos', title)
+      // })
       .catch(err => {
         swal.fire("We dont have this anime right now")
       })

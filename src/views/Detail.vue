@@ -21,8 +21,7 @@
                 bookmark
               </span>
             </div>
-        </div>
-        
+        </div>       
 
         <div class="mb-4 p-2">
             <h3 class="h3"> {{ animeOne.title }} </h3>
@@ -66,6 +65,57 @@
             </div>
 
         </div>
+
+        <div class="pb-5 container" v-if="animeOne.title" >
+         <h5 class="mt-5 mb-0">Share this to your Social Media</h5>
+          <div class="nav d-flex justify-content-center">
+            <ShareNetwork
+                network="facebook"
+                :url="shareLink"
+                title="Aniplay"
+                desciption="Check this anime on Aniplay"
+                :quote="animeOne.title"
+                hashtags="aniplay"
+              >
+                <a href="#" class="fa fa-facebook"></a>
+            </ShareNetwork>
+
+            <ShareNetwork
+                network="twitter"
+                :url="shareLink"
+                title="Aniplay"
+                desciption="Check this anime on Aniplay"
+                :quote="animeOne.title"
+                hashtags="aniplay"
+            >
+              <a href="#" class="fa fa-twitter"></a>
+          </ShareNetwork>
+
+          <ShareNetwork
+                network="telegram"
+                :url="shareLink"
+                title="Aniplay"
+                desciption="Check this anime on Aniplay"
+                :quote="animeOne.title"
+                hashtags="aniplay"
+            >
+              <a href="#" class="fa fa-telegram"></a>
+          </ShareNetwork>
+
+          <ShareNetwork
+                network="whatsapp"
+                :url="shareLink"
+                title="Aniplay"
+                desciption="Check this anime on Aniplay"
+                :quote="animeOne.title"
+                hashtags="aniplay"
+            >
+              <a href="#" class="fa fa-whatsapp"></a>
+          </ShareNetwork>
+          </div>
+
+        </div>
+
 
         <div v-if="animeEpisodes[0]" class="mt-5" style="padding-bottom: 8%;">
           <hr size="8">
@@ -125,6 +175,11 @@ export default {
         } 
       }
       return false
+    },
+    shareLink(){
+      let link = 'https://aniplay-client.web.app' + this.$route.path
+      return link
+      // return window.location.href
     }
 
   },
@@ -157,5 +212,19 @@ export default {
   padding-bottom: 8% !important;
 }
 
+.fa {
+  padding: 0 1em;
+  font-size: 30px;
+  margin: 0%;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+}
+
+.fa:hover {
+  transform: scale(1.2);
+  transition: all .3s ease-in-out;
+}
 
 </style>

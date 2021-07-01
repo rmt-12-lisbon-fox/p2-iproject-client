@@ -49,7 +49,8 @@ export default {
     max-height: 280px;  */
     width: 380px;
     height: 200px;
-    background-image: linear-gradient(135deg, #1a2f7a 10%, #2f98a1 100%);
+    background-image: linear-gradient(to right, #458fac 10%, #9d00d6 100%);
+    /* background-image: linear-gradient(to right, #c99999 10%, #2f98a1 100%); */
     filter: brightness(70%);
     font-size: 0.75em;
 }

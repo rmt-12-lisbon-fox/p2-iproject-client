@@ -14,10 +14,14 @@ Vue.use(IconsPlugin)
 import { CardPlugin } from 'bootstrap-vue'
 Vue.use(CardPlugin)
 
+import VueSocialSharing from 'vue-social-sharing'
+Vue.use(VueSocialSharing);
+
 Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
+  GoogleSignInButton,
   render: h => h(App)
 }).$mount('#app')
