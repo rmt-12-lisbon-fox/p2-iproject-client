@@ -1,6 +1,6 @@
 <template>
   <tr  >
-    <th scope="row">1</th>
+    <th scope="row"> {{ index + 1 }} </th>
     <td> {{ formattedDate }} </td>
     <td> {{ row.Food.name}} </td>
     <td> {{ row.Food.protein}} </td>
@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  props : ["row"],
+  props : ["row", "index"],
   computed : {
     formattedDate() {
       return new Date(this.row.createdAt).toString().substring(0, 25)

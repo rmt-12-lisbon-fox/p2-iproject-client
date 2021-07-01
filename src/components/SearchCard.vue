@@ -1,19 +1,18 @@
 <template>
   <div class="col-lg-3 m-4">
     <div class="member d-flex align-items-start">
-      <div class="pic"><img :src="item.imgUrl" class="img-fluid" alt=""></div>
+      <div class="pic"><img src="https://image-cdn.medkomtek.com/l5EBFWIktelHL9WXJd1164CtxUI=/640x480/smart/klikdokter-media-buckets/medias/2321296/original/049998000_1605579809-Waspada_-Inilah-Deretan-Penyakit-Akibat-Junk-Food-shutterstock_537665956.jpg" class="img-fluid" alt=""></div>
       <div class="member-info">
         <h4> {{ item.description }} </h4>
-        <p> {{ item.ingredients }} </p>
+        <p class="h-25" > Category: {{ item.foodCategory }} </p>
         <a class="detail-btn clickable"
         @click.prevent="seeDetail(item.id)"
          >Detail</a>
         <div class="social">
 
-          <a><i @click.prevent="addFav(item.id)" class="clickable"><img src="" alt=""></i></a>
+          <a><i class="clickable"><img src="" alt=""></i></a>
           <a><i @click.prevent="seeDetail(item.id)"  class="clickable"> <img src="" alt=""> </i></a>
-          <a><i>  </i></a>
-          <a><i>  </i></a>
+        <p class="h-25" > Score: {{ item.score }} </p>
         </div>
       </div>
     </div>
@@ -28,14 +27,6 @@ export default {
 
     }
   },
-  methods: {
-    addFav (payload) {
-      this.$store.dispatch('addFav', payload)
-    },
-    seeDetail () {
-      this.$router.push({ name: 'Detail', params: { id: this.item.id } })
-    }
-  }
 }
 </script>
 

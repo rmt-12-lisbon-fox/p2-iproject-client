@@ -2,7 +2,7 @@
       <nav id="sidebar">
         <ul class="list-unstyled components">
             <li >
-              <a ><strong>Search by Name</strong></a>
+              <a ><strong>Just Curious About Food Nutrition? Search Then </strong></a>
               <div class="input-group input-group-sm mb-3 mx-auto w-75"  >
                 <input v-model="substring" type="text" class="form-control m-auto " >
               </div>
@@ -130,12 +130,13 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background: rgba(63, 81, 181, 1);
     color: #fff;
     transition: all 0.3s;
     z-index: 1;
     position: relative;
     height: 100vh;
+    position: fixed;
 }
 
 #sidebar.active {
@@ -199,10 +200,7 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
+
 
 a.article,
 a.article:hover {

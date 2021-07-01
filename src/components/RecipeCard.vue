@@ -48,6 +48,7 @@ i img {
 .member.d-flex.align-items-start {
   height: 250px;
   padding: 10px;
+  overflow: hidden;
 }
 
 .member-info p {
@@ -70,6 +71,11 @@ a {
 a:hover {
   color: #3291e6;
   text-decoration: none;
+}
+
+h4 {
+  height: 30%;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -1261,7 +1267,7 @@ section {
 }
 
 .member p {
-  margin: 10px 0 0 0;
+  margin: 10px 0 10px 0;
   font-size: 14px;
 }
 

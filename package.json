@@ -25,6 +25,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.4.2",
     "vue-google-signin-button-directive": "^1.0.3",
+    "vue-hacktiv8-footer": "^0.0.9",
     "vue-router": "^3.2.0",
     "vue-sweetalert2": "^4.3.1",
     "vuex": "^3.4.0"

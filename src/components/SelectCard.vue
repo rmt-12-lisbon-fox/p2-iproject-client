@@ -1,10 +1,12 @@
 <template>
   <div class="col-lg-3 m-4">
     <div class="member d-flex align-items-start">
-      <div class="pic"><img :src="item.imgUrl" class="img-fluid" alt=""></div>
+      <div class="pic"><img src="https://image-cdn.medkomtek.com/l5EBFWIktelHL9WXJd1164CtxUI=/640x480/smart/klikdokter-media-buckets/medias/2321296/original/049998000_1605579809-Waspada_-Inilah-Deretan-Penyakit-Akibat-Junk-Food-shutterstock_537665956.jpg" class="img-fluid" alt=""></div>
       <div class="member-info h-100">
         <h4> {{ item.description }} </h4>
-        <p class="h-25" > {{ item.ingredients }} </p>
+        <p class="h-25" > Category: {{ item.foodCategory }} </p>
+        <p class="h-25" > Score: {{ item.score }} </p>
+
         <a class="detail-btn clickable"
         @click.prevent="recordEat(item.fdcId)"
          >I ate this</a>
