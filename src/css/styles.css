@@ -2,6 +2,14 @@
   height: 100%;
 } */
 
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#main-heading, #result-heading, #about-heading {
+  font-weight: 600;
+}
+
 body, html {
   height: 100%;
   margin: 0;
@@ -42,7 +50,7 @@ body, html {
   text-justify: inter-word;
 }
 
-#explanation {
+#explanation, #source {
   margin-bottom: 0;
 }
 
