@@ -5,8 +5,8 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 ">
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
@@ -17,8 +17,7 @@
             <router-link class="nav-link" to="/wiki">Wiki</router-link>
           </li>
         </ul>
-              <router-link class="navbar-brand m-0 px-0" to="/"><img  id="nav-logo" src="https://see.fontimg.com/api/renderfont4/rXOB/eyJyIjoiZnMiLCJoIjoxNzcsInciOjE1MDAsImZzIjoxMTgsImZnYyI6IiNGRkZERkQiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/a29kb2sgc2FyamFuYQ/blackberry-jam-personal-use.png"></router-link>
-
+              <router-link class="navbar-brand m-0" to="/"><img  id="nav-logo" src="https://see.fontimg.com/api/renderfont4/rXOB/eyJyIjoiZnMiLCJoIjoxNzcsInciOjE1MDAsImZzIjoxMTgsImZnYyI6IiNGRkZERkQiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/a29kb2sgc2FyamFuYQ/blackberry-jam-personal-use.png"></router-link>
         <ul class="navbar-nav me-0 mb-2 mb-lg-0 ms-0">
           <li class="nav-item" v-if="!isLogin">
             <router-link class="nav-link" to="/login">Log In</router-link>
@@ -38,10 +37,10 @@
         </li>
         </ul>
         <!-- <form class="d-flex" @submit.prevent="fetchAllCards"> -->
-        <form class="d-flex" @submit.prevent="">
+        <!-- <form class="d-flex" @submit.prevent="">
           <input class="form-control me-2" type="search" placeholder="Search Wiki" aria-label="Search" v-model="name">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>

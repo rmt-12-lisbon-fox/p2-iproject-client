@@ -99,7 +99,7 @@
       Search
     </button>
     </div>
-    <div class="container border border-3 px-1" v-for="card in allCards" :key="card.id">
+    <div class="container border border-3 px-1" v-for="card in allCards" :key="card.id" style="cursor: pointer;">
       <div
         class="row mw-100"
         data-bs-toggle="tooltip" data-bs-placement="left" :title="card.desc"
