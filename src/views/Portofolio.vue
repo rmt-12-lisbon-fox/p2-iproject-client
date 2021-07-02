@@ -58,7 +58,8 @@
             <h1 class="text-dark">My Portofolio</h1>
           </div><br>
           <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
-          <table class="table">
+            <h3 v-if="!siporto.length" class="text-dark text-center">⭐ your portofolio is empty, please add one ⭐</h3>
+          <table v-if="siporto.length" class="table">
             <thead>
               <tr>
                 <th style="text-align:center" scope="col">No</th>
