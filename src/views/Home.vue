@@ -8,11 +8,11 @@
           alt="image"
           style=""
         />
-        <div class="card-body">
+        <div class="card-body rounded">
           <h5 class="card-title  flex-row d-inline">Translate</h5>
           <!-- <div class="form-group " v-if="translate === 'ind-en'"> -->
           <div
-            class="translateIndEng flex-column mt-2"
+            class="translateIndEng flex-column mt-2 justify-content-between"
             v-if="typeTranslate % 2 === 0"
           >
             <label for="input-kata" class="sr-only"></label>
@@ -23,8 +23,8 @@
               name="textInd"
               id="textInd"
               class="form-control d-inline-block rounded"
-              style="width: 280px"
-              placeholder="Masukkan teks bahasa indonesia"
+              style="width: 44%;"
+              placeholder="Masukkan text bahasa indonesia"
             />
             <button
               class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
@@ -37,14 +37,14 @@
               v-model="translate.resultTextInd"
               name="textTranslateResultInd"
               id="textResultInd"
-              style="width: 280px;  margin: 0px 0px 0px 73px;"
+              style="width: 44%;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
-              placeholder="Hasil teks bahasa inggris"
+              placeholder="Hasil text bahasa inggris"
             />
           </div>
 
           <div
-            class="translateEngInd flex-column mt-2"
+            class="translateEngInd flex-column mt-2 justify-content-between"
             v-if="typeTranslate % 2 !== 0"
           >
             <label for="input-kata" class="sr-only"></label>
@@ -55,7 +55,7 @@
               name="textEng"
               id="textEng"
               class="form-control d-inline-block"
-              style="width: 280px"
+              style="width: 44%"
               placeholder="Masukkan teks bahasa inggris"
             />
             <button
@@ -69,11 +69,43 @@
               v-model="translate.resultTextEng"
               name="textTranslateResultInd"
               id="textResultEng"
-              style="width: 280px;  margin: 0px 0px 0px 73px;"
+              style="width: 44%;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
               placeholder="Hasil teks bahasa indonesia"
             />
           </div>
+
+          <h5 class="card-title mt-2">Grammer Check</h5>
+          <label for="textTranslateResultInd" class="sr-only"></label>
+          <form @submit.prevent="submitGrammerCheck">
+            <textarea
+              type="text"
+              v-model="grammerCheck"
+              id="grammerCheck"
+              style="width: 100%;"
+              class="form-control d-inline-block"
+              placeholder="Silahkan masukkan kalimat yang mau dicek grammernya"
+            />
+            <div class="form-control mb-2" v-if="grammerCheckResult.length">
+              <div v-for="(err, index) in grammerCheckResult" :key="index">
+                <div v-if="err.message">
+                  <h6 style="color: red;">
+                    {{ err.message }}
+                  </h6>
+                  <div
+                    class="d-inline"
+                    v-for="(replace, index) in err.replacements"
+                    :key="index"
+                  >
+                    <div class="d-inline flex-col">
+                      <h6>Replace with: {{ replace.value }}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-secondary mt-1" type="submit">Check</button>
+          </form>
         </div>
       </div>
     </div>
@@ -85,14 +117,15 @@
 import { mapState } from "vuex";
 export default {
   name: "Home",
-  computed: mapState(["translate"]),
+  computed: mapState(["translate", "grammerCheckResult"]),
   data() {
     return {
       textInd: "",
       textResultInd: "",
       textEng: "",
       textResultEng: "",
-      typeTranslate: 0
+      typeTranslate: 0,
+      grammerCheck: ""
     };
   },
   methods: {
@@ -105,9 +138,16 @@ export default {
     },
     buttonChange() {
       this.typeTranslate++;
+      this.translate.resultTextInd = "";
+      this.translate.resultTextEng = "";
+      this.textInd = "";
+      this.textEng = "";
     },
     toHomePage() {
       this.$store.dispatch("toHomePage");
+    },
+    submitGrammerCheck() {
+      this.$store.dispatch("submitGrammerCheck", this.grammerCheck);
     }
   },
   created() {

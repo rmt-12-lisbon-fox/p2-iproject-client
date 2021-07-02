@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center" style="margin-button: 100px">
     <div class="card mt-5 mb-3 w-50 card shadow p-3 mb-5 bg-body rounde">
       <a
         href=""
@@ -179,7 +179,7 @@
               />
             </div>
             <button
-              class="btn btn-block btn-danger mt-4 mb-2 ms form-control"
+              class="btn btn-block btn-danger mt-4 mb-5 ms form-control"
               type="submit"
             >
               Send

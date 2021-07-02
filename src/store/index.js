@@ -17,7 +17,8 @@ export default new Vuex.Store({
     },
     challenge: {
       data: []
-    }
+    },
+    grammerCheckResult: []
   },
   mutations: {
     LOGIN(state, payload) {
@@ -42,6 +43,10 @@ export default new Vuex.Store({
     },
     BACK_GAMES(state, payload) {
       state.challenge.data = [];
+    },
+    GRAMMER_CHECK(state, payload) {
+      state.grammerCheckResult = payload;
+      console.log(payload[0].message);
     }
   },
   actions: {
@@ -248,6 +253,24 @@ export default new Vuex.Store({
             title: "Failed to access",
             text: error.response.data.message
           });
+        });
+    },
+    submitGrammerCheck(context, payload) {
+      axios({
+        url: "/grammerCheck",
+        method: "post",
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          textInput: payload
+        }
+      })
+        .then(({ data }) => {
+          context.commit("GRAMMER_CHECK", data.matches);
+        })
+        .catch(error => {
+          console.log(error);
         });
     }
   },
