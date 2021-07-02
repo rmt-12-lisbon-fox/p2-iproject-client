@@ -140,6 +140,7 @@ export default new Vuex.Store({
     },
     SIPORTO (state, payload) {
       state.siporto = payload
+      // console.log(state.siporto)
     }
   },
   actions: {

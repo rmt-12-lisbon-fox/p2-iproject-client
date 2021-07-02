@@ -107,7 +107,7 @@ export default {
       }
       this.$store.dispatch('addPorto', payload)
     },
-    siporto () {
+    Porto () {
       this.$store.dispatch('siporto')
     }
   },
@@ -115,7 +115,7 @@ export default {
     ...mapState(['siporto'])
   },
   created () {
-    this.siporto()
+    this.Porto()
   }
 
 }
