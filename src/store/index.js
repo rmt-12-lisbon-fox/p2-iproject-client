@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../../config/axios'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -115,7 +116,11 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Welcomee!!',
+            text: 'Success join community'
+          })
         })
         .catch(err => {
           console.log(err.response)

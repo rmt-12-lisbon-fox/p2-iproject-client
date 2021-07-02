@@ -3,7 +3,7 @@
     <!-- Page header start -->
     <div class="page-title">
         <div class="row gutters">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-5">
                 <h2 class="title">Healing App</h2>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"> </div>
@@ -24,9 +24,6 @@
                     <!-- Row start -->
                     <div class="row no-gutters">
                         <div class="col-xl-12 col-lg-8 col-md-8 col-sm-9 col-9">
-                            <div class="selected-user">
-                                <span>To: <span class="name">Emily Russell</span></span>
-                            </div>
                           <Message :CommunityId="CommunityId" />
                         </div>
                     </div>
