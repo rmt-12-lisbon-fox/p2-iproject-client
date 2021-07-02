@@ -6,7 +6,7 @@
                 arrow_back
                 </span>
             </router-link>
-            <div class="text-end d-flex align-items-center" v-if="isLoggedIn && animeOne">
+            <div class="text-end d-flex align-items-center" v-if="isLoggedIn">
               <!-- <p>
                 Remove from Bookmark
               </p>  -->
@@ -15,7 +15,7 @@
               >
                 bookmark_border
               </span>
-              <span class="material-icons display-4" v-else
+              <span class="material-icons display-4" v-if="bookmark"
                  @click.prevent="deleteBookmark(animeOne.mal_id)"
               >
                 bookmark
@@ -68,13 +68,13 @@
 
        <SocialMedia :animeOne="animeOne"/>
 
-      <div class="episode-list py-2">
+      <div class="episode-list">
         <button class="btn btn-outline-light btn-lg ms-2"
           @click.prevent="changePage()"
        >See Episode List</button>
+       <router-view/>
       </div>
       
-       <router-view/>
     </div>
 
 </template>
@@ -105,14 +105,12 @@ export default {
     },
     bookmarked() {
       if (this.bookmarkOne) {
-        if (this.bookmarkOne.mal_id == this.animeOne.mal_id) {
-         this.bookmark = true
-          return true
-        } 
+        this.bookmark = (this.bookmarkOne.mal_id == this.animeOne.mal_id) ? true : false
+      } else {
+        this.bookmark = false
       }
-     return false
+      return this.bookmark
     }
-
   },
   methods: {
       addBookmark(mal_id, image_url, title ) {
@@ -129,6 +127,7 @@ export default {
       changePage() {
         this.$router.push({name: 'Videos', params: {id: this.$route.params.id}}).catch(() => {})
       }
+      
   },
   created() {
     let payload = {
@@ -136,6 +135,7 @@ export default {
     }
     this.$store.dispatch('infoAnime', payload)
     this.$store.dispatch('findOneBookmark', this.$route.params.id)
+
   }
 }
 </script>
@@ -143,6 +143,7 @@ export default {
 <style>
 .episode-list {
   padding-bottom: 8% !important;
+  margin-bottom: 5%;
 }
 
 

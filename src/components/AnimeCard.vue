@@ -36,7 +36,7 @@ export default {
     },
     methods: {
         toDetailPage() {
-            this.$router.push({name: 'Detail', params: {id: this.el.mal_id}})
+            this.$router.push({name: 'Detail', params: {id: this.el.mal_id}}).cacth(() => {})
         }
     }
 }
