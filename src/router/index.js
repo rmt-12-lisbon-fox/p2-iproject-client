@@ -60,6 +60,15 @@ router.beforeEach((to, from, next) => {
       duration: 0
     })
     next('/')
+  }
+  if (to.path === '/portofolio' && !localStorage.access_token) {
+    Vue.$toast.open({
+      message: 'please login first.., to access your PortoFolio',
+      position: 'top-right',
+      type: 'success',
+      duration: 0
+    })
+    next('/')
   } else next()
 })
 
