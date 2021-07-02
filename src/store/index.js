@@ -212,7 +212,7 @@ export default new Vuex.Store({
         }
       })
       .then(({data}) => {
-        context.commit('BOOKMARK_ALL', data
+        context.commit('BOOKMARK_ALL', data)
       })
       .catch(err => {
         console.log(err.response);
