@@ -66,6 +66,7 @@
                 <th style="text-align:center" scope="col">Quantity (Rp)</th>
                 <th style="text-align:center" scope="col">Transaction Price</th>
                 <th style="text-align:center" scope="col">Status</th>
+                <th style="text-align:center" scope="col">profitNloss</th>
                 <th style="text-align:center" scope="col">Actions</th>
               </tr>
             </thead>
@@ -116,6 +117,7 @@ export default {
   },
   created () {
     this.Porto()
+    this.$store.dispatch('getMarket')
   }
 
 }
