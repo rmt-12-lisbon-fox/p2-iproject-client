@@ -95,17 +95,16 @@
     <button class="btn btn-secondary m-3" @click.prevent="clearFilter">
       Clear filter
     </button>
+    <button class="btn btn-primary m-3" type="submit">
+      Search
+    </button>
     </div>
-    <div class="container border border-3 px-1" v-for="card in allCards" :key="card.id">
+    <div class="container border border-3 px-1" v-for="card in allCards" :key="card.id" style="cursor: pointer;">
       <div
         class="row mw-100"
         data-bs-toggle="tooltip" data-bs-placement="left" :title="card.desc"
         @click.prevent="
-          addCard({
-            cardId: card.cardId,
-            card_images_small: card.card_images_small,
-            card_prices: card.card_prices
-          })
+          addCard(card)
         "
       >
         <div class="col-sm-3">
@@ -220,8 +219,10 @@ export default {
         this.help = true
       }
     },
-    addCard (payload) {
+    addCard (card) {
       // console.log(payload)
+      const { cardId, name, type, banlist_info, archetype, card_prices, card_images_small } = card
+      const payload = { cardId, name, type, banlist_info, archetype, card_prices, card_images_small }
       this.$store.commit('ADDCARD', payload)
     },
     clearFilter () {
