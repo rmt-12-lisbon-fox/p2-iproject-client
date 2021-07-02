@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Market from '../views/Market.vue'
 import Signal from '../views/Signal.vue'
+import Portofolio from '../views/Portofolio.vue'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/signal',
     name: 'Signal',
     component: Signal
+  },
+  {
+    path: '/portofolio',
+    name: 'Portofolio',
+    component: Portofolio
   }
 ]
 
@@ -49,6 +55,15 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/signal' && !localStorage.access_token) {
     Vue.$toast.open({
       message: 'please login first.., to access this signal',
+      position: 'top-right',
+      type: 'success',
+      duration: 0
+    })
+    next('/')
+  }
+  if (to.path === '/portofolio' && !localStorage.access_token) {
+    Vue.$toast.open({
+      message: 'please login first.., to access your PortoFolio',
       position: 'top-right',
       type: 'success',
       duration: 0

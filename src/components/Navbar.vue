@@ -7,6 +7,7 @@
     <div class="d-flex justify-content-around col-sm-4">
     <a class="navbar-brand h2" @click.prevent="toMarket">Market</a>
     <a class="navbar-brand h2" @click.prevent="toSignal">Signal</a>
+    <a class="navbar-brand h2" @click.prevent="toPortofolio">Portofolio</a>
     <a class="navbar-brand h2" v-if="!isLogin" @click.prevent="toLogin">Sign In</a>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,6 +60,10 @@ export default {
     toSignal () {
       this.$store.commit('ACTIVE_PAGE', '/signal')
       this.$router.push('/signal').catch(() => {})
+    },
+    toPortofolio () {
+      this.$store.commit('ACTIVE_PAGE', '/portofolio')
+      this.$router.push('/portofolio').catch(() => {})
     }
   },
   computed: {
