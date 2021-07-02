@@ -50,7 +50,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'Bookmark' && !localStorage.access_token) {
+  if ((to.name == 'Bookmark' || from.name == 'Bookmark') && !localStorage.access_token) {
     next('/')
   }
   next()

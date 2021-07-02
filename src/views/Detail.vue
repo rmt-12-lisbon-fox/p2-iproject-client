@@ -10,12 +10,12 @@
               <!-- <p>
                 Remove from Bookmark
               </p>  -->
-              <span class="material-icons display-4" v-if="!bookmark"
+              <span class="material-icons display-4" v-show="!bookmark"
                 @click.prevent="addBookmark(animeOne.mal_id, animeOne.image_url, animeOne.title)"
               >
                 bookmark_border
               </span>
-              <span class="material-icons display-4" v-if="bookmark"
+              <span class="material-icons display-4" v-show="bookmark"
                  @click.prevent="deleteBookmark(animeOne.mal_id)"
               >
                 bookmark
@@ -112,6 +112,7 @@ export default {
       return this.bookmark
     }
   },
+
   methods: {
       addBookmark(mal_id, image_url, title ) {
         this.bookmark = true
@@ -129,13 +130,19 @@ export default {
       }
       
   },
+  watch: {
+    bookmarkOne (newVal) {
+      if (newVal) {
+        this.bookmark = true
+      } 
+    }
+  },
   created() {
     let payload = {
       mal_id: this.$route.params.id
     }
     this.$store.dispatch('infoAnime', payload)
     this.$store.dispatch('findOneBookmark', this.$route.params.id)
-
   }
 }
 </script>
