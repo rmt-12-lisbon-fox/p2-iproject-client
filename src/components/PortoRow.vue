@@ -21,7 +21,7 @@ export default {
     ...mapState(['btclast', 'ethlast', 'ltclast', 'dogelast', 'xrplast']),
     quantity () { return (this.m.quantity).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
     price () { return (this.m.price).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
-    profitNloss () { return this.m.title === 'BTCIDR' ? `${Math.round(((this.btclast / this.m.price) - 1) * 100)} %` : (this.m.quantity) }
+    profitNloss () { return this.m.title === 'BTCIDR' ? `${Math.round(((this.btclast / this.m.price) - 1) * 100)} %` : this.m.title === 'ETHIDR' ? `${Math.round(((this.ethlast / this.m.price) - 1) * 100)} %` : this.m.title === 'LTCIDR' ? `${Math.round(((this.ltclast / this.m.price) - 1) * 100)} %` : this.m.title === 'XRPIDR' ? `${Math.round(((this.xrplast / this.m.price) - 1) * 100)} %` : `${Math.round(((this.dogelast / this.m.price) - 1) * 100)} %` }
   }
 
 }
