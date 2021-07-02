@@ -154,6 +154,15 @@ export default new Vuex.Store({
           context.commit('ADD_PORTO', data)
           context.dispatch('siporto')
         })
+        .catch(({ response }) => {
+          Swal.fire({
+            title: 'sorry, input not valid',
+            timer: 1000,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+          })
+        })
+        .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
     siporto (context) {
       api.get('/portofolio', { headers: { access_token: localStorage.access_token } })
