@@ -24,7 +24,7 @@
               id="textInd"
               class="form-control d-inline-block rounded"
               style="width: 44%;"
-              placeholder="Masukkan text bahasa indonesia"
+              placeholder="Masukkan teks bahasa indonesia"
             />
             <button
               class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
@@ -39,7 +39,7 @@
               id="textResultInd"
               style="width: 44%;  margin: 0px 0px 0px 73px;"
               class="form-control d-inline-block"
-              placeholder="Hasil text bahasa inggris"
+              placeholder="Hasil teks bahasa inggris"
             />
           </div>
 

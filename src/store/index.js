@@ -152,34 +152,33 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          if (data.score === 0) {
+          if (data.game.score === 0) {
             Vue.swal({
               icon: "info",
               title: "You have to try again",
-              text: `Your score is ${data.score}`
+              text: `Your score is ${data.game.score}`
             });
-          } else if (data.score < 10) {
+          } else if (data.game.score < 10) {
             Vue.swal({
               icon: "success",
               title: "You're amazing",
-              text: `Your score is ${data.score}`
+              text: `Your score is ${data.game.score}`
             });
-          } else if (data.score >= 10) {
+          } else if (data.game.score >= 10) {
             Vue.swal({
               icon: "success",
               title: "You are genius",
-              text: `Your score is ${data.score}`
+              text: `Your score is ${data.game.score}`
             });
           }
           context.commit("BACK_GAMES");
           context.dispatch("toGamesPage");
-          // context.commit("SELECT_CHALLENGE", data);
         })
         .catch(error => {
           Vue.swal({
             icon: "error",
             title: "Failed to login",
-            text: error.response.data.message
+            text: error.response.data.game.message
           });
         });
     },
