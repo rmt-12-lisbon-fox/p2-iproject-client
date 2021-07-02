@@ -55,23 +55,25 @@
         </div>
         <div class="col-sm-6"> <br><br><br><br><br>
           <div class=" text-center mt-5 ">
-              <h1 class="text-dark">My Portofolio</h1>
-            </div><br>
+            <h1 class="text-dark">My Portofolio</h1>
+          </div><br>
           <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
           <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">No</th>
-      <th scope="col">Title</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <PortoRow />
-  </tbody>
-</table>
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <PortoRow
+              v-for="(m,i) in siporto" :key="i" />
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -79,11 +81,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {
+  mapState
+} from 'vuex'
 import PortoRow from '../components/PortoRow.vue'
 export default {
   name: 'Portofolio',
-  components: { PortoRow },
+  components: {
+    PortoRow
+  },
   data () {
     return {
       porto: {
@@ -101,20 +107,22 @@ export default {
       }
       this.$store.dispatch('addPorto', payload)
     },
-    Porto () {
+    siporto () {
       this.$store.dispatch('siporto')
     }
   },
   computed: {
     ...mapState(['siporto'])
+  },
+  created () {
+    this.siporto()
   }
 
 }
 </script>
 
 <style scoped>
-
-/* aaaaaaaaaaaa */
+  /* aaaaaaaaaaaa */
   body {
     font-family: 'Lato', sans-serif
   }
