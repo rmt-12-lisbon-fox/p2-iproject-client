@@ -1,5 +1,5 @@
 <template>
-   <div class="card card-custom m-5" style="width: 20rem">
+   <div class="card card-custom m-5 mt-0" style="width: 20rem">
           <img
             :src="data.thumbnail"
             class="card-img-top mt-2"

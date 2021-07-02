@@ -4,7 +4,7 @@
     <router-view/>
 
     <div class="footer">
-          <HFooter/>
+          <!-- <HFooter/> -->
     </div>
   </div>
 </template>

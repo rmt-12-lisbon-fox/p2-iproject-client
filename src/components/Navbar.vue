@@ -1,8 +1,7 @@
 <template>
   <!-- navbar -->
     <nav
-      class="navbar navbar-expand-lg navbar-light theme_nav shadow sticky-top p-3"
-    >
+      class="navbar navbar-expand-lg navbar-light theme_nav shadow sticky-top p-3">
       <div class="container-fluid">
         <a @click.prevent="toHomePage" class="navbar-brand text-white" href="#"> <i class="fas fa-running"></i> Go Exercise</a>
         <button
@@ -12,8 +11,7 @@
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -25,8 +23,7 @@
                 aria-current="page"
                 href="#"
                 id="btn-logout"
-                >Logout</a
-              >
+                >Logout</a>
             </li>
 
             <li v-if="isLoggedIn" class="nav-item">
@@ -35,19 +32,18 @@
                 aria-current="page"
                 href="#"
                 id="btn-logout"
-                >My Programs</a
-              >
+                >My Programs</a>
             </li>
+
             <li v-if="isLoggedIn" class="nav-item">
               <i @click.prevent="test" class='far fa-comment-alt' style='font-size:36px'></i>
             </li>
-
-            <div>
-              <h6></h6>
-            </div>
-          </ul>
+            </ul>
+          </div>
+          <div v-if="username"> Hai {{ username }}</div>
+         
+            
         </div>
-      </div>
     </nav> 
 </template>
 
@@ -62,9 +58,9 @@ export default {
     counter() {
       return this.$store.state.counter
     },
-    username() {
-      return this.$store.state.username
-    }
+    reminders() {
+      return this.$store.state.reminders
+    },
   },
   methods : {
     logout() {
@@ -79,9 +75,14 @@ export default {
     test() {
       this.$store.dispatch('fetchReminder')
       this.$store.commit('SET_COUNTER')
-      console.log(`test masuk`)
+    },
+    fetchReminder() {
+      this.$store.dispatch('fetchReminder')
     }
   },
+  created() {
+    this.fetchReminder()
+  }
 }
 </script>
 

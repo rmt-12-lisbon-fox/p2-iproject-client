@@ -46,6 +46,9 @@ export default new Vuex.Store({
     },
     AFTER_FETCH_REMINDER(state, payload) {
       state.reminders = payload
+    },
+    AFTER_DELETE_REMINDER(state, payload) {
+      state.reminders.splice(payload, 1)
     }
   },
   actions: {
@@ -61,6 +64,36 @@ export default new Vuex.Store({
       })
       .catch( err => {
         console.log(err, `ini error dari login`)
+      })
+    },
+    onSignIn(context, id_token) {
+        axios({
+            url: `https://go-exercise-servers.herokuapp.com/googleLogin`,
+            method : 'post',
+            data : { id_token }
+        })
+        .then( ({data}) => {
+            context.commit('AFTER_LOGIN', data)
+            router.push('/')
+        })
+        .catch( err => {
+          console.log(err)
+        })
+      },
+    register(context, payload) {
+      axios({
+        url : `https://go-exercise-servers.herokuapp.com/register`,
+        method : 'post',
+        data : { 
+          email:payload.email, 
+          password:payload.password,
+          username:payload.username,
+          age:payload.age,
+          gender:payload.gender
+        }
+      })
+      .then( ({data}) => {
+        router.push('/login')
       })
     },
     logout(context) {
@@ -117,11 +150,13 @@ export default new Vuex.Store({
         url : `https://go-exercise-servers.herokuapp.com/mySchedule`,
         method : 'post',
         headers : { access_token : localStorage.access_token },
-        data : { ProgramId:payload.ProgramId, intensity:payload.intensity, programTitle: payload.programTitle }
+        data : { ProgramId:payload.ProgramId,
+                intensity:payload.schedule,
+                programTitle: payload.programTitle 
+              }
       })
       .then( ({data}) => {
         router.push('/')
-        console.log(data, `ini data create schedule`)
       })
       .catch( err=> {
         console.log(err, `ini error create schedule`)
@@ -134,7 +169,6 @@ export default new Vuex.Store({
         headers : { access_token : localStorage.access_token },
       })
       .then( ({data}) => {
-        console.log(data, `ini fetch schedule`)
         context.commit('AFTER_FETCH_SCHEDULE', data)
         if (!check) {
           router.push('/schedule').catch( () => {} )
@@ -146,10 +180,9 @@ export default new Vuex.Store({
     },
     deleteSchedule(context, id) {
       axios({
-        url : `https://go-exercise-servers.herokuapp.com/mySchedule`,
+        url : `https://go-exercise-servers.herokuapp.com/mySchedule/${id}`,
         method : 'delete',
-        headers : { access_token : localStorage.access_token },
-        data : { id }
+        headers : { access_token : localStorage.access_token }
       })
       .then( ({data}) => {
           context.dispatch('fetchSchedule')
@@ -163,12 +196,24 @@ export default new Vuex.Store({
         headers : { access_token : localStorage.access_token },
       })
       .then( ({data}) => {
-        console.log(data, `ini data fetch reminders <<<<<<<`)
         context.commit('AFTER_FETCH_REMINDER', data)
+        router.push('/').catch( err => {} )
       })
       .catch(err => {
-        console.log(err, `ini eror fetch reminders`)
+        console.log(err, `ini error fetch reminders`)
       })
+    },
+    deleteOneReminder(context, payload) {
+      console.log(payload, `ini payload id dan index`)
+      axios({
+        url : `https://go-exercise-servers.herokuapp.com/reminders/${payload.id}`,
+        method : 'delete',
+        headers : { access_token : localStorage.access_token },
+      })
+      .then( ({data}) => {
+        context.commit('AFTER_DELETE_REMINDER', payload.index)
+      })
+      .catch(err => console.log(err, `ini error delete reminder`))
     }
   },
   modules: {

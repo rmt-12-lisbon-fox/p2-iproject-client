@@ -35,8 +35,16 @@
               />
             </div>
 
-            <button type="submit" class="btn theme_nav">Submit</button>
+            <button type="submit" class="btn theme_nav">Login</button>
           </form>
+          <div class="text-center"> 
+        ____________________________________ <br>
+            Don't have account?<button type="submit" class="btn btn-primary mx-3">Register</button><br><br>
+            
+
+               Or     
+            <button v-google-signin-button="clientId" class="google-signin-button"> Login with Google</button><br>
+        </div>
         </div>
       </div>
     </div>
@@ -48,14 +56,35 @@ export default {
   data() {
     return {
       email : '',
-      password : ''
+      password : '',
+      clientId: '832054159268-ii58a2oalrdov85rqm5c2jg4eoi53uci.apps.googleusercontent.com'
     }
   },
   methods :  {
     login() {
       let payload = { email:this.email, password:this.password }
       this.$store.dispatch('login', payload)
+    },
+    toRegisterPage() {
+      this.$router.push('/register')
+    },
+     OnGoogleAuthSuccess (idToken) {
+      this.$store.dispatch('onSignIn', idToken)
+    },
+    OnGoogleAuthFail (error) {
+    console.log(error, `ini erorrrrrrrrrrr`)
     }
   }
 }
 </script>
+<style>
+.google-signin-button {
+  color: white;
+  background-color: red;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>

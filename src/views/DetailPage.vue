@@ -17,23 +17,19 @@
           <div v-for="info in scheduleId.Programs" :key="info.id">
             <div v-if="program.id == info.id ">{{ check(info) }}
 
-            <br><button disabled   class="btn btn-primary mb-2">Intensity : {{ info.Schedule.intensity }}</button>
-            <h5 v-if="info.Schedule.intensity == 'Low' ">Schedule : Today only</h5>
-            <h5 v-if="info.Schedule.intensity == 'Moderate' ">Schedule : Monday, Wednesday, Friday</h5>
-            <h5 v-if="info.Schedule.intensity == 'High' ">Schedule : Monday - Friday</h5>
+            <button disabled   class="btn btn-primary mb-2">Schedule : {{ info.Schedule.intensity }}</button><br>
+            (This program will automatically deleted from your schedule after an hour from the schedule, and the reminder will be sent to your message box and email two hours before the schedule) <br>
 
-            <!-- <button @click.prevent="removeSchedule(scheduleId.id)" class="button button5 btn-danger ">Remove</button> -->
+            <button @click.prevent="removeSchedule(info.Schedule.id)" class="button button5 btn-danger ">Remove Now</button>
             </div>
           </div>
 
-            <br><button v-if="!flagging"  @click.prevent="showIntensity" class="btn btn-dark">Add To My Bookmark</button>
+            <br><button v-if="!flagging"  @click.prevent="showIntensity" class="btn btn-dark">Add To My Schedule</button>
 
           <form @submit.prevent="createSchedule(program.id, program.title)" v-if="show" class="mt-5">
               
-              <label >Please Select The Intensity</label><br>
-            <select required v-model="intensity" class="custom-select">
-              <option v-for="(data, i) in choice" :key="i" :value="data.name">{{ data.desc }}</option>
-            </select><br>
+              <label >Please Select The Schedule</label><br>
+           <input v-model="schedule" type="datetime-local"><br>
 
             <button type="submit" class="btn btn-primary mt-3 mb-0">Confirm</button>
           </form>
@@ -50,6 +46,7 @@ export default {
     data () {
       return {
         show : false,
+        schedule : '',
         intensity : '',
         flagging : false,
         choice : [
@@ -78,8 +75,8 @@ export default {
     },
     methods : {
       createSchedule(ProgramId, programTitle) {
-        let intensity = this.intensity
-        let payload = { ProgramId, intensity, programTitle }
+        let schedule = this.schedule
+        let payload = { ProgramId, schedule, programTitle }
         this.$store.dispatch('createSchedule', payload)
       },
       showIntensity() {
@@ -95,8 +92,7 @@ export default {
         }
       },
       removeSchedule(id) {
-        console.log(program, `ini schedule id dari removee`)
-        // this.$store.dispatch('deleteSchedule', id)
+        this.$store.dispatch('deleteSchedule', id)
       }
 
     },
