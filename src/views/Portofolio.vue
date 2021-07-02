@@ -71,7 +71,7 @@
             </thead>
             <tbody>
               <PortoRow
-              v-for="(m,i) in siporto" :key="i" />
+              v-for="(m,i) in siporto" :key="i" :m="m" :i="i"/>
             </tbody>
           </table>
         </div>

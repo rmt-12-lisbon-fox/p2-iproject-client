@@ -152,6 +152,7 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('ADD_PORTO', data)
+          context.dispatch('siporto')
         })
     },
     siporto (context) {
