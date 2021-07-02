@@ -27,7 +27,7 @@
               placeholder="Masukkan teks bahasa indonesia"
             />
             <button
-              class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
+              class="ms-3 me-3 fas fa-arrows-alt-h btn-primary d-inline-block rounded"
               style="height: 38px; width: 38px;position:absolute; margin: 13px 0px 0px 28px;"
               @click.prevent="buttonChange"
             ></button>
@@ -59,11 +59,11 @@
               placeholder="Masukkan teks bahasa inggris"
             />
             <button
-              class="ms-3 me-3 fas fa-arrows-alt-h btn-secondary d-inline-block rounded"
+              class="ms-3 me-3 fas fa-arrows-alt-h btn-primary d-inline-block rounded"
               style="height: 38px; width: 38px;position:absolute; margin: 13px 0px 0px 28px;"
               @click.prevent="buttonChange"
             ></button>
-            <label for="textTranslateResultInd" class="sr-only"></label>
+            <label for="textTranslateResultInd" class="sr-only mb-4"></label>
             <textarea
               type="text"
               v-model="translate.resultTextEng"
@@ -75,19 +75,23 @@
             />
           </div>
 
-          <h5 class="card-title mt-2">Grammer Check</h5>
+          <h5 class="card-title d-inline-block mt-3">Grammer Check</h5>
+          <div class="d-inline " v-if="grammerCheck.value">
+            <i style="color: green" class="fas ms-3 fa-check-square fa-lg"></i>
+            <h6 class="card-title ms-1 d-inline mt-2">no mistakes</h6>
+          </div>
           <label for="textTranslateResultInd" class="sr-only"></label>
           <form @submit.prevent="submitGrammerCheck">
             <textarea
               type="text"
-              v-model="grammerCheck"
+              v-model="grammerCheckModel"
               id="grammerCheck"
               style="width: 100%;"
               class="form-control d-inline-block"
               placeholder="Silahkan masukkan kalimat yang mau dicek grammernya"
             />
-            <div class="form-control mb-2" v-if="grammerCheckResult.length">
-              <div v-for="(err, index) in grammerCheckResult" :key="index">
+            <div class="form-control mb-2" v-if="grammerCheck.result.length">
+              <div v-for="(err, index) in grammerCheck.result" :key="index">
                 <div v-if="err.message">
                   <h6 style="color: red;">
                     {{ err.message }}
@@ -104,7 +108,13 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-secondary mt-1" type="submit">Check</button>
+            <button class="btn btn-primary mt-1" type="submit">Check</button>
+            <button
+              class="btn btn-danger ms-2 mt-1"
+              @click.prevent="resetFormGrammerCheck"
+            >
+              Reset
+            </button>
           </form>
         </div>
       </div>
@@ -117,7 +127,8 @@
 import { mapState } from "vuex";
 export default {
   name: "Home",
-  computed: mapState(["translate", "grammerCheckResult"]),
+  computed: mapState(["translate", "grammerCheck"]),
+
   data() {
     return {
       textInd: "",
@@ -125,7 +136,7 @@ export default {
       textEng: "",
       textResultEng: "",
       typeTranslate: 0,
-      grammerCheck: ""
+      grammerCheckModel: ""
     };
   },
   methods: {
@@ -147,7 +158,11 @@ export default {
       this.$store.dispatch("toHomePage");
     },
     submitGrammerCheck() {
-      this.$store.dispatch("submitGrammerCheck", this.grammerCheck);
+      this.$store.dispatch("submitGrammerCheck", this.grammerCheckModel);
+    },
+    resetFormGrammerCheck() {
+      this.grammerCheckModel = "";
+      this.$store.dispatch("resetFormGrammerCheck");
     }
   },
   created() {
