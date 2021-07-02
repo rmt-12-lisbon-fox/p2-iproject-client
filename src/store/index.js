@@ -164,6 +164,18 @@ export default new Vuex.Store({
         })
         .finally(_ => { setTimeout(_ => { Vue.$toast.clear() }, 2177) })
     },
+    toDelete (context, payload) {
+      api.delete(`/portofolio/${payload}`, { headers: { access_token: localStorage.access_token } })
+        .then(_ => {
+          Swal.fire({
+            title: 'your porto has been deleted',
+            timer: 2000,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+          })
+          context.dispatch('siporto')
+        })
+    },
     siporto (context) {
       api.get('/portofolio', { headers: { access_token: localStorage.access_token } })
         .then(({ data }) => {

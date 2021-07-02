@@ -7,7 +7,7 @@
     <td style="text-align:center">{{ m.status }}</td>
     <td style="text-align:center">{{ profitNloss }}</td>
     <td style="text-align:center" class="btn-action">
-      <button class="btn btn-danger" >Delete</button>
+      <button @click="toDelete(m.id)" class="btn btn-danger" >Delete</button>
     </td>
   </tr>
 </template>
@@ -17,6 +17,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'PortoRow',
   props: ['m', 'i'],
+  methods: {
+    toDelete (payload) {
+      this.$store.dispatch('toDelete', payload)
+    }
+  },
   computed: {
     ...mapState(['btclast', 'ethlast', 'ltclast', 'dogelast', 'xrplast']),
     quantity () { return (this.m.quantity).toLocaleString('id', { style: 'currency', currency: 'IDR' }) },
