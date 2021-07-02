@@ -16,9 +16,14 @@ export default new Vuex.Store({
       resultTextEng: ""
     },
     challenge: {
-      data: []
+      data: [],
+      score: {},
+      word: []
     },
-    grammerCheckResult: []
+    grammerCheck: {
+      result: [],
+      value: false
+    }
   },
   mutations: {
     LOGIN(state, payload) {
@@ -43,10 +48,20 @@ export default new Vuex.Store({
     },
     BACK_GAMES(state, payload) {
       state.challenge.data = [];
+      state.challenge.score = {};
+      state.challenge.word = [];
     },
     GRAMMER_CHECK(state, payload) {
-      state.grammerCheckResult = payload;
-      console.log(payload[0].message);
+      state.grammerCheck.result = payload.data;
+      state.grammerCheck.value = payload.flag;
+    },
+    RESET_GRAMMER_CHECK(state, payload) {
+      state.grammerCheck.result = [];
+      state.grammerCheck.value = false;
+    },
+    SUBMIT_GAMES(state, payload) {
+      state.challenge.score = payload.score;
+      state.challenge.word = payload.word;
     }
   },
   actions: {
@@ -152,33 +167,35 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          if (data.game.score === 0) {
+          context.commit("SUBMIT_GAMES", data);
+
+          if (data.score.score === 0) {
             Vue.swal({
               icon: "info",
               title: "You have to try again",
-              text: `Your score is ${data.game.score}`
+              text: `Your score is ${data.score.score}`
             });
-          } else if (data.game.score < 10) {
+          } else if (data.score.score < 10) {
             Vue.swal({
               icon: "success",
               title: "You're amazing",
-              text: `Your score is ${data.game.score}`
+              text: `Your score is ${data.score.score}`
             });
-          } else if (data.game.score >= 10) {
+          } else if (data.score.score >= 10) {
             Vue.swal({
               icon: "success",
               title: "You are genius",
-              text: `Your score is ${data.game.score}`
+              text: `Your score is ${data.score.score}`
             });
           }
-          context.commit("BACK_GAMES");
-          context.dispatch("toGamesPage");
+          // context.commit("BACK_GAMES");
+          // context.dispatch("toGamesPage");
         })
         .catch(error => {
           Vue.swal({
             icon: "error",
             title: "Failed to login",
-            text: error.response.data.game.message
+            text: error.response.data.score.message
           });
         });
     },
@@ -266,11 +283,22 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          context.commit("GRAMMER_CHECK", data.matches);
+          let flag = false;
+          if (!data.matches.length) {
+            flag = true;
+          }
+          context.commit("GRAMMER_CHECK", { data: data.matches, flag });
         })
         .catch(error => {
-          console.log(error);
+          Vue.swal({
+            icon: "error",
+            title: "Failed to access",
+            text: error.response.data.message
+          });
         });
+    },
+    resetFormGrammerCheck(context, payload) {
+      context.commit("RESET_GRAMMER_CHECK");
     }
   },
   modules: {}

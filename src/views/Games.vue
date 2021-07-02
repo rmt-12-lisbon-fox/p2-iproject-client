@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-center" style="margin-button: 100px">
-    <div class="card mt-5 mb-3 w-50 card shadow p-3 mb-5 bg-body rounde">
+  <div class="d-flex justify-content-center mb-5">
+    <div class="card mt-5 w-50 card shadow mb-5 p-3 bg-body rounde">
       <a
         href=""
         @click.prevent="backGames"
@@ -43,22 +43,28 @@
         </div>
 
         <div v-if="challenge.data.length">
-          <h5 class="card-title">Silahkan Susun Jadi Kata Bahasa Inggris</h5>
+          <h5 class="card-title mb-3">
+            Silahkan Susun Jadi Kata Bahasa Inggris
+          </h5>
           <form @submit.prevent="submitChallenge">
-            <div class="row d-flex mb-2">
+            <div class="row d-flex ">
               <div
                 v-for="(kata, index) in challenge.data"
                 :key="index"
                 class="mt-4 mb-2"
               >
-                <div class="fs-5 " v-if="challenge.data.length !== 1">
+                <div
+                  style="margin-top: -25px"
+                  class="fs-5 "
+                  v-if="challenge.data.length !== 1"
+                >
                   Kata {{ index + 1 }}
                 </div>
                 <div class="d-flex flex-row">
                   <div
                     v-for="(huruf, index) in kata"
                     :key="index"
-                    class="d-flex flex-row me-2 justify-content-center"
+                    class="d-flex flex-row mb-0 me-2 justify-content-center"
                   >
                     <div
                       class="btn-primary card-title d-flex justify-content-center fs-5 fw-bold text-center text-light flex-column"
@@ -128,68 +134,157 @@
               </div>
             </div>
             <!-- <div>{{ challenge.data }}</div> -->
-            <div class="form-group " v-if="challenge.data.length === 1">
-              <label for="input-kata" class="sr-only"></label>
-              <input
-                type="text"
-                v-model="kata"
-                name="kata"
-                id="kata"
-                class="form-control"
-                placeholder="Masukkan kata"
-              />
+            <div v-if="!challenge.word.length">
+              <div class="form-group " v-if="challenge.data.length === 1">
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata"
+                  name="kata"
+                  id="kata"
+                  class="form-control"
+                  placeholder="Masukkan kata"
+                />
+              </div>
+              <div
+                class="form-group"
+                v-if="
+                  challenge.data.length === 2 || challenge.data.length === 3
+                "
+              >
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata1"
+                  name="kata1"
+                  id="kata1"
+                  class="form-control mt-3 mb-3"
+                  placeholder="Masukkan kata 1"
+                />
+              </div>
+              <div
+                class="form-group"
+                v-if="
+                  challenge.data.length === 2 || challenge.data.length === 3
+                "
+              >
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata2"
+                  name="kata2"
+                  id="kata2"
+                  class="form-control"
+                  placeholder="Masukkan kata 2"
+                />
+              </div>
+              <div class="form-group" v-if="challenge.data.length === 3">
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata3"
+                  name="kata3"
+                  id="kata3"
+                  class="form-control mt-3"
+                  placeholder="Masukkan kata 3"
+                />
+              </div>
+              <button
+                class="btn btn-block btn-danger mt-4 mb-3 ms form-control"
+                type="submit"
+              >
+                Send
+              </button>
             </div>
-            <div
-              class="form-group"
-              v-if="challenge.data.length === 2 || challenge.data.length === 3"
-            >
-              <label for="input-kata" class="sr-only"></label>
-              <input
-                type="text"
-                v-model="kata1"
-                name="kata1"
-                id="kata1"
-                class="form-control mb-3"
-                placeholder="Masukkan kata 1"
-              />
-            </div>
-            <div
-              class="form-group"
-              v-if="challenge.data.length === 2 || challenge.data.length === 3"
-            >
-              <label for="input-kata" class="sr-only"></label>
-              <input
-                type="text"
-                v-model="kata2"
-                name="kata2"
-                id="kata2"
-                class="form-control"
-                placeholder="Masukkan kata 2"
-              />
-            </div>
-            <div class="form-group" v-if="challenge.data.length === 3">
-              <label for="input-kata" class="sr-only"></label>
-              <input
-                type="text"
-                v-model="kata3"
-                name="kata3"
-                id="kata3"
-                class="form-control mt-3"
-                placeholder="Masukkan kata 3"
-              />
-            </div>
-            <button
-              class="btn btn-block btn-danger mt-4 mb-5 ms form-control"
-              type="submit"
-            >
-              Send
-            </button>
-            <!--  style="background-color: #fd7e14" -->
 
-            <!-- <button class="btn btn-dark" >
-              Back
-            </button> -->
+            <div v-if="challenge.word.length">
+              <div class="form-group " v-if="challenge.data.length === 1">
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  disabled
+                  v-model="kata"
+                  name="kata"
+                  id="kata"
+                  class="form-control"
+                  placeholder="Masukkan kata"
+                />
+              </div>
+              <div
+                class="form-group"
+                v-if="
+                  challenge.data.length === 2 || challenge.data.length === 3
+                "
+              >
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  disabled
+                  v-model="kata1"
+                  name="kata1"
+                  id="kata1"
+                  class="form-control mt-3 mb-3"
+                  placeholder="Masukkan kata 1"
+                />
+              </div>
+              <div
+                class="form-group"
+                v-if="
+                  challenge.data.length === 2 || challenge.data.length === 3
+                "
+              >
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata2"
+                  disabled
+                  name="kata2"
+                  id="kata2"
+                  class="form-control"
+                  placeholder="Masukkan kata 2"
+                />
+              </div>
+              <div class="form-group" v-if="challenge.data.length === 3">
+                <label for="input-kata" class="sr-only"></label>
+                <input
+                  type="text"
+                  v-model="kata3"
+                  disabled
+                  name="kata3"
+                  id="kata3"
+                  class="form-control mt-3"
+                  placeholder="Masukkan kata 3"
+                />
+              </div>
+              <button
+                class="btn btn-block btn-dark mt-4 mb-3 ms form-control"
+                @click.prevent="backGames"
+              >
+                Back
+              </button>
+            </div>
           </form>
+          <div v-if="challenge.word.length">
+            <div
+              class="card text-dark mt-3 bg-light mb-3 "
+              style="max-width: 18rem;"
+            >
+              <div class="card-header">Result</div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  Total score : {{ challenge.score.score }}
+                </h5>
+                <p
+                  class="card-text"
+                  v-for="(word, index) in challenge.word"
+                  :key="index"
+                >
+                  Kata {{ index + 1 }} : {{ word }} : score :
+                  {{ challenge.score.totalWordValue[index] }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -221,12 +316,12 @@ export default {
         kata2: this.kata2,
         kata3: this.kata3
       });
+    },
+    backGames() {
       this.kata = "";
       this.kata1 = "";
       this.kata2 = "";
       this.kata3 = "";
-    },
-    backGames() {
       this.$store.dispatch("backGames");
     },
     toGamesPage() {
