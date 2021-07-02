@@ -61,12 +61,12 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">No</th>
-                <th scope="col">Title</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
+                <th style="text-align:center" scope="col">No</th>
+                <th style="text-align:center" scope="col">Title</th>
+                <th style="text-align:center" scope="col">Quantity (Rp)</th>
+                <th style="text-align:center" scope="col">Transaction Price</th>
+                <th style="text-align:center" scope="col">Status</th>
+                <th style="text-align:center" scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
