@@ -1,13 +1,14 @@
 <template>
   <div id="app">
     <router-view/>
-    <div class="hfooter footer">
+    <!-- <div class="hfooter footer">
       <HFooter></HFooter>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import './style.css';
 import HFooter from 'vue-hacktiv8-footer'
 export default {
   components: {
@@ -17,6 +18,7 @@ export default {
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
 
 
   .clickable {
@@ -43,7 +45,6 @@ export default {
     width: 100%;
     z-index: 2;
     height: 5vh;
-    /* background-color: blue; */
   }
 
 </style>

@@ -10,7 +10,7 @@
           <div class="input-group flex-nowrap w-100">
             <input  @click.prevent="showResult =  false" v-model="query" id="diet-input" type="text" class="form-control w-100" placeholder="What did you eat today?" >
           </div>
-          <button type="submit" class="btn btn-primary m-4 w-25 ">Submit</button>
+          <button type="submit" class="btn btn-primary round m-4 w-25 ">Submit</button>
         </form>
 
 
