@@ -9,11 +9,11 @@
 
         <a class="detail-btn clickable"
         @click.prevent="recordEat(item.fdcId)"
-         >I ate this</a>
+         >Add to my meal record</a>
         <div class="social">
 
-          <a><i @click.prevent="addFav(item.id)" class="clickable"><img src="" alt=""></i></a>
-          <a><i @click.prevent="recordEat(item.id)"  class="clickable"> <img src=""> </i></a>
+          <!-- <a><i @click.prevent="addFav(item.id)" class="clickable"><img src="" alt=""></i></a>
+          <a><i @click.prevent="recordEat(item.id)"  class="clickable"> <img src=""> </i></a> -->
         </div>
       </div>
     </div>

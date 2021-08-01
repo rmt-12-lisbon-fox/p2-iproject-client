@@ -1,0 +1,64 @@
+$brick : #cec6c3;
+$buttonColor : #5d2525;
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+.login-container {
+  background-color: $brick;
+  height: 100vh;
+}
+
+input.form-control.round {
+  border-radius: 50px;
+}
+
+button.round {
+  background: $buttonColor;
+  border-color: $buttonColor;
+  border-radius: 50px;
+}
+
+button.round:hover {
+  background: $brick;
+  color: $buttonColor;
+  border-color: $buttonColor;
+  border-radius: 50px;
+}
+
+div.round-google {
+  background: white;
+  color: grey;
+  border-color: white;
+  border-radius: 50px;
+}
+
+div.round:hover {
+  background: $brick;
+  color: $buttonColor;
+  border-color: $buttonColor;
+  border-radius: 50px;
+}
+
+.w-65 {
+  width: 55%;
+}
+
+.deep-brick {
+  color: $buttonColor !important ;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: rgba(63, 81, 181, 1);
+  color: #fff;
+  transition: all 0.3s;
+  z-index: 1;
+  position: relative;
+  height: 100vh;
+  position: fixed;
+}

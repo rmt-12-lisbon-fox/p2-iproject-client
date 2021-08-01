@@ -1,0 +1,45 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.login-container {
+  background-color: #cec6c3;
+  height: 100vh;
+}
+
+input.form-control.round {
+  border-radius: 50px;
+}
+
+button.round {
+  background: #5d2525;
+  border-color: #5d2525;
+  border-radius: 50px;
+}
+
+button.round:hover {
+  background: #cec6c3;
+  color: #5d2525;
+  border-color: #5d2525;
+  border-radius: 50px;
+}
+
+div.round-google {
+  background: white;
+  color: grey;
+  border-color: white;
+  border-radius: 50px;
+}
+
+div.round:hover {
+  background: #cec6c3;
+  color: #5d2525;
+  border-color: #5d2525;
+  border-radius: 50px;
+}
+
+.w-65 {
+  width: 55%;
+}
+
+/*# sourceMappingURL=style.css.map */

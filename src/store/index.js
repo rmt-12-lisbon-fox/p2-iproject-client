@@ -15,9 +15,13 @@ export default new Vuex.Store({
     totalPages: 0,
     currentPage: 0,
     chartURL : '',
-    recipes: []
+    recipes: [],
+    isLoading: false
   },
   mutations: {
+    SET_IS_LOADING (state, payload) {
+      state.isLoading = payload
+    },
     TOLOGOUT (state) {
       localStorage.clear()
       state.email = ''
@@ -38,6 +42,7 @@ export default new Vuex.Store({
       state.email = payload['DB-Data'].email
       setTimeout(() => {
         router.push({ name: 'Home' })
+        context.commit('SET_IS_LOADING', false)
       }, 3000)
     },
     FETCH_DIET (state, payload) {
@@ -92,6 +97,7 @@ export default new Vuex.Store({
       })
     },
     gauth (context, token) {
+      context.commit('SET_IS_LOADING', true)
       instance.post('/gauth', {
         id_token: token
       })
@@ -109,6 +115,9 @@ export default new Vuex.Store({
           } else {
             console.log('Error', error.message)
           }
+        })
+        .finally( _ => {
+          
         })
     },
     search (context, payload) {
