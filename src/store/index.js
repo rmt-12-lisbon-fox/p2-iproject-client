@@ -87,7 +87,7 @@ export default new Vuex.Store({
       
     },
     getRecipe({commit}) {
-      instance.get('https://vuetify-wind-123.herokuapp.com//recipe')
+      instance.get('/recipe')
       .then( ({data}) => {
         console.log(data)
         commit("GETRECIPE", data)

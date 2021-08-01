@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import '../style.css';
+
 import { mapState } from 'vuex'
 import GoogleSignInButton from 'vue-google-signin-button-directive'
 import Swal from 'sweetalert2'

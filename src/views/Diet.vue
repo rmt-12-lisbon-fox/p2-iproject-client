@@ -118,6 +118,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getChart")
+    this.$store.dispatch("fetchDiet")
   },
   computed: {
   localComputed () { 
